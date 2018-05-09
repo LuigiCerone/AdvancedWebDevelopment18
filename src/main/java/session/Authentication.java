@@ -30,7 +30,6 @@ public class Authentication {
             NewCookie authcookie = new NewCookie("sid", token);
             //restituiamo il token come testo della risposta e anche come cookie
             return Response.ok(token).cookie(authcookie).build();
-
         } else {
             return Response.status(Response.Status.FORBIDDEN).entity("Invalid username or password").build();
         }
