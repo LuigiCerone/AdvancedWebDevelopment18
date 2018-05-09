@@ -1,0 +1,6 @@
+.idea/inspectionProfiles/
+.idea/vcs.xml
+out/artifacts/awd18_Web_exploded/WEB-INF/classes/main/
+src/main/resources/
+src/test/
+target/generated-sources/
