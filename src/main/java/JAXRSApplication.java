@@ -1,5 +1,8 @@
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import session.Authentication;
 
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Collections;
@@ -17,13 +20,19 @@ public class JAXRSApplication extends Application {
     private final Set<Class<?>> classes;
 
     public JAXRSApplication() {
+
+        //Iniettiamo un riferimento alla DataSource che gestisce il pool di connessioni.
+//        @Resource(name = "jdbc/webdb") //reference to the resource-ref in the deployment descriptor
+//        private DataSource ds;
+
+
         HashSet<Class<?>> c = new HashSet<Class<?>>();
         //aggiungiamo tutte le *root resurces* (cioè quelle
         //con l'annotazione Path) che vogliamo pubblicare
         c.add(Resource1.class);
         //notare come questo esempio presenti più risorse root
 //        c.add(Resource1sub4.class);
-//        c.add(Authentication_cookie.class);
+        c.add(Authentication.class);
 //        c.add(Authentication_url.class);
 //        c.add(ArticlesRes.class);
 //        c.add(IssuesRes.class);
