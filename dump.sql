@@ -74,7 +74,7 @@ CREATE TABLE company
   ENGINE = InnoDB;
 
 
-DROP TABLE IF EXISTS internship_offer;
+DROP TABLE IF EXISTS internship;
 CREATE TABLE internship
 (
   id            INT AUTO_INCREMENT
@@ -92,4 +92,20 @@ CREATE TABLE internship
   ENGINE = InnoDB;
 
 
-DROP TABLE IF EXISTS internship_candidacy;
+DROP TABLE IF EXISTS candidacy;
+CREATE TABLE candidacy
+(
+  id                  INT AUTO_INCREMENT
+    PRIMARY KEY,
+  internship_fk       INT             NOT NULL,
+  student_fk          INT             NOT NULL,
+  status              INT DEFAULT '0' NULL
+  COMMENT '0 = pending, 1 = rejected, 2 = accepted',
+  n_cfu               INT             NOT NULL,
+  first_name_referent VARCHAR(50)     NOT NULL,
+  last_name_referent  VARCHAR(50)     NOT NULL,
+  email_referent      VARCHAR(50)     NOT NULL
+)
+  ENGINE = InnoDB;
+
+

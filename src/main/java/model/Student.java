@@ -16,8 +16,7 @@ public class Student {
     private String universityLevel;
     private String universityCourse;
     private boolean handicap;
-    private String email;
-    private String password;
+    private Credential credential;
 
     public Student() {
         this.id = 0;
@@ -33,11 +32,10 @@ public class Student {
         this.universityLevel = "";
         this.universityCourse = "";
         this.handicap = false;
-        this.email = "";
-        this.password = "";
+        this.credential = null;
     }
 
-    public Student(int id, String firstName, String lastName, Date birthDate, String birthPlace, String birthPlaceProvince, String residencePlace, String residencePlaceProvince, String cf, int telnumber, String universityLevel, String universityCourse, boolean handicap, String email, String password) {
+    public Student(int id, String firstName, String lastName, Date birthDate, String birthPlace, String birthPlaceProvince, String residencePlace, String residencePlaceProvince, String cf, int telnumber, String universityLevel, String universityCourse, boolean handicap, String email, String password, Credential credential) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,8 +49,7 @@ public class Student {
         this.universityLevel = universityLevel;
         this.universityCourse = universityCourse;
         this.handicap = handicap;
-        this.email = email;
-        this.password = password;
+        this.credential = new Credential(credential);
     }
 
     public int getId() {
@@ -159,19 +156,11 @@ public class Student {
         this.handicap = handicap;
     }
 
-    public String getEmail() {
-        return email;
+    public Credential getCredential() {
+        return credential;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setCredential(Credential credential) {
+        this.credential = credential;
     }
 }

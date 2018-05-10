@@ -1,6 +1,6 @@
 package session;
 
-import model.LoginDetails;
+import model.Credential;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
@@ -18,7 +18,7 @@ public class Authentication {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response login(LoginDetails ld) {
+    public Response login(Credential ld) {
         if (ld.isValid()) {
             String token = UUID.randomUUID().toString();
             //il token va salvato nella base di dati per controlli successivi

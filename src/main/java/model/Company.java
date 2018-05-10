@@ -1,9 +1,9 @@
 package model;
 
 public class Company {
+    private int id;
     private String socialRegion;
     private String legalAddress;
-    private String cf;
     private String piva;
     private String lawyerFirstName;
     private String lawyerLastName;
@@ -14,12 +14,13 @@ public class Company {
     private String legalForum;
     private boolean active;
     private boolean visible;
+    private Credential credential;
 
 
     public Company() {
+        this.id = 0;
         this.socialRegion = "";
         this.legalAddress = "";
-        this.cf = "";
         this.piva = "";
         this.lawyerFirstName = "";
         this.lawyerLastName = "";
@@ -30,12 +31,13 @@ public class Company {
         this.legalForum = "";
         this.active = false;
         this.visible = false;
+        this.credential = null;
     }
 
-    public Company(String socialRegion, String legalAddress, String cf, String piva, String lawyerFirstName, String lawyerLastName, String personFirstName, String personLastName, int personTelNumber, String personEmail, String legalForum, boolean active, boolean visible) {
+    public Company(int id, String socialRegion, String legalAddress, String piva, String lawyerFirstName, String lawyerLastName, String personFirstName, String personLastName, int personTelNumber, String personEmail, String legalForum, boolean active, boolean visible, Credential credential) {
+        this.id = id;
         this.socialRegion = socialRegion;
         this.legalAddress = legalAddress;
-        this.cf = cf;
         this.piva = piva;
         this.lawyerFirstName = lawyerFirstName;
         this.lawyerLastName = lawyerLastName;
@@ -46,6 +48,7 @@ public class Company {
         this.legalForum = legalForum;
         this.active = active;
         this.visible = visible;
+        this.credential = credential;
     }
 
     public String getSocialRegion() {
@@ -62,14 +65,6 @@ public class Company {
 
     public void setLegalAddress(String legalAddress) {
         this.legalAddress = legalAddress;
-    }
-
-    public String getCf() {
-        return cf;
-    }
-
-    public void setCf(String cf) {
-        this.cf = cf;
     }
 
     public String getPiva() {
@@ -150,5 +145,21 @@ public class Company {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Credential getCredential() {
+        return credential;
+    }
+
+    public void setCredential(Credential credential) {
+        this.credential = credential;
     }
 }

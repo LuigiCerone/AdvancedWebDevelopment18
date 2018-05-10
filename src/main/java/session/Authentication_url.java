@@ -23,7 +23,7 @@
 //
 //    /*
 //     * Semplice procedura di login (visto come una INSERT di sessione, quindi POST sulla url session)
-//     * accetta un oggetto json contenente i campi username e password (vedi LoginDetails)
+//     * accetta un oggetto json contenente i campi username e password (vedi Credential)
 //     * se la login ha successo, produce un session identifier e lo ritrasmette nella risposta
 //     * inserendolo nel path
 //     *
@@ -33,7 +33,7 @@
 //    //Accept: application/json
 //    @POST
 //    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response login(@Context UriInfo c, LoginDetails ld) {
+//    public Response login(@Context UriInfo c, Credential ld) {
 //        if (ld.isValid()) {
 //            String token = UUID.randomUUID().toString();
 //            //restituiamo una URL che punta a una funzionalità di controllo della sessione

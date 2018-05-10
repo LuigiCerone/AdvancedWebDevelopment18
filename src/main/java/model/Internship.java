@@ -1,12 +1,13 @@
 package model;
 
-import java.sql.Time;
+import java.sql.Timestamp;
 
 public class Internship {
+    private int id;
     private String place;
     private boolean remote;
-    private Time startTime;
-    private Time endTime;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private int numberHour;
     private String goals;
     private String workType;
@@ -14,6 +15,7 @@ public class Internship {
     private String facilitations;
 
     public Internship() {
+        this.id = 0;
         this.place = "";
         this.remote = false;
         this.startTime = null;
@@ -25,7 +27,8 @@ public class Internship {
         this.facilitations = ""; // Array?
     }
 
-    public Internship(String place, boolean remote, Time startTime, Time endTime, int numberHour, String goals, String workType, Float refund, String facilitations) {
+    public Internship(String place, boolean remote, Timestamp startTime, Timestamp endTime, int numberHour, String goals, String workType, Float refund, String facilitations, int id) {
+        this.id = id;
         this.place = place;
         this.remote = remote;
         this.startTime = startTime;
@@ -53,19 +56,19 @@ public class Internship {
         this.remote = remote;
     }
 
-    public Time getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Time startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public Time getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 
