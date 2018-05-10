@@ -2,5 +2,5 @@
 <Context antiJARLocking="true" path="/awd18">
     <Resource name="jdbc/UsersDB" auth="Container" type="javax.sql.DataSource" maxActive="100" maxIdle="30"
               maxWait="10000" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/usersDB"
-              username="root" password="secret"/>
+              email="root" password="secret"/>
 </Context>
