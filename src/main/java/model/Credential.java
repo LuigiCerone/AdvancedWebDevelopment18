@@ -1,13 +1,27 @@
 package model;
 
-import model.dao.StudentDAO;
+import model.dao.CredentialDAO;
 
 import java.sql.Timestamp;
 
 public class Credential {
+
+    // DB fields names.
+    public final static String ID = "id";
+    public final static String EMAIL = "email";
+    public final static String SALT = "salt";
+    public final static String HASHED_PSW = "hashed_psw";
+    public final static String CREATED_AT = "created_at";
+    public final static String LAST_SEEN = "last_seen";
+    public final static String TOKEN = "token";
+    public final static String TTL = "ime_to_live";
+    public final static String USER_TYPE = "user_type";
+    public final static String USER_FK = "user_fk";
+
+
     private int id;
     private String email;
-    private String salt;
+    private byte[] salt;
     private String hashedPassword;
     private Timestamp createdAt;
     private Timestamp lastSeen;
@@ -19,7 +33,7 @@ public class Credential {
     public Credential() {
         this.id = 0;
         this.email = "";
-        this.salt = "";
+        this.salt = null;
         this.hashedPassword = "";
         this.createdAt = null;
         this.lastSeen = null;
@@ -42,7 +56,7 @@ public class Credential {
         this.userFk = credential.getUserFk();
     }
 
-    public Credential(int id, String email, String salt, String hashedPassword, Timestamp createdAt, Timestamp lastSeen, String token, int ttl, int userType, int userFk) {
+    public Credential(int id, String email, byte[] salt, String hashedPassword, Timestamp createdAt, Timestamp lastSeen, String token, int ttl, int userType, int userFk) {
         this.id = id;
         this.email = email;
         this.salt = salt;
@@ -71,11 +85,11 @@ public class Credential {
         this.email = email;
     }
 
-    public String getSalt() {
+    public byte[] getSalt() {
         return salt;
     }
 
-    public void setSalt(String salt) {
+    public void setSalt(byte[] salt) {
         this.salt = salt;
     }
 
@@ -136,6 +150,6 @@ public class Credential {
     }
 
     public boolean isValid() {
-        return new StudentDAO().checkLogin(this.getEmail(), this.getHashedPassword());
+        return new CredentialDAO().checkLogin(this.getEmail(), this.getHashedPassword());
     }
 }

@@ -9,30 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class StudentDAO implements StudentDAO_Interface{
-    @Resource(name = "jdbc/UsersDB")
-    private DataSource dataSource;
 
-    public StudentDAO(){
-    }
-
-    @Override
-    public boolean checkLogin(String email, String password) {
-        String query = "SELECT * FROM student WHERE student.email = ? AND student.password = ?;";
-        PreparedStatement preparedStatement;
-        try (Connection conn = dataSource.getConnection()){
-            preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setString(1, email);
-            preparedStatement.setString(2, password);
-            preparedStatement.executeQuery();
-
-            // TODO Controllare che c'è risultato.
-
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
 //
 //    protected void doGet(HttpServletRequest request,
