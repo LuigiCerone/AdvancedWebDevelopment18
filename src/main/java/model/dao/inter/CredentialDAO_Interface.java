@@ -6,4 +6,6 @@ public interface CredentialDAO_Interface {
     public Credential checkLogin(String email, String password);
 
     String startSession(int id);
+
+    void endSession(String value);
 }

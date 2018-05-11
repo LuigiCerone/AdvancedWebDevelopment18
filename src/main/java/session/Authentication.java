@@ -39,6 +39,25 @@ public class Authentication {
         }
     }
 
+
+    //DELETE /rest/auth/{SID}
+    //Content-Type: application/json
+    @Path("auth")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response logout(@CookieParam("sid") Cookie authcookie) {
+        if (authcookie != null) {
+            //dovremmo eliminare dalla base di dati il token authcookie.getValue()
+
+            new CredentialDAO().endSession(authcookie.getValue());
+            NewCookie resetauthcookie = new NewCookie(authcookie, null, 0, false);
+            //resettiamo il cookie sul client
+            return Response.ok("Logout successful").cookie(resetauthcookie).build();
+        } else {
+            return Response.ok("No active session").build();
+        }
+    }
+
     /*
      * Metodo accessibile solo previa verifica della sessione
      * il session identifier viene letto dal cookie impostato tramite la procedura di login
@@ -86,21 +105,6 @@ public class Authentication {
      * se la logout ha successo, cancella l'eventuale cookie dal client
      *
      */
-    //DELETE /rest/auth/{SID}
-    //Content-Type: application/json
-//    @Path("auth/{sid: [a-z0-9-]+}")
-    @Path("auth")
-    @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response logout(@CookieParam("sid") Cookie authcookie) {
-        if (authcookie != null) {
-            //dovremmo eliminare dalla base di dati il token authcookie.getValue()            
-            NewCookie resetauthcookie = new NewCookie(authcookie, null, 0, false);
-            //resettiamo il cookie sul client
-            return Response.ok("Logout successful").cookie(resetauthcookie).build();
-        } else {
-            return Response.ok("No active session").build();
-        }
-    }
+
 
 }

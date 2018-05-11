@@ -14,11 +14,10 @@ import java.util.UUID;
 
 public class CredentialDAO implements CredentialDAO_Interface {
 
-    //    @Resource(name = "jdbc/awd_db")
+    //    @Resource(lookup = "jdbc/awd_db")
     private DataSource dataSource;
     //
     private InitialContext ctx;
-//    private DataSource dataSource;
 
     final static Logger logger = Logger.getLogger(CredentialDAO.class);
 
@@ -92,6 +91,20 @@ public class CredentialDAO implements CredentialDAO_Interface {
         if (status == 1) return token;
         else
             return null;
+    }
+
+    @Override
+    public void endSession(String token) {
+        String query = "UPDATE credential SET token = NULL, expiry = 0 WHERE token = ?;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = dataSource.getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, token);
+            preparedStatement.executeUpdate();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void insert(Credential credential, String password) {
