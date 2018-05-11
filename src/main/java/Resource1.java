@@ -95,8 +95,8 @@ public class Resource1 {
     @Path("check")
     public Response check() {
 
-        boolean status = new CredentialDAO().checkLogin("luigi@test.com", "password1");
-        logger.debug("Status : " + status);
+//        boolean status = new CredentialDAO().checkLogin("luigi@test.com", "password1");
+//        logger.debug("Status : " + status);
         return Response.ok("ok").build();
     }
 

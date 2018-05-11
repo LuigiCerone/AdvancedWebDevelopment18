@@ -1,5 +1,9 @@
 package model.dao.inter;
 
+import model.Credential;
+
 public interface CredentialDAO_Interface {
-    public boolean checkLogin(String email, String password);
+    public Credential checkLogin(String email, String password);
+
+    String startSession(int id);
 }

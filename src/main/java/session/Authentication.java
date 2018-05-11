@@ -1,16 +1,19 @@
 package session;
 
 import model.Credential;
+import model.dao.CredentialDAO;
+import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
 
 @Path("auth")
 public class Authentication {
+    final static Logger logger = Logger.getLogger(Authentication.class);
 
     //POST /rest/auth
     //Content-Type: application/json
@@ -18,13 +21,19 @@ public class Authentication {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response login(Credential ld) {
-        if (ld.isValid()) {
-            String token = UUID.randomUUID().toString();
-            //il token va salvato nella base di dati per controlli successivi
-            NewCookie authcookie = new NewCookie("sid", token);
+    public Response login(String json) {
+        logger.debug("rest/auth POST recevied: " + json);
+        JSONObject jsonObject = new JSONObject(json);
+
+        CredentialDAO credentialDAO = new CredentialDAO();
+        Credential credential = credentialDAO.checkLogin(jsonObject.getString("email"),
+                jsonObject.getString("password"));
+        if (credential != null) {
+            // Login ok, then create session.
+            String token = credentialDAO.startSession(credential.getId());
+            NewCookie authcookie = new NewCookie("sid", token, "/awd18/rest", "", "", 1800, false);
             //restituiamo il token come testo della risposta e anche come cookie
-            return Response.ok(token).cookie(authcookie).build();
+            return Response.ok().cookie(authcookie).build();
         } else {
             return Response.status(Response.Status.FORBIDDEN).entity("Invalid username or password").build();
         }

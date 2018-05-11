@@ -8,18 +8,17 @@ import utils.SecurePassword;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.Calendar;
+import java.util.UUID;
 
 public class CredentialDAO implements CredentialDAO_Interface {
 
     //    @Resource(name = "jdbc/awd_db")
-//    private DataSource dataSource;
-//
-    private InitialContext ctx;
     private DataSource dataSource;
+    //
+    private InitialContext ctx;
+//    private DataSource dataSource;
 
     final static Logger logger = Logger.getLogger(CredentialDAO.class);
 
@@ -33,7 +32,7 @@ public class CredentialDAO implements CredentialDAO_Interface {
     }
 
     @Override
-    public boolean checkLogin(String email, String password) {
+    public Credential checkLogin(String email, String password) {
         Credential credential = null;
         String query = "SELECT * FROM credential WHERE credential.email = ?;";
         PreparedStatement preparedStatement;
@@ -50,7 +49,7 @@ public class CredentialDAO implements CredentialDAO_Interface {
                         resultSet.getTimestamp(Credential.CREATED_AT),
                         resultSet.getTimestamp(Credential.LAST_SEEN),
                         resultSet.getString(Credential.TOKEN),
-                        resultSet.getInt(Credential.TOKEN),
+                        resultSet.getTimestamp(Credential.EXPIRY),
                         resultSet.getInt(Credential.USER_TYPE),
                         resultSet.getInt(Credential.USER_FK)
                 );
@@ -59,12 +58,40 @@ public class CredentialDAO implements CredentialDAO_Interface {
 
             String newHashedPsw = SecurePassword.getSHA1Password(password, credential.getSalt());
             if (newHashedPsw.equals(credential.getHashedPassword()))
-                return true;
-            else return false;
+                return credential;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
+    }
+
+    @Override
+    public String startSession(int id) {
+        //il token va salvato nella base di dati per controlli successivi
+        String token = UUID.randomUUID().toString().replace("-", "");
+
+        int status = 0;
+
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MINUTE, 30);
+        Timestamp timestamp = new Timestamp(cal.getTimeInMillis());
+
+
+        String query = "UPDATE credential SET token = ?, expiry = ?;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = dataSource.getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, token);
+            preparedStatement.setTimestamp(2, timestamp);
+            status = preparedStatement.executeUpdate();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if (status == 1) return token;
+        else
+            return null;
     }
 
     public void insert(Credential credential, String password) {

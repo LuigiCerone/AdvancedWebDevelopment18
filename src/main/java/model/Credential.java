@@ -1,7 +1,5 @@
 package model;
 
-import model.dao.CredentialDAO;
-
 import java.sql.Timestamp;
 
 public class Credential {
@@ -14,7 +12,7 @@ public class Credential {
     public final static String CREATED_AT = "created_at";
     public final static String LAST_SEEN = "last_seen";
     public final static String TOKEN = "token";
-    public final static String TTL = "ime_to_live";
+    public final static String EXPIRY = "expiry";
     public final static String USER_TYPE = "user_type";
     public final static String USER_FK = "user_fk";
 
@@ -26,7 +24,7 @@ public class Credential {
     private Timestamp createdAt;
     private Timestamp lastSeen;
     private String token;
-    private int ttl;
+    private Timestamp expiry;
     private int userType;
     private int userFk;
 
@@ -38,7 +36,7 @@ public class Credential {
         this.createdAt = null;
         this.lastSeen = null;
         this.token = "";
-        this.ttl = 0;
+        this.expiry = null;
         this.userType = 0;
         this.userFk = 0;
     }
@@ -51,12 +49,12 @@ public class Credential {
         this.createdAt = credential.getCreatedAt();
         this.lastSeen = credential.getLastSeen();
         this.token = credential.getToken();
-        this.ttl = credential.getTtl();
+        this.expiry = credential.getExpiry();
         this.userType = credential.getUserType();
         this.userFk = credential.getUserFk();
     }
 
-    public Credential(int id, String email, byte[] salt, String hashedPassword, Timestamp createdAt, Timestamp lastSeen, String token, int ttl, int userType, int userFk) {
+    public Credential(int id, String email, byte[] salt, String hashedPassword, Timestamp createdAt, Timestamp lastSeen, String token, Timestamp expiry, int userType, int userFk) {
         this.id = id;
         this.email = email;
         this.salt = salt;
@@ -64,7 +62,7 @@ public class Credential {
         this.createdAt = createdAt;
         this.lastSeen = lastSeen;
         this.token = token;
-        this.ttl = ttl;
+        this.expiry = expiry;
         this.userType = userType;
         this.userFk = userFk;
     }
@@ -125,12 +123,12 @@ public class Credential {
         this.token = token;
     }
 
-    public int getTtl() {
-        return ttl;
+    public Timestamp getExpiry() {
+        return expiry;
     }
 
-    public void setTtl(int ttl) {
-        this.ttl = ttl;
+    public void setExpiry(Timestamp expiry) {
+        this.expiry = expiry;
     }
 
     public int getUserType() {
@@ -149,7 +147,4 @@ public class Credential {
         this.userFk = userFk;
     }
 
-    public boolean isValid() {
-        return new CredentialDAO().checkLogin(this.getEmail(), this.getHashedPassword());
-    }
 }
