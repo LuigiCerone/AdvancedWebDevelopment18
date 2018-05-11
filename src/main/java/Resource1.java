@@ -1,5 +1,6 @@
 import model.Credential;
 import model.dao.CredentialDAO;
+import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -10,10 +11,6 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author SviluppoWebAvanzato
- */
-
 /*
  * l'annotazione @Path sulla classe la definisce come
  * root resource, che sarà pubblicata dalla servlet
@@ -22,6 +19,7 @@ import java.util.List;
  */
 @Path("res1")
 public class Resource1 {
+    final static Logger logger = Logger.getLogger(Resource1.class);
 
     /*
      * i metodi non marcati con annotazioni JAX-RS restano interni alla classe
@@ -90,6 +88,16 @@ public class Resource1 {
         credential.setEmail("luigi@test.com");
         new CredentialDAO().insert(credential, "password");
         return Response.ok("inserted").build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("check")
+    public Response check() {
+
+        boolean status = new CredentialDAO().checkLogin("luigi@test.com", "password1");
+        logger.debug("Status : " + status);
+        return Response.ok("ok").build();
     }
 
     /*
