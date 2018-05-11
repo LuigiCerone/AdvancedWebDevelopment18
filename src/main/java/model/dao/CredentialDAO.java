@@ -2,11 +2,12 @@ package model.dao;
 
 import model.Credential;
 import model.dao.inter.CredentialDAO_Interface;
+import org.apache.log4j.Logger;
+import utils.SecurePassword;
 
-import javax.annotation.Resource;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +15,21 @@ import java.sql.SQLException;
 
 public class CredentialDAO implements CredentialDAO_Interface {
 
-    @Resource(name = "jdbc/UsersDB")
+    //    @Resource(name = "jdbc/awd_db")
+//    private DataSource dataSource;
+//
+    private InitialContext ctx;
     private DataSource dataSource;
 
+    final static Logger logger = Logger.getLogger(CredentialDAO.class);
+
     public CredentialDAO() {
+        try {
+            ctx = new InitialContext();
+            dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/awd_db");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -45,7 +57,7 @@ public class CredentialDAO implements CredentialDAO_Interface {
             }
             conn.close();
 
-            String newHashedPsw = get_SHA_1_SecurePassword(password, credential.getSalt());
+            String newHashedPsw = SecurePassword.getSHA1Password(password, credential.getSalt());
             if (newHashedPsw.equals(credential.getHashedPassword()))
                 return true;
             else return false;
@@ -55,30 +67,35 @@ public class CredentialDAO implements CredentialDAO_Interface {
         return false;
     }
 
-    private static String get_SHA_1_SecurePassword(String passwordToHash, byte[] salt) {
-        String generatedPassword = null;
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-1");
-            md.update(salt);
-            byte[] bytes = md.digest(passwordToHash.getBytes());
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-            generatedPassword = sb.toString();
-        } catch (NoSuchAlgorithmException e) {
+    public void insert(Credential credential, String password) {
+        String query = "INSERT INTO credential VALUES (NULL, ?, ?, ?, NOW(), NOW(), NULL,0,?,?);";
+        PreparedStatement preparedStatement;
+
+        try (Connection conn = dataSource.getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setString(1, credential.getEmail());
+            byte[] salt = SecurePassword.getSalt();
+            preparedStatement.setBytes(2, salt);
+            preparedStatement.setString(3, SecurePassword.getSHA1Password(password, salt));
+            preparedStatement.setInt(4, 0);
+            preparedStatement.setInt(5, 1);
+            preparedStatement.execute();
+            conn.close();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
-        return generatedPassword;
+    }
+
+    public void test() {
+        logger.debug("Received a request");
+        try (Connection conn = dataSource.getConnection()) {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
 
 
-//    //Add salt
-//    private static byte[] getSalt() throws NoSuchAlgorithmException {
-//        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-//        byte[] salt = new byte[16];
-//        sr.nextBytes(salt);
-//        return salt;
-//    }
-//}
+

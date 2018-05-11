@@ -2,13 +2,13 @@ DROP DATABASE IF EXISTS awd;
 CREATE DATABASE awd;
 
 DROP TABLE IF EXISTS credential;
-CREATE TABLE `credential;`
+CREATE TABLE credential
 (
   id           INT AUTO_INCREMENT
     PRIMARY KEY,
   email        VARCHAR(50)                             NOT NULL,
-  salt         VARCHAR(20)                             NOT NULL,
-  hashed_psw   VARCHAR(128)                            NOT NULL,
+  salt         VARBINARY(128)                          NOT NULL,
+  hashed_psw   VARCHAR(256)                            NOT NULL,
   created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL,
   last_seen    TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   token        VARCHAR(50)                             NULL,

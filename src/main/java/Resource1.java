@@ -1,27 +1,16 @@
-import java.io.IOException;
-import java.io.OutputStream;
+import model.Credential;
+import model.dao.CredentialDAO;
+
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.HttpHeaders;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.StreamingOutput;
-import javax.ws.rs.core.UriBuilder;
-import javax.ws.rs.core.UriInfo;
 
 /**
- *
  * @author SviluppoWebAvanzato
  */
 
@@ -89,6 +78,18 @@ public class Resource1 {
          */
         //equivalente a return "ciao" con return type String
         return Response.ok("ciao").build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("insert")
+    public Response insert() {
+//        new CredentialDAO().test();
+//        return Response.ok("inserted").build();
+        Credential credential = new Credential();
+        credential.setEmail("luigi@test.com");
+        new CredentialDAO().insert(credential, "password");
+        return Response.ok("inserted").build();
     }
 
     /*
@@ -273,7 +274,7 @@ public class Resource1 {
          * per effettuare un inserimento dati. Alla fine, restituiremo
          * la URL per accedere all'elemento appena inserito.
          */
- /*
+        /*
          * un modo conveniente (ma non imposto) per creare
          * la URI da restituire è usare l'UriInfo iniettato
          * tra i parametri. Qui chiediamo che sia costruita
@@ -292,7 +293,7 @@ public class Resource1 {
          * si dovrebbe procedere inserendo uno a uno i segmenti di path che portano
          * ad essa, concludendo con il path verso il metodo finale.
          */
- /* se invece si volesse costruire il path verso una sotto-risorsa
+        /* se invece si volesse costruire il path verso una sotto-risorsa
          * si dovrebbe procedere inserendo uno a uno i segmenti di path che portano
          * ad essa, concludendo con il path verso il metodo finale, ad esempio
          */

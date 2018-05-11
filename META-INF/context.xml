@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/awd18">
-    <Resource name="jdbc/UsersDB" auth="Container" type="javax.sql.DataSource" maxActive="100" maxIdle="30"
-              maxWait="10000" driverClassName="com.mysql.jdbc.Driver" url="jdbc:mysql://localhost:3306/usersDB"
-              email="root" password="secret"/>
+    <Resource name="jdbc/awd_db" auth="Container" type="javax.sql.DataSource"
+              maxActive="50" maxIdle="30" maxWait="10000"
+              username="awd2018" password="awd2018"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/awd"/>
 </Context>
