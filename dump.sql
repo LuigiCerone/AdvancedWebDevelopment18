@@ -1,20 +1,21 @@
 DROP DATABASE IF EXISTS awd;
 CREATE DATABASE awd;
+USE awd;
 
 DROP TABLE IF EXISTS credential;
 CREATE TABLE credential
 (
-  id           INT AUTO_INCREMENT
+  id         INT AUTO_INCREMENT
     PRIMARY KEY,
-  email        VARCHAR(50)                             NOT NULL,
-  salt         VARBINARY(128)                          NOT NULL,
-  hashed_psw   VARCHAR(256)                            NOT NULL,
-  created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL,
-  last_seen    TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-  token        VARCHAR(50)                             NULL,
-  time_to_live INT                                     NULL,
-  user_type    INT                                     NOT NULL,
-  user_fk      INT                                     NULL,
+  email      VARCHAR(50)                             NOT NULL,
+  salt       VARBINARY(128)                          NOT NULL,
+  hashed_psw VARCHAR(256)                            NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  last_seen  TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  token      VARCHAR(50)                             NULL,
+  expiry     TIMESTAMP                               NULL,
+  user_type  INT                                     NOT NULL,
+  user_fk    INT                                     NULL,
   CONSTRAINT `credential;_email_uindex`
   UNIQUE (email)
 )
@@ -109,3 +110,6 @@ CREATE TABLE candidacy
   ENGINE = InnoDB;
 
 
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type, user_fk)
+VALUES (3, 'luigi@test.com', 0x5A6B70271B17AA7294433190586554BE, '319975C41A84B847137021A2388DF24444F52BB7',
+        '2018-05-11 19:35:29', '2018-05-11 17:31:59', 'd76e6a788ee94012a024457ede936491', '2018-05-11 20:05:29', 0, 1);
