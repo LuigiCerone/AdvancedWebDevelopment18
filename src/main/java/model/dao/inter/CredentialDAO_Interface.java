@@ -13,5 +13,5 @@ public interface CredentialDAO_Interface {
 
     boolean startSession(int id, String token, Timestamp timestamp);
 
-    void endSession(String value);
+    boolean endSession(String value);
 }

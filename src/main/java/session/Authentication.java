@@ -1,7 +1,6 @@
 package session;
 
 import controller.CredentialController;
-import model.dao.CredentialDAO;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -21,24 +20,8 @@ public class Authentication {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(String json) {
-        logger.debug("rest/auth POST recevied: " + json);
-//        CredentialController.login
-//        JSONObject jsonObject = new JSONObject(json);
-//
-//        CredentialDAO credentialDAO = new CredentialDAO();
-//        Credential credential = credentialDAO.checkLogin(jsonObject.getString("email"),
-//                jsonObject.getString("password"));
-//        if (credential != null) {
-//            // Login ok, then create session.
-//            String token = credentialDAO.startSession(credential.getId());
-//            NewCookie authcookie = new NewCookie("sid", token, "/awd18/rest", "", "", 1800, false);
-//            //restituiamo il token come testo della risposta e anche come cookie
-//            return Response.ok().cookie(authcookie).build();
-//        } else {
-//            return Response.status(Response.Status.FORBIDDEN).entity("Invalid username or password").build();
-//        }
-//
-        String token = CredentialController.login(json);
+//        logger.debug("rest/auth POST recevied: " + json);
+        String token = new CredentialController().login(json);
         if (token != null) {
             NewCookie authcookie = new NewCookie("sid", token, "/awd18/rest", "", "", 1800, false);
             //restituiamo il token come testo della risposta e anche come cookie
@@ -55,12 +38,9 @@ public class Authentication {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response logout(@CookieParam("sid") Cookie authcookie) {
-        if (authcookie != null) {
-            //dovremmo eliminare dalla base di dati il token authcookie.getValue()
-
-            new CredentialDAO().endSession(authcookie.getValue());
+        if (authcookie != null && new CredentialController().logout(authcookie.getValue())) {
             NewCookie resetauthcookie = new NewCookie(authcookie, null, 0, false);
-            //resettiamo il cookie sul client
+            //resettiamo il cookie sul client.
             return Response.ok("Logout successful").cookie(resetauthcookie).build();
         } else {
             return Response.ok("No active session").build();
@@ -72,8 +52,8 @@ public class Authentication {
      * il session identifier viene letto dal cookie impostato tramite la procedura di login
      *
      */
-    //POST /rest/sesson1/fun1
-    //Content-Type: application/json
+//POST /rest/sesson1/fun1
+//Content-Type: application/json
 //    @GET
 //    @Path("fun1")
 //    @Produces(MediaType.APPLICATION_JSON)

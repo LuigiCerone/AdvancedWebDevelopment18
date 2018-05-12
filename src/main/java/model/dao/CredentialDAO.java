@@ -68,17 +68,20 @@ public class CredentialDAO implements CredentialDAO_Interface {
     }
 
     @Override
-    public void endSession(String token) {
+    public boolean endSession(String token) {
+        int n = 0;
         String query = "UPDATE credential SET token = NULL, expiry = 0 WHERE token = ?;";
         PreparedStatement preparedStatement;
         try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, token);
-            preparedStatement.executeUpdate();
+            n = preparedStatement.executeUpdate();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return n == 1;
     }
 
     public void insert(Credential credential, String password) {

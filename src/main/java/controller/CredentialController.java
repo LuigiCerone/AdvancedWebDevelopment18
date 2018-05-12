@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 /**
- * Controller used to manage all the credential's related stuf such ass login, sign in, session etc.
+ * Controller used to manage all the credential's related stuff such ass login, sign in, session etc.
  */
 public class CredentialController {
     final static Logger logger = Logger.getLogger(CredentialController.class);
@@ -59,5 +59,15 @@ public class CredentialController {
         }
         // If credential is null there is not entry with the given data.
         return null;
+    }
+
+    /**
+     * Method used to terminate the session of client by reseting his/her token in the DB,
+     *
+     * @param token token sid.
+     * @return true if OK, false otherwise.
+     */
+    public boolean logout(String token) {
+        return credentialDAO.endSession(token);
     }
 }
