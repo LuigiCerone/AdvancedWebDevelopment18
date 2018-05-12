@@ -1,41 +1,25 @@
 package model.dao;
 
+import database.Database;
 import model.Credential;
 import model.dao.inter.CredentialDAO_Interface;
 import org.apache.log4j.Logger;
 import utils.SecurePassword;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 import java.sql.*;
-import java.util.Calendar;
-import java.util.UUID;
 
 public class CredentialDAO implements CredentialDAO_Interface {
-
-    //    @Resource(lookup = "jdbc/awd_db")
-    private DataSource dataSource;
-    //
-    private InitialContext ctx;
-
     final static Logger logger = Logger.getLogger(CredentialDAO.class);
 
     public CredentialDAO() {
-        try {
-            ctx = new InitialContext();
-            dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/awd_db");
-        } catch (NamingException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
-    public Credential checkLogin(String email, String password) {
+    public Credential getCredentialFromEmailAndPassword(String email, String password) {
         Credential credential = null;
         String query = "SELECT * FROM credential WHERE credential.email = ?;";
         PreparedStatement preparedStatement;
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -65,20 +49,12 @@ public class CredentialDAO implements CredentialDAO_Interface {
     }
 
     @Override
-    public String startSession(int id) {
-        //il token va salvato nella base di dati per controlli successivi
-        String token = UUID.randomUUID().toString().replace("-", "");
-
+    public boolean startSession(int id, String token, Timestamp timestamp) {
         int status = 0;
-
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.MINUTE, 30);
-        Timestamp timestamp = new Timestamp(cal.getTimeInMillis());
-
 
         String query = "UPDATE credential SET token = ?, expiry = ?;";
         PreparedStatement preparedStatement;
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, token);
             preparedStatement.setTimestamp(2, timestamp);
@@ -88,16 +64,14 @@ public class CredentialDAO implements CredentialDAO_Interface {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (status == 1) return token;
-        else
-            return null;
+        return status == 1;
     }
 
     @Override
     public void endSession(String token) {
         String query = "UPDATE credential SET token = NULL, expiry = 0 WHERE token = ?;";
         PreparedStatement preparedStatement;
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setString(1, token);
             preparedStatement.executeUpdate();
@@ -111,7 +85,7 @@ public class CredentialDAO implements CredentialDAO_Interface {
         String query = "INSERT INTO credential VALUES (NULL, ?, ?, ?, NOW(), NOW(), NULL,0,?,?);";
         PreparedStatement preparedStatement;
 
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
 
             preparedStatement.setString(1, credential.getEmail());
@@ -129,7 +103,7 @@ public class CredentialDAO implements CredentialDAO_Interface {
 
     public void test() {
         logger.debug("Received a request");
-        try (Connection conn = dataSource.getConnection()) {
+        try (Connection conn = Database.getDatasource().getConnection()) {
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();

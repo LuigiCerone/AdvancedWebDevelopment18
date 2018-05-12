@@ -2,10 +2,16 @@ package model.dao.inter;
 
 import model.Credential;
 
-public interface CredentialDAO_Interface {
-    public Credential checkLogin(String email, String password);
+import java.sql.Timestamp;
 
-    String startSession(int id);
+public interface CredentialDAO_Interface {
+//    public Credential checkLogin(String email, String password);
+
+    Credential getCredentialFromEmailAndPassword(String email, String password);
+
+//    String startSession(int id);
+
+    boolean startSession(int id, String token, Timestamp timestamp);
 
     void endSession(String value);
 }

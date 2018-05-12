@@ -1,9 +1,8 @@
 package session;
 
-import model.Credential;
+import controller.CredentialController;
 import model.dao.CredentialDAO;
 import org.apache.log4j.Logger;
-import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
@@ -23,14 +22,24 @@ public class Authentication {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(String json) {
         logger.debug("rest/auth POST recevied: " + json);
-        JSONObject jsonObject = new JSONObject(json);
-
-        CredentialDAO credentialDAO = new CredentialDAO();
-        Credential credential = credentialDAO.checkLogin(jsonObject.getString("email"),
-                jsonObject.getString("password"));
-        if (credential != null) {
-            // Login ok, then create session.
-            String token = credentialDAO.startSession(credential.getId());
+//        CredentialController.login
+//        JSONObject jsonObject = new JSONObject(json);
+//
+//        CredentialDAO credentialDAO = new CredentialDAO();
+//        Credential credential = credentialDAO.checkLogin(jsonObject.getString("email"),
+//                jsonObject.getString("password"));
+//        if (credential != null) {
+//            // Login ok, then create session.
+//            String token = credentialDAO.startSession(credential.getId());
+//            NewCookie authcookie = new NewCookie("sid", token, "/awd18/rest", "", "", 1800, false);
+//            //restituiamo il token come testo della risposta e anche come cookie
+//            return Response.ok().cookie(authcookie).build();
+//        } else {
+//            return Response.status(Response.Status.FORBIDDEN).entity("Invalid username or password").build();
+//        }
+//
+        String token = CredentialController.login(json);
+        if (token != null) {
             NewCookie authcookie = new NewCookie("sid", token, "/awd18/rest", "", "", 1800, false);
             //restituiamo il token come testo della risposta e anche come cookie
             return Response.ok().cookie(authcookie).build();
