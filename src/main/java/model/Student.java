@@ -1,12 +1,35 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+
 import java.sql.Date;
 
 public class Student {
+
+    // DB fields name.
+    private static final String ID = "id";
+    private static final String FIRST_NAME = "first_name";
+    private static final String LAST_NAME = "last_name";
+    private static final String BIRTH_DATE = "birth_date";
+    private static final String BIRTH_PLACE = "birth_place";
+    private static final String BIRTH_PLACE_PROVINCE = "birth_place_province";
+    private static final String RESIDENCE_PLACE = "residence_place";
+    private static final String RESIDENCE_PLACE_PROVINCE = "residence_place_province";
+    private static final String CF = "cf";
+    private static final String TEL = "telnumber";
+    private static final String UNIVERSITY_LEVEL = "university_level";
+    private static final String UNIVERSITY_COURSE = "university_course";
+    private static final String HANDICAP = "handicap";
+
+
     private int id;
     private String firstName;
     private String lastName;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a z")
     private Date birthDate;
+
     private String birthPlace;
     private String birthPlaceProvince;
     private String residencePlace;
@@ -16,8 +39,10 @@ public class Student {
     private String universityLevel;
     private String universityCourse;
     private boolean handicap;
+
+    @JsonUnwrapped
     private Credential credential;
-    private String password;
+
 
     public Student() {
         this.id = 0;
@@ -34,7 +59,6 @@ public class Student {
         this.universityCourse = "";
         this.handicap = false;
         this.credential = new Credential();
-        this.password = "";
     }
 
     public Student(int id, String firstName, String lastName, Date birthDate, String birthPlace, String birthPlaceProvince, String residencePlace, String residencePlaceProvince, String cf, int telnumber, String universityLevel, String universityCourse, boolean handicap, String email, String password, Credential credential) {
@@ -52,15 +76,6 @@ public class Student {
         this.universityCourse = universityCourse;
         this.handicap = handicap;
         this.credential = new Credential(credential);
-        this.password = password;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public int getId() {
@@ -192,7 +207,6 @@ public class Student {
                 ", universityCourse='" + universityCourse + '\'' +
                 ", handicap=" + handicap +
                 ", credential=" + credential +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

@@ -106,10 +106,10 @@ public class CredentialDAO implements CredentialDAO_Interface {
         return rows == 0;
     }
 
-    public boolean insert(Credential credential, String password) {
+    public boolean insert(Credential credential, String passwordToHash) {
         String query = "INSERT INTO credential VALUES (NULL, ?, ?, ?, NOW(), NOW(), NULL,0,?,?);";
         PreparedStatement preparedStatement;
-        boolean status = false;
+        int status = 0;
 
         try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
@@ -117,15 +117,15 @@ public class CredentialDAO implements CredentialDAO_Interface {
             preparedStatement.setString(1, credential.getEmail());
             byte[] salt = SecurePassword.getSalt();
             preparedStatement.setBytes(2, salt);
-            preparedStatement.setString(3, SecurePassword.getSHA1Password(password, salt));
+            preparedStatement.setString(3, SecurePassword.getSHA1Password(passwordToHash, salt));
             preparedStatement.setInt(4, 0);
             preparedStatement.setInt(5, 1);
-            status = preparedStatement.execute();
+            status = preparedStatement.executeUpdate();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return status;
+        return status == 1;
     }
 
     public void test() {

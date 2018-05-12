@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import rest.AuthenticationRootResource;
+import rest.StudentRootResource;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -8,9 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- *
  * "rest" sarà il path di base a cui risponderà il nostro servizio
- *
  */
 @ApplicationPath("rest")
 public class JAXRSApplication extends Application {
@@ -31,6 +30,7 @@ public class JAXRSApplication extends Application {
         //notare come questo esempio presenti più risorse root
 //        c.add(Resource1sub4.class);
         c.add(AuthenticationRootResource.class);
+        c.add(StudentRootResource.class);
 //        c.add(Authentication_url.class);
 //        c.add(ArticlesRes.class);
 //        c.add(IssuesRes.class);

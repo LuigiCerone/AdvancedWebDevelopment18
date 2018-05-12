@@ -16,7 +16,7 @@ import java.net.URI;
 public class StudentRootResource {
     final static Logger logger = Logger.getLogger(StudentRootResource.class);
 
-    //POST /rest/student
+    //POST /rest/studenti
     //Content-Type: application/json
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
@@ -28,15 +28,14 @@ public class StudentRootResource {
             URI u = c.getBaseUriBuilder()
                     .path(StudentRootResource.class)
                     .path(StudentRootResource.class, "getStudentById")
-                    .path("" + id)
-                    .build();
+                    .build(id);
             return Response.created(u).build();
         } else {
             return Response.serverError().build();
         }
     }
 
-    //GET /rest/res1/pippo/<numero>
+    //GET /rest/studenti/<numero>
     //Accept: application/json
     @GET
     @Path("{id: [0-9]+}")

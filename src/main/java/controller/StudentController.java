@@ -19,6 +19,12 @@ public class StudentController {
         studentDAO = new StudentDAO();
     }
 
+    /**
+     * Method used to insert a new student into the DB with the relative instance in the credentials table.
+     *
+     * @param student student to insert.
+     * @return id of the inserted student, -1 otherwise.
+     */
     public int insertStudent(Student student) {
         // In order to insert a student first we need to check if the email is available, then we register the student,
         // then the we get the last inserted id and insert a credential instance in the table.
@@ -31,7 +37,7 @@ public class StudentController {
                 // Then insert the credential.
                 student.getCredential().setUserType(0); // 0 means student.
                 student.getCredential().setUserFk(id);
-                if (credentialDAO.insert(student.getCredential(), student.getPassword())) {
+                if (credentialDAO.insert(student.getCredential(), student.getCredential().getPassword())) {
                     // OK.
                     return student.getId();
                 } else {

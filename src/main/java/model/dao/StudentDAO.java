@@ -4,10 +4,7 @@ import database.Database;
 import model.Student;
 import model.dao.inter.StudentDAO_Interface;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class StudentDAO implements StudentDAO_Interface {
 
@@ -24,7 +21,7 @@ public class StudentDAO implements StudentDAO_Interface {
         int lastInsertedId = -1;
 
         try (Connection conn = Database.getDatasource().getConnection()) {
-            preparedStatement = conn.prepareStatement(query);
+            preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setString(1, student.getFirstName());
             preparedStatement.setString(2, student.getLastName());
@@ -32,14 +29,18 @@ public class StudentDAO implements StudentDAO_Interface {
             preparedStatement.setString(4, student.getBirthPlace());
             preparedStatement.setString(5, student.getBirthPlaceProvince());
             preparedStatement.setString(6, student.getResidencePlace());
-            preparedStatement.setString(6, student.getResidencePlaceProvince());
-            preparedStatement.setString(6, student.getCf());
-            preparedStatement.setInt(6, student.getTelnumber());
-            preparedStatement.setString(6, student.getUniversityLevel());
-            preparedStatement.setString(6, student.getUniversityCourse());
-            preparedStatement.setBoolean(6, student.isHandicap());
+            preparedStatement.setString(7, student.getResidencePlaceProvince());
+            preparedStatement.setString(8, student.getCf());
+            preparedStatement.setInt(9, student.getTelnumber());
+            preparedStatement.setString(10, student.getUniversityLevel());
+            preparedStatement.setString(11, student.getUniversityCourse());
+            preparedStatement.setBoolean(12, student.isHandicap());
 
-            lastInsertedId = preparedStatement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+            lastInsertedId = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                lastInsertedId = rs.getInt(1);
+            }
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -1,6 +1,9 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.sql.Timestamp;
+import java.util.Arrays;
 
 public class Credential {
 
@@ -17,9 +20,13 @@ public class Credential {
     public final static String USER_FK = "user_fk";
 
 
+    @JsonIgnore
     private int id;
     private String email;
+
+    @JsonIgnore
     private byte[] salt;
+    @JsonIgnore
     private String hashedPassword;
     private Timestamp createdAt;
     private Timestamp lastSeen;
@@ -27,6 +34,7 @@ public class Credential {
     private Timestamp expiry;
     private int userType;
     private int userFk;
+    private String password;
 
     public Credential() {
         this.id = 0;
@@ -39,6 +47,7 @@ public class Credential {
         this.expiry = null;
         this.userType = 0;
         this.userFk = 0;
+        this.password = "";
     }
 
     public Credential(Credential credential) {
@@ -52,6 +61,7 @@ public class Credential {
         this.expiry = credential.getExpiry();
         this.userType = credential.getUserType();
         this.userFk = credential.getUserFk();
+        this.password = credential.getPassword();
     }
 
     public Credential(int id, String email, byte[] salt, String hashedPassword, Timestamp createdAt, Timestamp lastSeen, String token, Timestamp expiry, int userType, int userFk) {
@@ -147,4 +157,28 @@ public class Credential {
         this.userFk = userFk;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Credential{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", salt=" + Arrays.toString(salt) +
+                ", hashedPassword='" + hashedPassword + '\'' +
+                ", createdAt=" + createdAt +
+                ", lastSeen=" + lastSeen +
+                ", token='" + token + '\'' +
+                ", expiry=" + expiry +
+                ", userType=" + userType +
+                ", userFk=" + userFk +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

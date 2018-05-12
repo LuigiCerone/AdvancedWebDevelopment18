@@ -1,0 +1,19 @@
+/rest/studenti POST
+{
+	"firstName": "Nome",
+	"lastName": "Cognome",
+	"birthDate": "1978-08-17",
+	"birthPlace": "L'Aquila",
+	"birthPlaceProvince": "AQ",
+	"residencePlace": "L'Aquila",
+	"residencePlaceProvince": "AQ",
+	"cf": "AVOFGOFGIUFGRFORPFGB",
+	"telnumber":123456789,
+	"universityLevel":"Laurea Base",
+	"universityCourse":"Informatica",
+	"handicap":false,
+	"credential":{
+	    "email": "test@test.com",
+	    "password": "passwordsicura"
+	    }
+	}
