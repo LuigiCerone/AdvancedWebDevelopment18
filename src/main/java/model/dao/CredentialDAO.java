@@ -84,9 +84,32 @@ public class CredentialDAO implements CredentialDAO_Interface {
         return n == 1;
     }
 
-    public void insert(Credential credential, String password) {
+    @Override
+    public boolean checkEmailAvailable(String email) {
+        String query = "SELECT COUNT(*) AS count FROM credential WHERE credential.email = ?;";
+        PreparedStatement preparedStatement;
+        int rows = 0;
+
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setString(1, email);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                rows = resultSet.getInt("count");
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rows == 0;
+    }
+
+    public boolean insert(Credential credential, String password) {
         String query = "INSERT INTO credential VALUES (NULL, ?, ?, ?, NOW(), NOW(), NULL,0,?,?);";
         PreparedStatement preparedStatement;
+        boolean status = false;
 
         try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
@@ -97,11 +120,12 @@ public class CredentialDAO implements CredentialDAO_Interface {
             preparedStatement.setString(3, SecurePassword.getSHA1Password(password, salt));
             preparedStatement.setInt(4, 0);
             preparedStatement.setInt(5, 1);
-            preparedStatement.execute();
+            status = preparedStatement.execute();
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return status;
     }
 
     public void test() {

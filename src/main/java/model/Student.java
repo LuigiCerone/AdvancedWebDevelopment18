@@ -17,6 +17,7 @@ public class Student {
     private String universityCourse;
     private boolean handicap;
     private Credential credential;
+    private String password;
 
     public Student() {
         this.id = 0;
@@ -32,7 +33,8 @@ public class Student {
         this.universityLevel = "";
         this.universityCourse = "";
         this.handicap = false;
-        this.credential = null;
+        this.credential = new Credential();
+        this.password = "";
     }
 
     public Student(int id, String firstName, String lastName, Date birthDate, String birthPlace, String birthPlaceProvince, String residencePlace, String residencePlaceProvince, String cf, int telnumber, String universityLevel, String universityCourse, boolean handicap, String email, String password, Credential credential) {
@@ -50,6 +52,15 @@ public class Student {
         this.universityCourse = universityCourse;
         this.handicap = handicap;
         this.credential = new Credential(credential);
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getId() {
@@ -162,5 +173,26 @@ public class Student {
 
     public void setCredential(Credential credential) {
         this.credential = credential;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDate=" + birthDate +
+                ", birthPlace='" + birthPlace + '\'' +
+                ", birthPlaceProvince='" + birthPlaceProvince + '\'' +
+                ", residencePlace='" + residencePlace + '\'' +
+                ", residencePlaceProvince='" + residencePlaceProvince + '\'' +
+                ", cf='" + cf + '\'' +
+                ", telnumber=" + telnumber +
+                ", universityLevel='" + universityLevel + '\'' +
+                ", universityCourse='" + universityCourse + '\'' +
+                ", handicap=" + handicap +
+                ", credential=" + credential +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

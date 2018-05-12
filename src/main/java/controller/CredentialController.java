@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.UUID;
 
 /**
- * Controller used to manage all the credential's related stuff such ass login, sign in, session etc.
+ * Controller used to manage all the credential's related stuff such as login, sign in, session etc.
  */
 public class CredentialController {
     final static Logger logger = Logger.getLogger(CredentialController.class);

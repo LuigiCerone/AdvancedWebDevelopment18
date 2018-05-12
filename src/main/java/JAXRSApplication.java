@@ -1,8 +1,6 @@
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import session.Authentication;
+import rest.AuthenticationRootResource;
 
-import javax.annotation.Resource;
-import javax.sql.DataSource;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.util.Collections;
@@ -32,7 +30,7 @@ public class JAXRSApplication extends Application {
         c.add(Resource1.class);
         //notare come questo esempio presenti più risorse root
 //        c.add(Resource1sub4.class);
-        c.add(Authentication.class);
+        c.add(AuthenticationRootResource.class);
 //        c.add(Authentication_url.class);
 //        c.add(ArticlesRes.class);
 //        c.add(IssuesRes.class);

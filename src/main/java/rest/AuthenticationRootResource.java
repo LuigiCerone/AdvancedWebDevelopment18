@@ -1,4 +1,4 @@
-package session;
+package rest;
 
 import controller.CredentialController;
 import org.apache.log4j.Logger;
@@ -10,8 +10,8 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 @Path("auth")
-public class Authentication {
-    final static Logger logger = Logger.getLogger(Authentication.class);
+public class AuthenticationRootResource {
+    final static Logger logger = Logger.getLogger(AuthenticationRootResource.class);
 
     //POST /rest/auth
     //Content-Type: application/json

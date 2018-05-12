@@ -14,4 +14,6 @@ public interface CredentialDAO_Interface {
     boolean startSession(int id, String token, Timestamp timestamp);
 
     boolean endSession(String value);
+
+    boolean checkEmailAvailable(String email);
 }
