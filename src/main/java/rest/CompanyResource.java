@@ -1,5 +1,6 @@
 package rest;
 
+import controller.CompanyController;
 import controller.CredentialController;
 import model.Company;
 import org.apache.log4j.Logger;
@@ -46,10 +47,16 @@ public class CompanyResource {
                         return Response.status(403).build();
                     }
                     case 1: { // Company.
-                        break;
+                        if (new CompanyController().selectiveUpdate(company, 1))
+                            return Response.noContent().build();
+                        else
+                            return Response.serverError().build();
                     }
                     case 2: { // Admin.
-                        break;
+                        if (new CompanyController().selectiveUpdate(company, 2))
+                            return Response.noContent().build();
+                        else
+                            return Response.serverError().build();
                     }
                     default: {
                         logger.error("userType value is not correct.");
@@ -62,7 +69,6 @@ public class CompanyResource {
         } else {
             return Response.ok("No active session").build();
         }
-        return null;
     }
 
 }

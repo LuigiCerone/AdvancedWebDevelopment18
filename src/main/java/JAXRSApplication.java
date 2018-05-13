@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import rest.AuthenticationResource;
+import rest.CompanyResource;
 import rest.InternshipResource;
 import rest.StudentResource;
 
@@ -28,14 +29,12 @@ public class JAXRSApplication extends Application {
         //aggiungiamo tutte le *root resurces* (cioè quelle
         //con l'annotazione Path) che vogliamo pubblicare
         c.add(Resource1.class);
-        //notare come questo esempio presenti più risorse root
-//        c.add(Resource1sub4.class);
         c.add(AuthenticationResource.class);
         c.add(StudentResource.class);
         c.add(InternshipResource.class);
-//        c.add(Authentication_url.class);
-//        c.add(ArticlesRes.class);
-//        c.add(IssuesRes.class);
+        c.add(CompanyResource.class);
+
+
         //aggiungiamo il provider Jackson per poter
         //usare i suoi servizi di serializzazione e
         //deserializzazione JSON

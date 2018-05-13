@@ -24,7 +24,6 @@ public class Company {
     private String personFirstName;
     private String personLastName;
     private int personTelNumber;
-    private String personEmail;
     private String legalForum;
     private boolean active;
     private boolean visible;
@@ -41,14 +40,13 @@ public class Company {
         this.personFirstName = "";
         this.personLastName = "";
         this.personTelNumber = 0;
-        this.personEmail = "";
         this.legalForum = "";
         this.active = false;
         this.visible = false;
         this.credential = null;
     }
 
-    public Company(int id, String socialRegion, String legalAddress, String piva, String lawyerFirstName, String lawyerLastName, String personFirstName, String personLastName, int personTelNumber, String personEmail, String legalForum, boolean active, boolean visible, Credential credential) {
+    public Company(int id, String socialRegion, String legalAddress, String piva, String lawyerFirstName, String lawyerLastName, String personFirstName, String personLastName, int personTelNumber, String legalForum, boolean active, boolean visible, Credential credential) {
         this.id = id;
         this.socialRegion = socialRegion;
         this.legalAddress = legalAddress;
@@ -58,7 +56,6 @@ public class Company {
         this.personFirstName = personFirstName;
         this.personLastName = personLastName;
         this.personTelNumber = personTelNumber;
-        this.personEmail = personEmail;
         this.legalForum = legalForum;
         this.active = active;
         this.visible = visible;
@@ -127,14 +124,6 @@ public class Company {
 
     public void setPersonTelNumber(int personTelNumber) {
         this.personTelNumber = personTelNumber;
-    }
-
-    public String getPersonEmail() {
-        return personEmail;
-    }
-
-    public void setPersonEmail(String personEmail) {
-        this.personEmail = personEmail;
     }
 
     public String getLegalForum() {
