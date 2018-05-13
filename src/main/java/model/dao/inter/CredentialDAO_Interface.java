@@ -16,4 +16,8 @@ public interface CredentialDAO_Interface {
     boolean endSession(String value);
 
     boolean checkEmailAvailable(String email);
+
+    int checkSessionActive(String cookieValue, Timestamp nowTimestamp);
+
+    int getUserTypeFromCredentialId(int idCredential);
 }

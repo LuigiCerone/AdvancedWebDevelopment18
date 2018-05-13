@@ -31,6 +31,7 @@ public class CredentialController {
         String token;
 
         // Create a JSON form the string recevied.
+        // TODO Remove JSONObject, use Jackson deserialization.
         JSONObject jsonObject = new JSONObject(json);
 
         // Get credential object from DB with the given email.
@@ -69,5 +70,17 @@ public class CredentialController {
      */
     public boolean logout(String token) {
         return credentialDAO.endSession(token);
+    }
+
+    public int checkCookieAndGetUserType(String cookieValue) {
+        // First we need to check for session.
+        Calendar calendar = Calendar.getInstance();
+        int idCredential = -1;
+        idCredential = credentialDAO.checkSessionActive(cookieValue, new Timestamp(calendar.getTimeInMillis()));
+        if (idCredential != -1) {
+            // Session active.
+            return credentialDAO.getUserTypeFromCredentialId(idCredential);
+        }
+        return -1;
     }
 }

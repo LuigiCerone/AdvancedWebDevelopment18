@@ -34,7 +34,6 @@ public class AuthenticationRootResource {
 
     //DELETE /rest/auth/{SID}
     //Content-Type: application/json
-    @Path("auth")
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response logout(@CookieParam("sid") Cookie authcookie) {
@@ -46,6 +45,17 @@ public class AuthenticationRootResource {
             return Response.ok("No active session").build();
         }
     }
+
+    //ANY /rest/auth/aziende
+    //Content-Type: application/json
+    @Path("aziende")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CompanyRootResource company(@CookieParam("sid") Cookie authcookie) {
+        return new CompanyRootResource(authcookie);
+    }
+
+
+
 
     /*
      * Metodo accessibile solo previa verifica della sessione

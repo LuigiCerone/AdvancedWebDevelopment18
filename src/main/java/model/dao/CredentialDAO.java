@@ -96,7 +96,7 @@ public class CredentialDAO implements CredentialDAO_Interface {
             preparedStatement.setString(1, email);
 
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
+            if (resultSet.next()) {
                 rows = resultSet.getInt("count");
             }
             conn.close();
@@ -104,6 +104,52 @@ public class CredentialDAO implements CredentialDAO_Interface {
             e.printStackTrace();
         }
         return rows == 0;
+    }
+
+    @Override
+    public int checkSessionActive(String cookieValue, Timestamp nowTimestamp) {
+        String query = "SELECT id FROM credential WHERE credential.token = ? AND " +
+                "(credential.expiry IS NOT NULL AND credential.expiry > ?);;";
+        PreparedStatement preparedStatement;
+        int id = -1;
+
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setString(1, cookieValue);
+            preparedStatement.setTimestamp(2, nowTimestamp);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(Credential.ID);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    @Override
+    public int getUserTypeFromCredentialId(int idCredential) {
+        String query = "SELECT user_type FROM credential WHERE credential.id = ?;";
+        PreparedStatement preparedStatement;
+        int type = 0;
+
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setInt(1, idCredential);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                type = resultSet.getInt(Credential.USER_TYPE);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return type;
     }
 
     public boolean insert(Credential credential, String passwordToHash) {
