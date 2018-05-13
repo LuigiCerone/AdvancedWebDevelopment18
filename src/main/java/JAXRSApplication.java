@@ -1,5 +1,7 @@
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import rest.AuthenticationRootResource;
+import rest.AziendaRes;
+import rest.OffertaRes;
 import rest.StudentRootResource;
 
 import javax.ws.rs.ApplicationPath;
@@ -31,6 +33,8 @@ public class JAXRSApplication extends Application {
 //        c.add(Resource1sub4.class);
         c.add(AuthenticationRootResource.class);
         c.add(StudentRootResource.class);
+        c.add(OffertaRes.class);
+        c.add(AziendaRes.class);
 //        c.add(Authentication_url.class);
 //        c.add(ArticlesRes.class);
 //        c.add(IssuesRes.class);
