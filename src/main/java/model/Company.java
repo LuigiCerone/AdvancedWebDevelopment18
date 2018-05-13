@@ -1,6 +1,20 @@
 package model;
 
 public class Company {
+    // DB fields.
+    public static final String ID = "id";
+    public static final String SOCIAL_REGION = "social_region";
+    public static final String LEGAL_ADDRESS = "legal_address";
+    public static final String PIVA = "piva";
+    public static final String LAWYER_FIRST_NAME = "lawyer_first_name";
+    public static final String LAWYER_LAST_NAME = "lawyer_last_name";
+    public static final String PERSON_FIRST_NAME = "person_first_name";
+    public static final String PERSON_LAST_NAME = "person_last_name";
+    public static final String PERSON_TEL = "person_telnumber";
+    public static final String LEGAL_FORUM = "legal_forum";
+    public static final String ACTIVE = "active";
+    public static final String VISIBLE = "visible";
+
     private int id;
     private String socialRegion;
     private String legalAddress;

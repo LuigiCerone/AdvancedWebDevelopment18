@@ -60,15 +60,15 @@ CREATE TABLE company
 (
   id                INT AUTO_INCREMENT
     PRIMARY KEY,
-  socialRegion      VARCHAR(50)            NOT NULL,
-  legalAddress      VARCHAR(50)            NOT NULL,
+  social_region     VARCHAR(50)            NOT NULL,
+  legal_address     VARCHAR(50)            NOT NULL,
   piva              VARCHAR(50)            NOT NULL,
   lawyer_first_name VARCHAR(50)            NOT NULL,
   lawyer_last_name  VARCHAR(50)            NOT NULL,
   person_first_name VARCHAR(50)            NOT NULL,
   person_last_name  VARCHAR(50)            NOT NULL,
   person_telnumber  INT                    NOT NULL,
-  legalForum        VARCHAR(50)            NOT NULL,
+  legal_forum       VARCHAR(50)            NOT NULL,
   active            TINYINT(1) DEFAULT '0' NOT NULL,
   visible           TINYINT(1) DEFAULT '0' NOT NULL
 )

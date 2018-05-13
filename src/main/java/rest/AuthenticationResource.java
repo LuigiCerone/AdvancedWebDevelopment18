@@ -10,8 +10,8 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 
 @Path("auth")
-public class AuthenticationRootResource {
-    final static Logger logger = Logger.getLogger(AuthenticationRootResource.class);
+public class AuthenticationResource {
+    final static Logger logger = Logger.getLogger(AuthenticationResource.class);
 
     //POST /rest/auth
     //Content-Type: application/json
@@ -50,8 +50,8 @@ public class AuthenticationRootResource {
     //Content-Type: application/json
     @Path("aziende")
     @Produces(MediaType.APPLICATION_JSON)
-    public CompanyRootResource company(@CookieParam("sid") Cookie authcookie) {
-        return new CompanyRootResource(authcookie);
+    public CompanyResource company(@CookieParam("sid") Cookie authcookie) {
+        return new CompanyResource(authcookie);
     }
 
 

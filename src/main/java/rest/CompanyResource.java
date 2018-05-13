@@ -4,25 +4,31 @@ import controller.CredentialController;
 import model.Company;
 import org.apache.log4j.Logger;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("aziende")
-public class CompanyRootResource {
-    final static Logger logger = Logger.getLogger(CompanyRootResource.class);
+public class CompanyResource {
+    final static Logger logger = Logger.getLogger(CompanyResource.class);
 
     private Cookie authcookie;
 
-    public CompanyRootResource(Cookie authcookie) {
+    public CompanyResource(Cookie authcookie) {
         this.authcookie = authcookie;
     }
 
-    public CompanyRootResource() {
+    public CompanyResource() {
+
+    }
+
+    @GET
+    @Path("aziende/{id: [0-9]+}/offerte")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response InternshipByCompany(@PathParam("id") int m) {
+
+        return Response.ok(m).build();
 
     }
 

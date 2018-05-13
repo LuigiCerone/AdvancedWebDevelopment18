@@ -6,7 +6,7 @@ import javax.ws.rs.core.Response;
 
 
 @Path("offerte")
-public class OffertaRes {
+public class InternshipResource {
 
     /*
      * Questa root resource può essere utilizzata anche come sub-resource
@@ -18,11 +18,11 @@ public class OffertaRes {
 
     private int iid = 0;
 
-    public OffertaRes() {
+    public InternshipResource() {
         this.iid = 0;
     }
 
-    public OffertaRes(int iid) {
+    public InternshipResource(int iid) {
         this.iid = iid;
     }
 

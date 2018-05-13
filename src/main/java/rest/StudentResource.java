@@ -13,8 +13,8 @@ import java.net.URI;
 
 
 @Path("studenti")
-public class StudentRootResource {
-    final static Logger logger = Logger.getLogger(StudentRootResource.class);
+public class StudentResource {
+    final static Logger logger = Logger.getLogger(StudentResource.class);
 
     //POST /rest/studenti
     //Content-Type: application/json
@@ -26,8 +26,8 @@ public class StudentRootResource {
 
         if (id != -1) {
             URI u = c.getBaseUriBuilder()
-                    .path(StudentRootResource.class)
-                    .path(StudentRootResource.class, "getStudentById")
+                    .path(StudentResource.class)
+                    .path(StudentResource.class, "getStudentById")
                     .build(id);
             return Response.created(u).build();
         } else {
