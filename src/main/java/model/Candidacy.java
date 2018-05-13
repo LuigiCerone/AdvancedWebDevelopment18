@@ -1,8 +1,19 @@
 package model;
 
 public class Candidacy {
+
+    //DB fields.
+    public final static String ID = "id";
+    public final static String INTERNSHIP_FK = "internship_fk";
+    public final static String STUDENT_FK = "student_fk";
+    public final static String STATUS = "status";
+    public final static String N_CFU = "n_cfu";
+    public final static String FIRST_NAME_REFERENT = "first_name_referent";
+    public final static String LAST_NAME_REFERENT = "last_name_referent";
+    public final static String EMAIL_REFERENT = "email_referent";
+
     private int id;
-    private int internetshipFk;
+    private int internshipFk;
     private int studentFk;
     private int status;
     private int numCFU;
@@ -12,7 +23,7 @@ public class Candidacy {
 
     public Candidacy() {
         this.id = 0;
-        this.internetshipFk = 0;
+        this.internshipFk = 0;
         this.studentFk = 0;
         this.status = 0;
         this.numCFU = 0;
@@ -21,9 +32,9 @@ public class Candidacy {
         this.emailReferent = "";
     }
 
-    public Candidacy(int id, int internetshipFk, int studentFk, int status, int numCFU, String firstNameReferent, String lastNameReferent, String emailReferent) {
+    public Candidacy(int id, int interneshipFk, int studentFk, int status, int numCFU, String firstNameReferent, String lastNameReferent, String emailReferent) {
         this.id = id;
-        this.internetshipFk = internetshipFk;
+        this.internshipFk = interneshipFk;
         this.studentFk = studentFk;
         this.status = status;
         this.numCFU = numCFU;
@@ -40,12 +51,12 @@ public class Candidacy {
         this.id = id;
     }
 
-    public int getInternetshipFk() {
-        return internetshipFk;
+    public int getInternshipFk() {
+        return internshipFk;
     }
 
-    public void setInternetshipFk(int internetshipFk) {
-        this.internetshipFk = internetshipFk;
+    public void setInternshipFk(int internshipFk) {
+        this.internshipFk = internshipFk;
     }
 
     public int getStudentFk() {

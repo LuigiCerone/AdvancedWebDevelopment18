@@ -14,6 +14,7 @@ public class Company {
     public static final String LEGAL_FORUM = "legal_forum";
     public static final String ACTIVE = "active";
     public static final String VISIBLE = "visible";
+    public static final String COMPANY_FK = "company_fk";
 
     private int id;
     private String socialRegion;
@@ -28,6 +29,7 @@ public class Company {
     private boolean active;
     private boolean visible;
     private Credential credential;
+    private int company_fk;
 
 
     public Company() {
@@ -44,9 +46,10 @@ public class Company {
         this.active = false;
         this.visible = false;
         this.credential = null;
+        this.company_fk = 0;
     }
 
-    public Company(int id, String socialRegion, String legalAddress, String piva, String lawyerFirstName, String lawyerLastName, String personFirstName, String personLastName, int personTelNumber, String legalForum, boolean active, boolean visible, Credential credential) {
+    public Company(int id, String socialRegion, String legalAddress, String piva, String lawyerFirstName, String lawyerLastName, String personFirstName, String personLastName, int personTelNumber, String legalForum, boolean active, boolean visible, Credential credential, int company_fk) {
         this.id = id;
         this.socialRegion = socialRegion;
         this.legalAddress = legalAddress;
@@ -60,6 +63,15 @@ public class Company {
         this.active = active;
         this.visible = visible;
         this.credential = credential;
+        this.company_fk = company_fk;
+    }
+
+    public int getCompany_fk() {
+        return company_fk;
+    }
+
+    public void setCompany_fk(int company_fk) {
+        this.company_fk = company_fk;
     }
 
     public String getSocialRegion() {

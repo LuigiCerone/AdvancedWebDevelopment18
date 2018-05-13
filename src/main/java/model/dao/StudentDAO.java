@@ -47,4 +47,40 @@ public class StudentDAO implements StudentDAO_Interface {
         }
         return lastInsertedId;
     }
+
+    @Override
+    public Student getStudentById(int id) {
+        String query = "SELECT * FROM student WHERE id = ?;";
+        PreparedStatement preparedStatement;
+        Student student = null;
+
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setInt(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                student = new Student(resultSet.getInt(Student.ID),
+                        resultSet.getString(Student.FIRST_NAME),
+                        resultSet.getString(Student.LAST_NAME),
+                        resultSet.getDate(Student.BIRTH_DATE),
+                        resultSet.getString(Student.BIRTH_PLACE),
+                        resultSet.getString(Student.BIRTH_PLACE_PROVINCE),
+                        resultSet.getString(Student.RESIDENCE_PLACE),
+                        resultSet.getString(Student.RESIDENCE_PLACE_PROVINCE),
+                        resultSet.getString(Student.CF),
+                        resultSet.getInt(Student.TEL),
+                        resultSet.getString(Student.UNIVERSITY_LEVEL),
+                        resultSet.getString(Student.UNIVERSITY_COURSE),
+                        resultSet.getBoolean(Student.HANDICAP),
+                        null);
+            }
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return student;
+    }
 }

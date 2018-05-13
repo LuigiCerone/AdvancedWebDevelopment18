@@ -54,6 +54,31 @@ public class CompanyDAO implements CompanyDAO_Interface {
 
     @Override
     public boolean updateCompany(Company company) {
-        return false;
+        int rows = 0;
+        String query = "UPDATE company SET social_region = ?, legal_address = ?, lawyer_first_name = ?, " +
+                "lawyer_last_name = ?, person_first_name = ?, person_last_name =? , person_telnumber = ?, " +
+                "legal_forum = ?, active = ?, visible = ? WHERE company.id = ?";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, company.getSocialRegion());
+            preparedStatement.setString(2, company.getLegalAddress());
+            preparedStatement.setString(3, company.getLawyerFirstName());
+            preparedStatement.setString(4, company.getLawyerLastName());
+            preparedStatement.setString(5, company.getPersonFirstName());
+            preparedStatement.setString(6, company.getPersonLastName());
+            preparedStatement.setInt(6, company.getPersonTelNumber());
+            preparedStatement.setString(6, company.getLegalForum());
+            preparedStatement.setBoolean(6, company.isActive());
+            preparedStatement.setBoolean(6, company.isVisible());
+
+            rows = preparedStatement.executeUpdate();
+
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rows == 1;
     }
 }

@@ -52,4 +52,34 @@ public class StudentController {
         return -1;
     }
 
+    /**
+     * Method used to select information about a specific information. The returned info vary according to userType.
+     *
+     * @param userType     userType which is requesting information. 0=student, 1=company, 2=admin.
+     * @param idStudent    student's ID.
+     * @param idLoggedUser requesting user's ID.
+     * @return student instance, null otherwise.
+     */
+    public Student selectiveSelect(int userType, int idStudent, int idLoggedUser) {
+        switch (userType) {
+            case 0: {
+                // Student can get information only if id is his id.
+                if (idStudent != idLoggedUser) return null;
+                return studentDAO.getStudentById(idStudent);
+            }
+            case 1: {
+                // A company can see information only if student is doing an internship with them.
+                if (new InternshipController().checkUserInternshipInCompany(idStudent, idLoggedUser)) {
+                    return studentDAO.getStudentById(idStudent);
+                }
+            }
+            case 2: {
+                // Admin can always see infomation.
+                return studentDAO.getStudentById(idStudent);
+            }
+            default:
+                logger.error("userType value is not correct.");
+                return null;
+        }
+    }
 }

@@ -7,20 +7,21 @@ import java.sql.Date;
 
 public class Student {
 
+
     // DB fields name.
-    private static final String ID = "id";
-    private static final String FIRST_NAME = "first_name";
-    private static final String LAST_NAME = "last_name";
-    private static final String BIRTH_DATE = "birth_date";
-    private static final String BIRTH_PLACE = "birth_place";
-    private static final String BIRTH_PLACE_PROVINCE = "birth_place_province";
-    private static final String RESIDENCE_PLACE = "residence_place";
-    private static final String RESIDENCE_PLACE_PROVINCE = "residence_place_province";
-    private static final String CF = "cf";
-    private static final String TEL = "telnumber";
-    private static final String UNIVERSITY_LEVEL = "university_level";
-    private static final String UNIVERSITY_COURSE = "university_course";
-    private static final String HANDICAP = "handicap";
+    public static final String ID = "id";
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String BIRTH_DATE = "birth_date";
+    public static final String BIRTH_PLACE = "birth_place";
+    public static final String BIRTH_PLACE_PROVINCE = "birth_place_province";
+    public static final String RESIDENCE_PLACE = "residence_place";
+    public static final String RESIDENCE_PLACE_PROVINCE = "residence_place_province";
+    public static final String CF = "cf";
+    public static final String TEL = "telnumber";
+    public static final String UNIVERSITY_LEVEL = "university_level";
+    public static final String UNIVERSITY_COURSE = "university_course";
+    public static final String HANDICAP = "handicap";
 
 
     private int id;
@@ -61,7 +62,7 @@ public class Student {
         this.credential = new Credential();
     }
 
-    public Student(int id, String firstName, String lastName, Date birthDate, String birthPlace, String birthPlaceProvince, String residencePlace, String residencePlaceProvince, String cf, int telnumber, String universityLevel, String universityCourse, boolean handicap, String email, String password, Credential credential) {
+    public Student(int id, String firstName, String lastName, Date birthDate, String birthPlace, String birthPlaceProvince, String residencePlace, String residencePlaceProvince, String cf, int telnumber, String universityLevel, String universityCourse, boolean handicap, Credential credential) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

@@ -152,6 +152,28 @@ public class CredentialDAO implements CredentialDAO_Interface {
         return type;
     }
 
+    @Override
+    public int getUserIdByCookie(String cookie) {
+        String query = "SELECT id FROM credential WHERE credential.token = ?;";
+        PreparedStatement preparedStatement;
+        int id = -1;
+
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setString(1, cookie);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                id = resultSet.getInt(Credential.ID);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
     public boolean insert(Credential credential, String passwordToHash) {
         String query = "INSERT INTO credential VALUES (NULL, ?, ?, ?, NOW(), NOW(), NULL,0,?,?);";
         PreparedStatement preparedStatement;

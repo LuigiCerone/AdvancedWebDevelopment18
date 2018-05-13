@@ -88,7 +88,8 @@ CREATE TABLE internship
   goals         VARCHAR(256)                            NULL,
   work_type     VARCHAR(256)                            NULL,
   refund        FLOAT DEFAULT '0'                       NULL,
-  facilitations VARCHAR(256)                            NULL
+  facilitations VARCHAR(256)                            NULL,
+  company_fk    INT                                     NOT NULL
 )
   ENGINE = InnoDB;
 

@@ -83,4 +83,8 @@ public class CredentialController {
         }
         return -1;
     }
+
+    public int getUserIdByCookie(String cookie) {
+        return credentialDAO.getUserIdByCookie(cookie);
+    }
 }

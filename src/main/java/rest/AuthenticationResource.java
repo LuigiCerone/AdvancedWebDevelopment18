@@ -54,6 +54,13 @@ public class AuthenticationResource {
         return new CompanyResource(authcookie);
     }
 
+    //ANY /rest/auth/studenti
+    //Content-Type: application/json
+    @Path("studenti")
+    @Produces(MediaType.APPLICATION_JSON)
+    public StudentResource student(@CookieParam("sid") Cookie authcookie) {
+        return new StudentResource(authcookie);
+    }
 
 
 

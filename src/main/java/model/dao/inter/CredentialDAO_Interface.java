@@ -20,4 +20,6 @@ public interface CredentialDAO_Interface {
     int checkSessionActive(String cookieValue, Timestamp nowTimestamp);
 
     int getUserTypeFromCredentialId(int idCredential);
+
+    int getUserIdByCookie(String cookie);
 }
