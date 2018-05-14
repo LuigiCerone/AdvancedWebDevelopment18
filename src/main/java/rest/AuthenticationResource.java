@@ -66,10 +66,17 @@ public class AuthenticationResource {
     //Content-Type: application/json
     @Path("offerte")
     @Produces(MediaType.APPLICATION_JSON)
-    public CandidacyResource candidacy(@CookieParam("sid") Cookie authcookie) {
-        return new CandidacyResource(authcookie);
+    public InternshipResource internship(@CookieParam("sid") Cookie authcookie) {
+        return new InternshipResource(authcookie);
     }
 
+    //ANY /rest/auth/offerte/{id: [0-9]+}/candidati
+    //Content-Type: application/json
+    @Path("offerte/{id: [0-9]+}/candidati")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CandidacyResource candidacy(@CookieParam("sid") Cookie authcookie, @PathParam("id") int id) {
+        return new CandidacyResource(authcookie, id);
+    }
 
 
     /*
