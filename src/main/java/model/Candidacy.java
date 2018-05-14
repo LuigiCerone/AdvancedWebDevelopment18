@@ -1,5 +1,7 @@
 package model;
 
+import java.sql.Date;
+
 public class Candidacy {
 
     //DB fields.
@@ -11,6 +13,8 @@ public class Candidacy {
     public final static String FIRST_NAME_REFERENT = "first_name_referent";
     public final static String LAST_NAME_REFERENT = "last_name_referent";
     public final static String EMAIL_REFERENT = "email_referent";
+    public final static String START_DATE = "start_date";
+    public final static String END_DATE = "end_date";
 
     private int id;
     private int internshipFk;
@@ -20,6 +24,8 @@ public class Candidacy {
     private String firstNameReferent;
     private String lastNameReferent;
     private String emailReferent;
+    private Date startDate;
+    private Date endDate;
 
     public Candidacy() {
         this.id = 0;
@@ -30,9 +36,11 @@ public class Candidacy {
         this.firstNameReferent = "";
         this.lastNameReferent = "";
         this.emailReferent = "";
+        this.startDate = null;
+        this.endDate = null;
     }
 
-    public Candidacy(int id, int interneshipFk, int studentFk, int status, int numCFU, String firstNameReferent, String lastNameReferent, String emailReferent) {
+    public Candidacy(int id, int interneshipFk, int studentFk, int status, int numCFU, String firstNameReferent, String lastNameReferent, String emailReferent, Date startDate, Date endDate) {
         this.id = id;
         this.internshipFk = interneshipFk;
         this.studentFk = studentFk;
@@ -41,6 +49,24 @@ public class Candidacy {
         this.firstNameReferent = firstNameReferent;
         this.lastNameReferent = lastNameReferent;
         this.emailReferent = emailReferent;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public int getId() {

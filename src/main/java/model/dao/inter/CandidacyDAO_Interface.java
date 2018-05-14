@@ -7,4 +7,10 @@ import java.util.List;
 
 public interface CandidacyDAO_Interface {
     List<Candidacy> getAllActiveCandidacyForCompany(Timestamp timestamp, int idCompany);
+
+    Candidacy getCandidacyFromId(int candidacyId);
+
+    boolean update(Candidacy candidacy);
+
+    boolean rejectCandidacyById(int candidacyId);
 }

@@ -106,7 +106,9 @@ CREATE TABLE candidacy
   n_cfu               INT             NOT NULL,
   first_name_referent VARCHAR(50)     NOT NULL,
   last_name_referent  VARCHAR(50)     NOT NULL,
-  email_referent      VARCHAR(50)     NOT NULL
+  email_referent      VARCHAR(50)     NOT NULL,
+  start_date          DATE            NULL,
+  end_date            DATE            NULL
 )
   ENGINE = InnoDB;
 
