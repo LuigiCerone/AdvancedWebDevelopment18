@@ -1,6 +1,7 @@
 package model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 
 import java.sql.Date;
@@ -23,7 +24,7 @@ public class Student {
     public static final String UNIVERSITY_COURSE = "university_course";
     public static final String HANDICAP = "handicap";
 
-
+    @JsonIgnore
     private int id;
     private String firstName;
     private String lastName;

@@ -30,7 +30,9 @@ public class Credential {
     private String hashedPassword;
     private Timestamp createdAt;
     private Timestamp lastSeen;
+    @JsonIgnore
     private String token;
+    @JsonIgnore
     private Timestamp expiry;
     private int userType;
     private int userFk;
@@ -141,6 +143,7 @@ public class Credential {
         this.expiry = expiry;
     }
 
+    @JsonIgnore
     public int getUserType() {
         return userType;
     }
@@ -149,6 +152,7 @@ public class Credential {
         this.userType = userType;
     }
 
+    @JsonIgnore
     public int getUserFk() {
         return userFk;
     }
@@ -157,6 +161,7 @@ public class Credential {
         this.userFk = userFk;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }

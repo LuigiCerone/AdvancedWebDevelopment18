@@ -40,7 +40,8 @@ public class CompanyDAO implements CompanyDAO_Interface {
                         resultSet.getString(Company.LEGAL_FORUM),
                         resultSet.getBoolean(Company.ACTIVE),
                         resultSet.getBoolean(Company.VISIBLE),
-                        null
+                        null,
+                        resultSet.getInt(Company.COMPANY_FK)
                 );
             }
             conn.close();
@@ -80,5 +81,29 @@ public class CompanyDAO implements CompanyDAO_Interface {
             e.printStackTrace();
         }
         return rows == 1;
+    }
+
+    @Override
+    public boolean hasRightToPost(int companyId) {
+        boolean allowed = false;
+        String query = "SELECT active FROM company WHERE id = ?";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, companyId);
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                allowed = resultSet.getBoolean(Company.ACTIVE);
+            }
+
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allowed;
     }
 }

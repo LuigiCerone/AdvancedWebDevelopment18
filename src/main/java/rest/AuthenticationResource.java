@@ -62,6 +62,14 @@ public class AuthenticationResource {
         return new StudentResource(authcookie);
     }
 
+    //ANY /rest/auth/offerte
+    //Content-Type: application/json
+    @Path("offerte")
+    @Produces(MediaType.APPLICATION_JSON)
+    public CandidacyResource candidacy(@CookieParam("sid") Cookie authcookie) {
+        return new CandidacyResource(authcookie);
+    }
+
 
 
     /*

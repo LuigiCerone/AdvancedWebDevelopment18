@@ -1,16 +1,20 @@
 package controller;
 
 import model.Company;
+import model.Internship;
 import model.dao.CompanyDAO;
+import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
 public class CompanyController {
     final static Logger logger = Logger.getLogger(CompanyController.class);
 
     private CompanyDAO companyDAO;
+    private InternshipDAO internshipDAO;
 
     public CompanyController() {
         this.companyDAO = new CompanyDAO();
+        this.internshipDAO = new InternshipDAO();
     }
 
     /**
@@ -51,6 +55,25 @@ public class CompanyController {
         if (!company.getPersonLastName().equals("")) companyStored.setPersonLastName(company.getPersonLastName());
         if (company.getPersonTelNumber() != 0) companyStored.setPersonTelNumber(company.getPersonTelNumber());
         if (!company.getLegalForum().equals("")) companyStored.setLegalForum(company.getLegalForum());
+    }
+
+    /**
+     * Method used to first check if the company has the right to post new internship offer and then add the offer
+     * to the DB.
+     *
+     * @param companyId  company id.
+     * @param internship internship to add.
+     * @return > 0 if ok  (id of internship), 0 if the company can't post, -1 otherwise.
+     */
+    public int addInternshipIfAllowed(int companyId, Internship internship) {
+        int status = -1;
+
+        // Check if the company has the right to add internship.
+        if (companyDAO.hasRightToPost(companyId)) {
+            // Add internship into the DB and get the last inserted id.
+            status = internshipDAO.insert(internship);
+        }
+        return status;
     }
 }
 

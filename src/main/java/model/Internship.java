@@ -3,6 +3,20 @@ package model;
 import java.sql.Timestamp;
 
 public class Internship {
+
+    // DB fields.
+    public static final String ID = "id";
+    public static final String PLACE = "place";
+    public static final String REMOTE = "remote";
+    public static final String START_TIME = "start_time";
+    public static final String END_TIME = "end_time";
+    public static final String N_HOURS = "num_hours";
+    public static final String GOALS = "goals";
+    public static final String WORK_TYPE = "work_type";
+    public static final String REFUND = "refund";
+    public static final String FACILITATIONS = "facilitations";
+    public static final String COMPANY_FK = "company_fk";
+
     private int id;
     private String place;
     private boolean remote;
@@ -13,6 +27,7 @@ public class Internship {
     private String workType;
     private Float refund;
     private String facilitations;
+    private int company_fk;
 
     public Internship() {
         this.id = 0;
@@ -25,9 +40,10 @@ public class Internship {
         this.workType = "";
         this.refund = 0.0f;
         this.facilitations = ""; // Array?
+        this.company_fk = 0;
     }
 
-    public Internship(String place, boolean remote, Timestamp startTime, Timestamp endTime, int numberHour, String goals, String workType, Float refund, String facilitations, int id) {
+    public Internship(String place, boolean remote, Timestamp startTime, Timestamp endTime, int numberHour, String goals, String workType, Float refund, String facilitations, int id, int company_fk) {
         this.id = id;
         this.place = place;
         this.remote = remote;
@@ -38,6 +54,23 @@ public class Internship {
         this.workType = workType;
         this.refund = refund;
         this.facilitations = facilitations;
+        this.company_fk = company_fk;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getCompany_fk() {
+        return company_fk;
+    }
+
+    public void setCompany_fk(int company_fk) {
+        this.company_fk = company_fk;
     }
 
     public String getPlace() {

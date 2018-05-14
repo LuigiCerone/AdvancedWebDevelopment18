@@ -1,12 +1,26 @@
 package rest;
 
+import controller.CompanyController;
+import controller.CredentialController;
+import model.Internship;
+import org.apache.log4j.Logger;
+
 import javax.ws.rs.*;
+import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
 @Path("offerte")
 public class InternshipResource {
+
+    final static Logger logger = Logger.getLogger(InternshipResource.class);
+
+    private Cookie authcookie;
+
+    public InternshipResource(Cookie authcookie) {
+        this.authcookie = authcookie;
+    }
 
     /*
      * Questa root resource può essere utilizzata anche come sub-resource
@@ -31,7 +45,7 @@ public class InternshipResource {
     @GET
     @Path("offerte/{id: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOffertaByID(@PathParam("id") int n){
+    public Response getOffertaByID(@PathParam("id") int n) {
 
         return Response.ok(n).build();
     }
@@ -45,5 +59,29 @@ public class InternshipResource {
 //
 //        //TODO qualcosa
 //    }
+
+    //POST /rest/auth/offerte/
+    //Accept: application/json
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postCandidacyInfo(Internship internship) {
+
+        if (authcookie != null) {
+            int companyId = new CredentialController().getUserIdByCookie(authcookie.getValue());
+
+            int status = new CompanyController().addInternshipIfAllowed(companyId, internship);
+            if (status > 0) {// Inserted.
+                //  Build URI.
+                return Response.ok().build();
+            } else if (status == 0) {
+                return Response.status(403).build();
+            } else {
+                logger.error("Error while inserting new internship offer.");
+                return Response.serverError().build();
+            }
+        } else {
+            return Response.ok("No active session").build();
+        }
+    }
 }
 
