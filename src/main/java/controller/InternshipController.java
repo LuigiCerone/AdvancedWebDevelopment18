@@ -6,11 +6,12 @@ import model.dao.CandidacyDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
-
 import java.io.File;
 import java.sql.Timestamp;
 import java.util.Calendar;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class InternshipController {
     final static Logger logger = Logger.getLogger(InternshipController.class);
@@ -44,18 +45,6 @@ public class InternshipController {
         }
         return false;
     }
-
-    public Internship checkDate(Timestamp t){
-
-        return internshipDAO.getInternshipByDate(t);
-
-    }
-
-    public Internship checkTwoDate(Timestamp t1, Timestamp t2){
-
-        return internshipDAO.getInternshipByTwoDate(t1,t2);
-    }
-
 
     /**
      * Method used to check if the candidacy with id = candidacyId is related to an internship made by company with id =
@@ -163,4 +152,50 @@ public class InternshipController {
         return file;
     }
 
+    /**
+     * Method used to get internships list filtered according to given filters.
+     *
+     * @param filter filter that needs to be used: filter=città, min, max.
+     * @param n      filter parameter, i.e. name of the city or number of hours.
+     * @param first  first parameter used for pagination.
+     * @param last   last parameter used for pagination.
+     * @return list of internships.
+     */
+    public LinkedList<Internship> getFilteredInterships(String filter, String n, int first, int last) {
+        LinkedList<Internship> list = null;
+
+        if (filter != null) {
+            // Check which type of filter is used.
+            switch (filter) {
+                case "città": {
+                    list = internshipDAO.getInternshipfilteredByCriteria(1, n);
+                }
+                case "min": {
+                    list = internshipDAO.getInternshipfilteredByCriteria(2, n);
+                }
+                case "max": {
+                    list = internshipDAO.getInternshipfilteredByCriteria(3, n);
+                }
+                default: {
+                    logger.error("Unknown error.");
+                }
+            }
+        } else {
+            // Get all internships.
+            list = internshipDAO.getAllInternships();
+        }
+
+        // Now paginate.
+        if (first != 0 && last != 0) {
+            //  Full pagination.
+            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first && internship.getId() >= last;
+            list.removeIf(internshipPredicate);
+        } else if (first != 0 && last == 0) {
+            // Half pagination.
+            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first;
+            list.removeIf(internshipPredicate);
+        }
+
+        return list;
+    }
 }

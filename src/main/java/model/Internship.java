@@ -1,6 +1,7 @@
 package model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
 
 public class Internship {
 
@@ -16,18 +17,22 @@ public class Internship {
     public static final String REFUND = "refund";
     public static final String FACILITATIONS = "facilitations";
     public static final String COMPANY_FK = "company_fk";
+    public static final String START_DATE = "start_date";
+    public static final String END_DATE = "end_date";
 
     private int id;
     private String place;
     private boolean remote;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private Time startTime;
+    private Time endTime;
     private int numberHour;
     private String goals;
     private String workType;
     private Float refund;
     private String facilitations;
     private int company_fk;
+    private Date startDate;
+    private Date endDate;
 
     public Internship() {
         this.id = 0;
@@ -41,9 +46,11 @@ public class Internship {
         this.refund = 0.0f;
         this.facilitations = ""; // Array?
         this.company_fk = 0;
+        this.startDate = null;
+        this.endDate = null;
     }
 
-    public Internship(String place, boolean remote, Timestamp startTime, Timestamp endTime, int numberHour, String goals, String workType, Float refund, String facilitations, int id, int company_fk) {
+    public Internship(int id, String place, boolean remote, Time startTime, Time endTime, int numberHour, String goals, String workType, Float refund, String facilitations, int company_fk, Date startDate, Date endDate) {
         this.id = id;
         this.place = place;
         this.remote = remote;
@@ -55,6 +62,40 @@ public class Internship {
         this.refund = refund;
         this.facilitations = facilitations;
         this.company_fk = company_fk;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Time getStartTime() {
+        return startTime;
+    }
+
+    public Time getEndTime() {
+        return endTime;
+    }
+
+    public void setStartTime(Time startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(Time endTime) {
+        this.endTime = endTime;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public int getId() {
@@ -87,22 +128,6 @@ public class Internship {
 
     public void setRemote(boolean remote) {
         this.remote = remote;
-    }
-
-    public Timestamp getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
-
-    public Timestamp getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
     }
 
     public int getNumberHour() {
