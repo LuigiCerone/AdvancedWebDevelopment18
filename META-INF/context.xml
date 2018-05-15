@@ -4,5 +4,5 @@
               maxActive="50" maxIdle="30" maxWait="10000"
               username="awd2018" password="awd2018"
               driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/awd"/>
+              url="jdbc:mysql://localhost:3306/awd?zeroDateTimeBehavior=convertToNull"/>
 </Context>

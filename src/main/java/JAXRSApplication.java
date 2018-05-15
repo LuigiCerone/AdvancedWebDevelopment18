@@ -28,7 +28,7 @@ public class JAXRSApplication extends Application {
         HashSet<Class<?>> c = new HashSet<Class<?>>();
         //aggiungiamo tutte le *root resurces* (cioè quelle
         //con l'annotazione Path) che vogliamo pubblicare
-        c.add(Resource1.class);
+//        c.add(Resource1.class);
         c.add(AuthenticationResource.class);
         c.add(StudentResource.class);
         c.add(InternshipResource.class);

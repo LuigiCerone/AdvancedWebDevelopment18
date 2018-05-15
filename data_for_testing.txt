@@ -1,5 +1,29 @@
 Per provare:
-/rest/studenti POST
+(1) http://localhost:8080/awd18/rest/auth POST
+{
+	"email": "test@test.com",
+	"password": "passwordsicura"
+}
+
+(2) http://localhost:8080/awd18/rest/auth DELETE
+cookie con token
+
+(3) http://localhost:8080/awd18/rest/aziende GET
+
+(4) http://localhost:8080/awd18/rest/aziende POST
+{
+
+}
+
+(5) http://localhost:8080/awd18/rest/aziende/{id} GET
+
+(6) http://localhost:8080/awd18/rest/auth/aziende/{ID} PUT
+Con token valido.
+{
+
+}
+
+(7) http://localhost:8080/awd18/rest/studenti POST
 {
 	"firstName": "Nome",
 	"lastName": "Cognome",
@@ -19,3 +43,32 @@ Per provare:
 	    }
 	}
 
+(8) http://localhost:8080/awd18/auth/studenti/{ID} GET
+Con token valido.
+
+(9) http://localhost:8080/awd18/offerte/{ID} GET
+
+(10) http://localhost:8080/awd18/offerte? {FILTER}[first={m}[&last={n}]] GET
+
+(11) http://localhost:8080/awd18/auth/offerte POST
+Con token valido.
+{
+
+}
+
+(12) http://localhost:8080/awd18/aziende/{ID}/offerte GET
+
+(13) http://localhost:8080/awd18/auth/offerte/{ID}/candidati POST
+Con token valido.
+
+(14) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc} PUT
+Con token valido.
+{
+
+}
+
+(15) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc} DELETE
+Con token valido.
+
+(16) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc}/progetto-formativo GET
+Con token valido.
