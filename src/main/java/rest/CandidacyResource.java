@@ -1,11 +1,14 @@
 package rest;
 
+import com.sun.jndi.toolkit.url.Uri;
+import controller.CredentialController;
+import model.Candidacy;
+import model.dao.CandidacyDAO;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
+import java.net.URI;
 
 public class CandidacyResource {
     final static Logger logger = Logger.getLogger(CandidacyResource.class);
@@ -19,8 +22,8 @@ public class CandidacyResource {
     }
 
 
-    //POST rest/auth/offerte/{id: [0-9]+}/candidati
-    //Accept: application/json
+//    POST rest/auth/offerte/{id: [0-9]+}/candidati
+//    Accept: application/json
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertCandidacy(@PathParam("id") int n) {

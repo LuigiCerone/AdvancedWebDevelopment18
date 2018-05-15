@@ -1,8 +1,10 @@
 package controller;
 
 import model.Candidacy;
+import model.Internship;
 import model.dao.CandidacyDAO;
 import model.dao.InternshipDAO;
+
 
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -30,4 +32,16 @@ public class InternshipController {
         }
         return false;
     }
+
+    public Internship checkDate(Timestamp t){
+
+        return internshipDAO.getInternshipByDate(t);
+
+    }
+
+    public Internship checkTwoDate(Timestamp t1, Timestamp t2){
+
+        return internshipDAO.getInternshipByTwoDate(t1,t2);
+    }
+
 }
