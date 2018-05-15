@@ -135,4 +135,35 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
         }
         return rows == 1;
     }
+
+    public int InsertCandidacy(Candidacy candidacy) {
+        String query = "INSERT INTO candidacy VALUES (NULL,?,?,?,?,?,?,?,?,?);";
+        PreparedStatement preparedStatement;
+        int lastInsertedId = -1;
+
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+
+            preparedStatement.setInt(1, candidacy.getInternshipFk());
+            preparedStatement.setInt(2, candidacy.getStudentFk());
+            preparedStatement.setInt(3, candidacy.getStatus());
+            preparedStatement.setInt(4, candidacy.getNumCFU());
+            preparedStatement.setString(5, candidacy.getFirstNameReferent());
+            preparedStatement.setString(6, candidacy.getLastNameReferent());
+            preparedStatement.setString(7, candidacy.getEmailReferent());
+            preparedStatement.setDate(8, candidacy.getStartDate());
+            preparedStatement.setDate(9, candidacy.getEndDate());
+
+            lastInsertedId = preparedStatement.executeUpdate();
+            ResultSet rs = preparedStatement.getGeneratedKeys();
+            if (rs.next()) {
+                lastInsertedId = rs.getInt(1);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return lastInsertedId;
+    }
+    }
 }

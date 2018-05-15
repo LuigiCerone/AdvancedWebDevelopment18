@@ -161,4 +161,12 @@ public class InternshipController {
         File file = new File("PATH"); // Initialize this to the File path you want to serve.
         return file;
     }
+
+    public Internship getInternshipByID(int id){
+        return internshipDAO.getInternshipFromID(id);
+    }
+
+    public List<Internship> getListInternshiByCompanyID(int m) {
+        return internshipDAO.getIntershipByCompanyID(m);
+    }
 }

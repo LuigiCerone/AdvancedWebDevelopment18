@@ -2,13 +2,17 @@ package rest;
 
 import controller.CompanyController;
 import controller.CredentialController;
+import controller.InternshipController;
 import model.Company;
+import model.Internship;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.LinkedList;
+import java.util.List;
 
 @Path("aziende")
 public class CompanyResource {
@@ -29,9 +33,11 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response InternshipByCompany(@PathParam("id") int m) {
 
-        return Response.ok(m).build();
+        List<Internship> list = new InternshipController().getListInternshiByCompanyID(m);
+        return Response.ok(list).build();
 
     }
+
 
     @PUT
     @Path("{id: [0-9]+}")

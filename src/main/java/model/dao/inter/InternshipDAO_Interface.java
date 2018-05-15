@@ -3,6 +3,7 @@ package model.dao.inter;
 import model.Internship;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public interface InternshipDAO_Interface {
 
@@ -12,4 +13,7 @@ public interface InternshipDAO_Interface {
 
     Internship getInternshipByTwoDate(Timestamp timestamp1, Timestamp timestamp2);
 
+    Internship getInternshipFromID(int id);
+
+    List<Internship>  getIntershipByCompanyID(int id);
 }

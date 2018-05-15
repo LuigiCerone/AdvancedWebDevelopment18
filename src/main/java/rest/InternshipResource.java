@@ -51,9 +51,10 @@ public class InternshipResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOffertByID(@PathParam("id") int n) {
 
+        Internship internship = new InternshipController().getInternshipByID(n);
 
 
-        return Response.ok(n).build();
+        return Response.ok(internship).build();
     }
 
 

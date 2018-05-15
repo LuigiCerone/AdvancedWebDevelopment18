@@ -6,9 +6,7 @@ import model.Candidacy;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
 import java.io.File;
 
 public class CandidacyResource {
@@ -27,14 +25,22 @@ public class CandidacyResource {
     //Accept: application/json
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertCandidacy(@PathParam("id") int n) {
-        /*
-         * L'annotazione @PathParam permette di "iniettare"
-         * su un parametro del metodo il valore effettivo del
-         * parametro della URL col nome indicato. JAX-RS proverà
-         * a convertire il parametro della URL nel tipo richiesto
-         * dal metodo.
-         */
+    public Response insertCandidacy(@PathParam("id") int n, @Context UriInfo c, Candidacy candidacy) {
+        if (authcookie != null) {
+            int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
+            if (userType != -1) {
+                // userType contains an integer 0=student, 1=company, 2=admin.
+                switch (userType) {
+                    case 0: { // Student.
+                        {
+                            int id = CandidacyController.insertCandidacy(candidacy);
+                        }
+                        }
+
+
+
+
+
         return Response.ok(n).build();
     }
 
