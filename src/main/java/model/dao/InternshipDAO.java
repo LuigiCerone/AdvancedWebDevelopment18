@@ -50,4 +50,71 @@ public class InternshipDAO implements InternshipDAO_Interface {
         }
         return lastInsertedId;
     }
+
+    public Internship getInternshipByDate(Timestamp t){
+        Internship internship = null;
+        String query="SELECT * FROM internship WHERE start_time => ?;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setTimestamp(1, t);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                internship = new Internship(
+                        resultSet.getInt(Internship.ID);
+                resultSet.getString(Internship.PLACE);
+                resultSet.getBoolean(Internship.REMOTE);
+                resultSet.getTimestamp(Internship.START_TIME);
+                resultSet.getTimestamp(Internship.END_TIME);
+                resultSet.getInt(Internship.N_HOURS);
+                resultSet.getString(Internship.GOALS);
+                resultSet.getString(Internship.WORK_TYPE);
+                resultSet.getFloat(Internship.REFUND);
+                resultSet.getString(Internship.FACILITATIONS);
+                );
+            }
+            conn.close();
+
+            return internship;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public Internship getInternshipByTwoDate(Timestamp t1, Timestamp t2){
+        Internship internship = null;
+        String query="SELECT * FROM internship WHERE start_time => ? AND internship.end_time <= ?;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setTimestamp(1, t1);
+            preparedStatement.setTimestamp(1, t2);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                internship = new Internship(
+                        resultSet.getInt(Internship.ID);
+                resultSet.getString(Internship.PLACE);
+                resultSet.getBoolean(Internship.REMOTE);
+                resultSet.getTimestamp(Internship.START_TIME);
+                resultSet.getTimestamp(Internship.END_TIME);
+                resultSet.getInt(Internship.N_HOURS);
+                resultSet.getString(Internship.GOALS);
+                resultSet.getString(Internship.WORK_TYPE);
+                resultSet.getFloat(Internship.REFUND);
+                resultSet.getString(Internship.FACILITATIONS);
+                );
+            }
+            conn.close();
+
+            return internship;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 }

@@ -1,9 +1,11 @@
 package controller;
 
 import model.Candidacy;
+import model.Internship;
 import model.dao.CandidacyDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
+
 
 import java.io.File;
 import java.sql.Timestamp;
@@ -42,6 +44,18 @@ public class InternshipController {
         }
         return false;
     }
+
+    public Internship checkDate(Timestamp t){
+
+        return internshipDAO.getInternshipByDate(t);
+
+    }
+
+    public Internship checkTwoDate(Timestamp t1, Timestamp t2){
+
+        return internshipDAO.getInternshipByTwoDate(t1,t2);
+    }
+
 
     /**
      * Method used to check if the candidacy with id = candidacyId is related to an internship made by company with id =

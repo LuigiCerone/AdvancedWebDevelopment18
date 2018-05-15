@@ -8,6 +8,9 @@ import java.util.List;
 public interface CandidacyDAO_Interface {
     List<Candidacy> getAllActiveCandidacyForCompany(Timestamp timestamp, int idCompany);
 
+    int insert(Candidacy candidacy);
+
+
     Candidacy getCandidacyFromId(int candidacyId);
 
     boolean update(Candidacy candidacy);

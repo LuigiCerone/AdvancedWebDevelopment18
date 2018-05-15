@@ -2,12 +2,17 @@ package rest;
 
 import controller.CompanyController;
 import controller.CredentialController;
+import controller.InternshipController;
+import model.Candidacy;
 import model.Internship;
+import model.dao.CandidacyDAO;
 import org.apache.log4j.Logger;
 
+import javax.print.attribute.standard.Media;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
+import java.sql.Timestamp;
 
 
 @Path("offerte")
@@ -44,7 +49,9 @@ public class InternshipResource {
     @GET
     @Path("offerte/{id: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOfferByID(@PathParam("id") int n) {
+    public Response getOffertByID(@PathParam("id") int n) {
+
+
 
         return Response.ok(n).build();
     }
@@ -52,12 +59,21 @@ public class InternshipResource {
 
     //GET /rest/res1/offerte?{FILTER}{first={m}[&last={n}]
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getOffertaByIDWithQuery(@QueryParam("m") int m , @QueryParam("n") int n){
-//
-//        //TODO qualcosa
-//    }
+    @GET
+    @Path("offerte/{d: [a-zA-Z]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getOffertWithQuery(@PathParam("d") String d, @QueryParam("f") Timestamp f , @QueryParam("l") Timestamp l){
+
+        if( f == null && l == null ) {
+            return Response.ok(d).build();
+        } else if ( f !=null && l == null) {
+            Internship internship = new InternshipController().checkDate(f);
+            return Response.ok(internship).build();
+        } else {
+            Internship internship = new InternshipController().checkTwoDate(f, l);
+            return Response.ok(internship).build();
+        }
+    }
 
     //POST /rest/auth/offerte/
     //Accept: application/json
@@ -73,7 +89,7 @@ public class InternshipResource {
                 //  Build URI.
                 URI u = c.getBaseUriBuilder()
                         .path(StudentResource.class)
-                        .path(StudentResource.class, "getOfferByID")
+                        .path(StudentResource.class, "getOffertByID")
                         .build(status);
                 return Response.created(u).build();
             } else if (status == 0) {
@@ -86,5 +102,53 @@ public class InternshipResource {
             return Response.ok("No active session").build();
         }
     }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response insertCandidacy(@Context UriInfo c,Candidacy candidacy) {
+
+        if (authcookie != null) {
+            int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
+            if (userType != -1) {
+                // userType contains an integer 0=student, 1=company, 2=admin.
+                switch (userType) {
+                    case 0: { // Student.
+                        {
+                            int in = new CandidacyDAO().insert(candidacy);
+                            URI u = c.getBaseUriBuilder()
+                                    .path(InternshipResource.class)
+                                    .path(InternshipResource.class, "getOffertByID")
+                                    .build(id   );
+                            return Response.created(u).build();
+                        } else {
+                            return Response.serverError().build();
+                        }
+                    }
+                    case 1: { // Company.
+                        return Response.status(403).build();
+                    }
+                    case 2: { // Admin.
+                        return Response.status(403).build();
+                    }
+                    default: {
+                        logger.error("userType value is not correct.");
+                        return Response.serverError().build();
+                    }
+                }
+            }
+            else {
+                return Response.ok("No active session").build();
+            }
+        } else {
+            return Response.ok("No active session").build();
+        }
+    }
+
+
+    @Path("candidati"){
+        public Candidacy toCandidacy() { return new  Candidacy(3); }
+    }
+
+
 }
 
