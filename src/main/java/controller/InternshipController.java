@@ -144,7 +144,9 @@ public class InternshipController {
     }
 
     public File getPdfForCandidacy(int candidacyId) {
+        // TODO Get the PDF somehow.
         File file = new File("PATH"); // Initialize this to the File path you want to serve.
         return file;
     }
+
 }

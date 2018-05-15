@@ -9,7 +9,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.io.File;
+import javax.ws.rs.core.StreamingOutput;
+import java.io.*;
 
 public class CandidacyResource {
     final static Logger logger = Logger.getLogger(CandidacyResource.class);
@@ -105,7 +106,7 @@ public class CandidacyResource {
     @GET
     @Path("{idc: [0-9]+}/progetto-formativo")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response getCandidacy(@PathParam("idc") int candidacyId) {
+    public Response getCandidacy(@PathParam("idc") int candidacyId) throws FileNotFoundException {
         if (authcookie != null) {
             int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
             if (userType != -1) {
@@ -116,7 +117,34 @@ public class CandidacyResource {
                     if (status == 1) {
                         // Retrun pdf.
                         File file = new InternshipController().getPdfForCandidacy(candidacyId);
-                        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+
+                        // Use file.
+//                        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+//                                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"") //optional
+//                                .build();
+
+                        // Use stream.
+                        StreamingOutput result = null;
+                        try {
+                            byte[] buf = new byte[8192];
+
+                            InputStream is = new FileInputStream(file);
+
+                            result = new StreamingOutput() {
+                                @Override
+                                public void write(OutputStream out) throws IOException {
+                                    int c;
+                                    while ((c = is.read(buf, 0, buf.length)) > 0) {
+                                        out.write(buf, 0, c);
+                                        out.flush();
+                                    }
+                                }
+                            };
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        return Response.ok(result, MediaType.APPLICATION_OCTET_STREAM)
                                 .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"") //optional
                                 .build();
                     } else if (status == 0) {
@@ -128,6 +156,8 @@ public class CandidacyResource {
             } else {
                 return Response.ok("No active session").build();
             }
-        } else return Response.ok("No active session").build();
+        } else return Response.ok("No active session").
+
+                build();
     }
 }
