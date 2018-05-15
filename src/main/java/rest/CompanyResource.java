@@ -33,7 +33,7 @@ public class CompanyResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response InternshipByCompany(@PathParam("id") int m) {
 
-        List<Internship> list = new InternshipController().getListInternshiByCompanyID(m);
+        LinkedList<Internship> list = new InternshipController().getListInternshiByCompanyID(m);
         return Response.ok(list).build();
 
     }

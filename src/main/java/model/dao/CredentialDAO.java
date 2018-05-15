@@ -24,18 +24,18 @@ public class CredentialDAO implements CredentialDAO_Interface {
             preparedStatement.setString(1, email);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                credential = new Credential(
-                        resultSet.getInt(Credential.ID),
-                        resultSet.getString(Credential.EMAIL),
-                        resultSet.getBytes(Credential.SALT),
-                        resultSet.getString(Credential.HASHED_PSW),
-                        resultSet.getTimestamp(Credential.CREATED_AT),
-                        resultSet.getTimestamp(Credential.LAST_SEEN),
-                        resultSet.getString(Credential.TOKEN),
-                        resultSet.getTimestamp(Credential.EXPIRY),
-                        resultSet.getInt(Credential.USER_TYPE),
-                        resultSet.getInt(Credential.USER_FK)
-                );
+                    credential = new Credential(
+                            resultSet.getInt(Credential.ID),
+                            resultSet.getString(Credential.EMAIL),
+                            resultSet.getBytes(Credential.SALT),
+                            resultSet.getString(Credential.HASHED_PSW),
+                            resultSet.getTimestamp(Credential.CREATED_AT),
+                            resultSet.getTimestamp(Credential.LAST_SEEN),
+                            resultSet.getString(Credential.TOKEN),
+                            resultSet.getTimestamp(Credential.EXPIRY),
+                            resultSet.getInt(Credential.USER_TYPE),
+                            resultSet.getInt(Credential.USER_FK)
+                    );
             }
             conn.close();
 

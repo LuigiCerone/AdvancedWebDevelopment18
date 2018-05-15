@@ -1,19 +1,22 @@
 package model.dao.inter;
 
+
 import model.Internship;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.LinkedList;
 
 public interface InternshipDAO_Interface {
 
     int insert(Internship internship);
 
-    Internship getInternshipByDate(Timestamp timestamp);
+    LinkedList<Internship> getAllInternships();
 
-    Internship getInternshipByTwoDate(Timestamp timestamp1, Timestamp timestamp2);
+    LinkedList<Internship> getInternshipfilteredByCriteria(int i, String n);
 
     Internship getInternshipFromID(int id);
 
-    List<Internship>  getIntershipByCompanyID(int id);
+    LinkedList<Internship> getIntershipByCompanyID(int m);
+
 }

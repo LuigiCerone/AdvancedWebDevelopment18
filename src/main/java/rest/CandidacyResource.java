@@ -3,11 +3,14 @@ package rest;
 import controller.CredentialController;
 import controller.InternshipController;
 import model.Candidacy;
+import model.Internship;
+import model.dao.CandidacyDAO;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.io.File;
+import java.io.*;
+import java.net.URI;
 
 public class CandidacyResource {
     final static Logger logger = Logger.getLogger(CandidacyResource.class);
@@ -32,16 +35,30 @@ public class CandidacyResource {
                 // userType contains an integer 0=student, 1=company, 2=admin.
                 switch (userType) {
                     case 0: { // Student.
-                        {
-                            int id = CandidacyController.insertCandidacy(candidacy);
-                        }
-                        }
-
-
-
-
-
-        return Response.ok(n).build();
+                        int id = CandidacyDAO.insert(candidacy);
+                        URI u = c.getBaseUriBuilder()
+                                .path(InternshipResource.class)
+                                .path(InternshipResource, "getOffertByID")
+                                .build(id);
+                        return Response.created(u).build();
+                    }
+                    case 1: { // Company.
+                        return Response.status(403).build();
+                    }
+                    case 2: { // Admin.
+                        return Response.status(403).build();
+                    }
+                    default: {
+                        logger.error("userType value is not correct.");
+                        return Response.serverError().build();
+                    }
+                }
+            } else {
+                return Response.ok("No active session").build();
+            }
+        } else {
+            return Response.ok("No active session").build();
+        }
     }
 
     //PUT rest/auth/offerte/{id: [0-9]+}/candidati/{idc: [0-9]+}
@@ -122,7 +139,34 @@ public class CandidacyResource {
                     if (status == 1) {
                         // Retrun pdf.
                         File file = new InternshipController().getPdfForCandidacy(candidacyId);
-                        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+
+                        // Use file.
+//                        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
+//                                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"") //optional
+//                                .build();
+
+                        // Use stream.
+                        StreamingOutput result = null;
+                        try {
+                            byte[] buf = new byte[8192];
+
+                            InputStream is = new FileInputStream(file);
+
+                            result = new StreamingOutput() {
+                                @Override
+                                public void write(OutputStream out) throws IOException {
+                                    int c;
+                                    while ((c = is.read(buf, 0, buf.length)) > 0) {
+                                        out.write(buf, 0, c);
+                                        out.flush();
+                                    }
+                                }
+                            };
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
+                        return Response.ok(result, MediaType.APPLICATION_OCTET_STREAM)
                                 .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"") //optional
                                 .build();
                     } else if (status == 0) {
@@ -134,6 +178,8 @@ public class CandidacyResource {
             } else {
                 return Response.ok("No active session").build();
             }
-        } else return Response.ok("No active session").build();
+        } else return Response.ok("No active session").
+
+                build();
     }
 }

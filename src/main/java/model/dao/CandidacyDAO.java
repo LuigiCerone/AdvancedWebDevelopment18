@@ -136,7 +136,7 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
         return rows == 1;
     }
 
-    public int InsertCandidacy(Candidacy candidacy) {
+    public int insert(Candidacy candidacy) {
         String query = "INSERT INTO candidacy VALUES (NULL,?,?,?,?,?,?,?,?,?);";
         PreparedStatement preparedStatement;
         int lastInsertedId = -1;
@@ -165,5 +165,5 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
         }
         return lastInsertedId;
     }
-    }
+
 }

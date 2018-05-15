@@ -20,6 +20,9 @@ public class StudentResource {
         this.authcookie = authcookie;
     }
 
+    public StudentResource() {
+    }
+
     //POST /rest/studenti
     //Content-Type: application/json
     @POST

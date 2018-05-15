@@ -80,16 +80,18 @@ CREATE TABLE internship
 (
   id            INT AUTO_INCREMENT
     PRIMARY KEY,
-  place         VARCHAR(50)                             NOT NULL,
-  remote        TINYINT(1) DEFAULT '0'                  NOT NULL,
-  start_time    TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL ON UPDATE CURRENT_TIMESTAMP,
-  end_time      TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
-  num_hours     INT                                     NOT NULL,
-  goals         VARCHAR(256)                            NULL,
-  work_type     VARCHAR(256)                            NULL,
-  refund        FLOAT DEFAULT '0'                       NULL,
-  facilitations VARCHAR(256)                            NULL,
-  company_fk    INT                                     NOT NULL
+  place         VARCHAR(50)            NOT NULL,
+  remote        TINYINT(1) DEFAULT '0' NOT NULL,
+  start_time    TIME                   NULL,
+  end_time      TIME                   NULL,
+  num_hours     INT                    NOT NULL,
+  goals         VARCHAR(256)           NULL,
+  work_type     VARCHAR(256)           NULL,
+  refund        FLOAT DEFAULT '0'      NULL,
+  facilitations VARCHAR(256)           NULL,
+  company_fk    INT                    NOT NULL,
+  start_date    DATE                   NOT NULL,
+  end_date      DATE                   NOT NULL
 )
   ENGINE = InnoDB;
 

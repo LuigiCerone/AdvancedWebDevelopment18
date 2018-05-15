@@ -35,7 +35,6 @@ public class AuthenticationResource {
     //DELETE /rest/auth/{SID}
     //Content-Type: application/json
     @DELETE
-    @Produces(MediaType.APPLICATION_JSON)
     public Response logout(@CookieParam("sid") Cookie authcookie) {
         if (authcookie != null && new CredentialController().logout(authcookie.getValue())) {
             NewCookie resetauthcookie = new NewCookie(authcookie, null, 0, false);
