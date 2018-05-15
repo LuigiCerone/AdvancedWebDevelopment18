@@ -84,6 +84,12 @@ public class CredentialController {
         return -1;
     }
 
+    /**
+     * Method used to get the currently logged user'ID.
+     *
+     * @param cookie cookie used to query.
+     * @return userId, -1 otherwise.
+     */
     public int getUserIdByCookie(String cookie) {
         return credentialDAO.getUserIdByCookie(cookie);
     }

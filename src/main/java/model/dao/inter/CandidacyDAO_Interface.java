@@ -10,4 +10,10 @@ public interface CandidacyDAO_Interface {
 
     int insert(Candidacy candidacy);
 
+
+    Candidacy getCandidacyFromId(int candidacyId);
+
+    boolean update(Candidacy candidacy);
+
+    boolean rejectCandidacyById(int candidacyId);
 }
