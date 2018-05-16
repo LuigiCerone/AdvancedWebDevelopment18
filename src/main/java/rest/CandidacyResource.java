@@ -6,11 +6,9 @@ import model.Candidacy;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.StreamingOutput;
+import javax.ws.rs.core.*;
 import java.io.*;
+import java.net.URI;
 
 public class CandidacyResource {
     final static Logger logger = Logger.getLogger(CandidacyResource.class);
@@ -28,16 +26,58 @@ public class CandidacyResource {
     //Accept: application/json
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertCandidacy(@PathParam("id") int n) {
-        /*
-         * L'annotazione @PathParam permette di "iniettare"
-         * su un parametro del metodo il valore effettivo del
-         * parametro della URL col nome indicato. JAX-RS proverà
-         * a convertire il parametro della URL nel tipo richiesto
-         * dal metodo.
-         */
-        return Response.ok(n).build();
+    public Response insertCandidacy(@PathParam("id") int n, @Context UriInfo c, Candidacy candidacy) {
+        if (authcookie != null) {
+            int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
+            if (userType != -1) {
+                // userType contains an integer 0=student, 1=company, 2=admin.
+                switch (userType) {
+                    case 0: { // Student.
+                        int id = new InternshipController().insert(candidacy);
+                        URI u = c.getBaseUriBuilder()
+                                .path(CandidacyResource.class)
+                                .path(CandidacyResource.class, "getCandidacy")
+                                .build(id);
+                        return Response.created(u).build();
+                    }
+                    case 1: { // Company.
+                        return Response.status(403).build();
+                    }
+                    case 2: { // Admin.
+                        return Response.status(403).build();
+                    }
+                    default: {
+                        logger.error("userType value is not correct.");
+                        return Response.serverError().build();
+                    }
+                }
+            } else {
+                return Response.ok("No active session").build();
+            }
+        } else {
+            return Response.ok("No active session").build();
+        }
     }
+
+    //GET rest/auth/offerte/{id: [0-9]+}/candidati/{id}
+    //Accept: application/json
+    @GET
+    @Path("{id :[0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCandidacy(@PathParam("id") int idCandidacy) {
+        if (authcookie != null) {
+            int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
+            if (userType != -1) {
+                Candidacy candidacy = new InternshipController().getCandidacy(idCandidacy);
+                return Response.ok(candidacy).build();
+            } else {
+                return Response.ok("No active session").build();
+            }
+        } else {
+            return Response.ok("No active session").build();
+        }
+    }
+
 
     //PUT rest/auth/offerte/{id: [0-9]+}/candidati/{idc: [0-9]+}
     //Accept: application/json
@@ -106,7 +146,7 @@ public class CandidacyResource {
     @GET
     @Path("{idc: [0-9]+}/progetto-formativo")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response getCandidacy(@PathParam("idc") int candidacyId) throws FileNotFoundException {
+    public Response getCandidacyPDF(@PathParam("idc") int candidacyId) {
         if (authcookie != null) {
             int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
             if (userType != -1) {

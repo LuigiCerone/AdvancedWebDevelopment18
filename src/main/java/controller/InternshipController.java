@@ -152,6 +152,14 @@ public class InternshipController {
         return file;
     }
 
+    public Internship getInternshipByID(int id) {
+        return internshipDAO.getInternshipFromID(id);
+    }
+
+    public LinkedList<Internship> getListInternshiByCompanyID(int m) {
+        return internshipDAO.getIntershipByCompanyID(m);
+    }
+
     /**
      * Method used to get internships list filtered according to given filters.
      *
@@ -197,5 +205,13 @@ public class InternshipController {
         }
 
         return list;
+    }
+
+    public int insert(Candidacy candidacy) {
+        return candidacyDAO.insert(candidacy);
+    }
+
+    public Candidacy getCandidacy(int idCandidacy) {
+        return candidacyDAO.getCandidacyFromId(idCandidacy);
     }
 }

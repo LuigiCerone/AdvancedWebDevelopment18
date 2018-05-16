@@ -3,10 +3,10 @@ Per provare:
 {
 	"email": "test@test.com",
 	"password": "passwordsicura"
-}
+} OK
 
 (2) http://localhost:8080/awd18/rest/auth DELETE
-cookie con token
+cookie con token OK
 
 (3) http://localhost:8080/awd18/rest/aziende GET
 

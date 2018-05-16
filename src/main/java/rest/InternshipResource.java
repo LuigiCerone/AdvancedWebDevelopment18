@@ -51,8 +51,8 @@ public class InternshipResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOffertByID(@PathParam("id") int n) {
 
-
-        return Response.ok(n).build();
+        Internship internship = new InternshipController().getInternshipByID(n);
+        return Response.ok(internship).build();
     }
 
 
@@ -100,8 +100,6 @@ public class InternshipResource {
         }
     }
 
-    //POST /rest/auth/offerte/
-    //Accept: application/json
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertCandidacy(@Context UriInfo c, Candidacy candidacy) {

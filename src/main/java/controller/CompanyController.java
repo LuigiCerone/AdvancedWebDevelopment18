@@ -6,6 +6,8 @@ import model.dao.CompanyDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
+import java.util.List;
+
 public class CompanyController {
     final static Logger logger = Logger.getLogger(CompanyController.class);
 
@@ -75,5 +77,6 @@ public class CompanyController {
         }
         return status;
     }
+
 }
 
