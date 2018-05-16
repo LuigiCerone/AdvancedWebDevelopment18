@@ -156,8 +156,8 @@ public class InternshipController {
         return internshipDAO.getInternshipFromID(id);
     }
 
-    public LinkedList<Internship> getListInternshiByCompanyID(int m) {
-        return internshipDAO.getIntershipByCompanyID(m);
+    public LinkedList<Internship> getListInternshiByCompanyID(int idCompany) {
+        return internshipDAO.getIntershipByCompanyID(idCompany);
     }
 
     /**
