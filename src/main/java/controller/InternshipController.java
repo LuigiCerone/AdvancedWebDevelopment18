@@ -7,7 +7,7 @@ import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
 import java.io.File;
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,9 +35,8 @@ public class InternshipController {
     public boolean checkUserInternshipInCompany(int idStudent, int idLoggedUser) {
         // First we need to get all the company internships running in this period.
         Calendar calendar = Calendar.getInstance();
-        Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
 
-        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(timestamp, idLoggedUser);
+        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), idLoggedUser);
         for (Candidacy c : list) {
             if (c.getStudentFk() == idStudent) {
                 return true;
@@ -57,9 +56,8 @@ public class InternshipController {
     public boolean checkCandidacyForCompany(int candidacyId, int companyId) {
         // First we need to get all the company internships running in this period.
         Calendar calendar = Calendar.getInstance();
-        Timestamp timestamp = new Timestamp(calendar.getTimeInMillis());
 
-        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(timestamp, companyId);
+        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), companyId);
         for (Candidacy c : list) {
             if (c.getId() == candidacyId) {
                 return true;

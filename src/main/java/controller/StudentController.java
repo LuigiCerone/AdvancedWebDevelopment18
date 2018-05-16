@@ -26,18 +26,17 @@ public class StudentController {
      * @return id of the inserted student, -1 otherwise.
      */
     public int insertStudent(Student student) {
-        // In order to insert a student first we need to check if the email is available, then we register the student,
-        // then the we get the last inserted id and insert a credential instance in the table.
+        // In order to insert a student first we need to check if the email is available, then we register the credential,
+        // then the we get the last inserted id and insert a student instance in the table with the returned id.
         if (credentialDAO.checkEmailAvailable(student.getCredential().getEmail())) {
-            // Email is available, then insert student.
-            int id = studentDAO.insert(student);
+            // Email is available, then insert credential.
+            int id = credentialDAO.insert(student.getCredential(), student.getCredential().getPassword());
             if (id != -1) {
-                // Student inserted correctly.
+                // Credential inserted correctly.
                 student.setId(id);
-                // Then insert the credential.
+                // Then insert the student.
                 student.getCredential().setUserType(0); // 0 means student.
-                student.getCredential().setUserFk(id);
-                if (credentialDAO.insert(student.getCredential(), student.getCredential().getPassword())) {
+                if (studentDAO.insert(student)) {
                     // OK.
                     return student.getId();
                 } else {
@@ -72,6 +71,7 @@ public class StudentController {
                 if (new InternshipController().checkUserInternshipInCompany(idStudent, idLoggedUser)) {
                     return studentDAO.getStudentById(idStudent);
                 }
+                break;
             }
             case 2: {
                 // Admin can always see infomation.
@@ -81,5 +81,6 @@ public class StudentController {
                 logger.error("userType value is not correct.");
                 return null;
         }
+        return null;
     }
 }

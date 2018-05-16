@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 public class CompanyDAO implements CompanyDAO_Interface {
     final static Logger logger = Logger.getLogger(CompanyDAO.class);
@@ -41,8 +40,7 @@ public class CompanyDAO implements CompanyDAO_Interface {
                         resultSet.getString(Company.LEGAL_FORUM),
                         resultSet.getBoolean(Company.ACTIVE),
                         resultSet.getBoolean(Company.VISIBLE),
-                        null,
-                        resultSet.getInt(Company.COMPANY_FK)
+                        null
                 );
             }
             conn.close();
@@ -69,10 +67,11 @@ public class CompanyDAO implements CompanyDAO_Interface {
             preparedStatement.setString(4, company.getLawyerLastName());
             preparedStatement.setString(5, company.getPersonFirstName());
             preparedStatement.setString(6, company.getPersonLastName());
-            preparedStatement.setInt(6, company.getPersonTelNumber());
-            preparedStatement.setString(6, company.getLegalForum());
-            preparedStatement.setBoolean(6, company.isActive());
-            preparedStatement.setBoolean(6, company.isVisible());
+            preparedStatement.setInt(7, company.getPersonTelNumber());
+            preparedStatement.setString(8, company.getLegalForum());
+            preparedStatement.setBoolean(9, company.isActive());
+            preparedStatement.setBoolean(10, company.isVisible());
+            preparedStatement.setInt(11, company.getId());
 
             rows = preparedStatement.executeUpdate();
 
@@ -106,6 +105,42 @@ public class CompanyDAO implements CompanyDAO_Interface {
             e.printStackTrace();
         }
         return allowed;
+    }
+
+    @Override
+    public Company getCompanyFromId(int idCompany) {
+        Company company = null;
+        String query = "SELECT * FROM company WHERE company.id = ?;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, idCompany);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                company = new Company(
+                        resultSet.getInt(Company.ID),
+                        resultSet.getString(Company.SOCIAL_REGION),
+                        resultSet.getString(Company.LEGAL_ADDRESS),
+                        resultSet.getString(Company.PIVA),
+                        resultSet.getString(Company.LAWYER_FIRST_NAME),
+                        resultSet.getString(Company.LAWYER_LAST_NAME),
+                        resultSet.getString(Company.PERSON_FIRST_NAME),
+                        resultSet.getString(Company.PERSON_LAST_NAME),
+                        resultSet.getInt(Company.PERSON_TEL),
+                        resultSet.getString(Company.LEGAL_FORUM),
+                        resultSet.getBoolean(Company.ACTIVE),
+                        resultSet.getBoolean(Company.VISIBLE),
+                        null
+                );
+            }
+            conn.close();
+
+            return company;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

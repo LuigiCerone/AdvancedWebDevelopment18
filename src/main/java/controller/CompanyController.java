@@ -6,8 +6,6 @@ import model.dao.CompanyDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
-import java.util.List;
-
 public class CompanyController {
     final static Logger logger = Logger.getLogger(CompanyController.class);
 
@@ -23,12 +21,13 @@ public class CompanyController {
      * Method used to update an existing company in the DB. First we need to find the already stored record, then fetch
      * all values, modify them according to userType and update the row in the DB.
      *
-     * @param company  company instance
-     * @param userType user type of the requesting user.
+     * @param company   company instance
+     * @param userType  user type of the requesting user.
+     * @param idCompany company id.
      * @return true if updated, false otherwise.
      */
-    public boolean selectiveUpdate(Company company, int userType) {
-        Company companyStored = companyDAO.getCompanyFromPIVA(company.getPiva());
+    public boolean selectiveUpdate(Company company, int userType, int idCompany) {
+        Company companyStored = companyDAO.getCompanyFromId(idCompany);
         if (companyStored != null) {
             // According to userType change values.
             switch (userType) {

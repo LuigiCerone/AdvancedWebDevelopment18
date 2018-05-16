@@ -2,7 +2,6 @@ package model.dao;
 
 import database.Database;
 import model.Candidacy;
-import model.Student;
 import model.dao.inter.CandidacyDAO_Interface;
 import org.apache.log4j.Logger;
 
@@ -14,21 +13,19 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
     final static Logger logger = Logger.getLogger(CandidacyDAO.class);
 
     @Override
-    public List<Candidacy> getAllActiveCandidacyForCompany(Timestamp now, int idCompany) {
+    public List<Candidacy> getAllActiveCandidacyForCompany(Date now, int idCompany) {
         List<Candidacy> list = new LinkedList<>();
 
-        String query = "SELECT * FROM candidacy JOIN internship ON candidacy.id = internship.company_fk WHERE " +
-                " internship.company_fk = ? AND end_time < ? AND start_time > ? AND candidacy.status = 2;";
+        String query = "SELECT * FROM candidacy JOIN internship ON candidacy.internship_fk = internship.id WHERE " +
+                " internship.company_fk = ? AND internship.end_date > ? AND candidacy.status = 2;";
         // 2 means accepted.
         PreparedStatement preparedStatement;
-        Student student = null;
 
         try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query);
 
             preparedStatement.setInt(1, idCompany);
-            preparedStatement.setTimestamp(2, now);
-            preparedStatement.setTimestamp(3, now);
+            preparedStatement.setDate(2, now);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {

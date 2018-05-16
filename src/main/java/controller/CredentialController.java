@@ -73,6 +73,7 @@ public class CredentialController {
     }
 
     public int checkCookieAndGetUserType(String cookieValue) {
+        logger.debug("Cookie token: " + cookieValue);
         // First we need to check for session.
         Calendar calendar = Calendar.getInstance();
         int idCredential = -1;

@@ -22,4 +22,6 @@ public interface CredentialDAO_Interface {
     int getUserTypeFromCredentialId(int idCredential);
 
     int getUserIdByCookie(String cookie);
+
+    int insert(Credential credential, String passwordToHash);
 }

@@ -2,14 +2,13 @@ package model.dao.inter;
 
 import model.Candidacy;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 import java.util.List;
 
 public interface CandidacyDAO_Interface {
-    List<Candidacy> getAllActiveCandidacyForCompany(Timestamp timestamp, int idCompany);
-
     int insert(Candidacy candidacy);
 
+    List<Candidacy> getAllActiveCandidacyForCompany(Date now, int idCompany);
 
     Candidacy getCandidacyFromId(int candidacyId);
 

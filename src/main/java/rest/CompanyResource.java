@@ -12,7 +12,6 @@ import javax.ws.rs.core.Cookie;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.LinkedList;
-import java.util.List;
 
 @Path("aziende")
 public class CompanyResource {
@@ -53,13 +52,13 @@ public class CompanyResource {
                         return Response.status(403).build();
                     }
                     case 1: { // Company.
-                        if (new CompanyController().selectiveUpdate(company, 1))
+                        if (new CompanyController().selectiveUpdate(company, 1, id))
                             return Response.noContent().build();
                         else
                             return Response.serverError().build();
                     }
                     case 2: { // Admin.
-                        if (new CompanyController().selectiveUpdate(company, 2))
+                        if (new CompanyController().selectiveUpdate(company, 2, id))
                             return Response.noContent().build();
                         else
                             return Response.serverError().build();
@@ -70,6 +69,7 @@ public class CompanyResource {
                     }
                 }
             } else {
+                logger.debug("Error with user type.");
                 return Response.ok("No active session").build();
             }
         } else {

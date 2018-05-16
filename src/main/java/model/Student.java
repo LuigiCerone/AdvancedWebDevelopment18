@@ -29,7 +29,7 @@ public class Student {
     private String firstName;
     private String lastName;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm a z")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     private String birthPlace;
@@ -104,6 +104,7 @@ public class Student {
         this.lastName = lastName;
     }
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public Date getBirthDate() {
         return birthDate;
     }

@@ -20,8 +20,18 @@ cookie con token OK
 (6) http://localhost:8080/awd18/rest/auth/aziende/{ID} PUT
 Con token valido.
 {
-
-}
+    "socialRegion": "BBBB",
+    "legalRegion": "Avezzano",
+    "piva": "fhi8774838736",
+    "lawyerFirstName": "Nome2",
+    "lawyerLastName": "Cognome2",
+    "personFirstName": "PersonNome",
+    "personLastName": "PersonCognome",
+    "personTelnumber": "PersonEmail",
+    "legalForum": "Avezzano",
+    "active": true,
+    "visible": false
+} OK
 
 (7) http://localhost:8080/awd18/rest/studenti POST
 {
@@ -42,6 +52,7 @@ Con token valido.
 	    "password": "passwordsicura"
 	    }
 	}
+OK
 
 (8) http://localhost:8080/awd18/auth/studenti/{ID} GET
 Con token valido.

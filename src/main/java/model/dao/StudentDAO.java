@@ -1,6 +1,7 @@
 package model.dao;
 
 import database.Database;
+import model.Credential;
 import model.Student;
 import model.dao.inter.StudentDAO_Interface;
 
@@ -15,37 +16,35 @@ public class StudentDAO implements StudentDAO_Interface {
      * @return inseted ID if ok, -1 otherwise.
      */
     @Override
-    public int insert(Student student) {
-        String query = "INSERT INTO student VALUES (NULL,?,?,?,?,?,?,?,?,?,?,?,?);";
+    public boolean insert(Student student) {
+        String query = "INSERT INTO student VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?);";
         PreparedStatement preparedStatement;
-        int lastInsertedId = -1;
+        int status = 0;
 
         try (Connection conn = Database.getDatasource().getConnection()) {
-            preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            preparedStatement = conn.prepareStatement(query);
 
-            preparedStatement.setString(1, student.getFirstName());
-            preparedStatement.setString(2, student.getLastName());
-            preparedStatement.setDate(3, student.getBirthDate());
-            preparedStatement.setString(4, student.getBirthPlace());
-            preparedStatement.setString(5, student.getBirthPlaceProvince());
-            preparedStatement.setString(6, student.getResidencePlace());
-            preparedStatement.setString(7, student.getResidencePlaceProvince());
-            preparedStatement.setString(8, student.getCf());
-            preparedStatement.setInt(9, student.getTelnumber());
-            preparedStatement.setString(10, student.getUniversityLevel());
-            preparedStatement.setString(11, student.getUniversityCourse());
-            preparedStatement.setBoolean(12, student.isHandicap());
+            preparedStatement.setInt(1, student.getId());
+            preparedStatement.setString(2, student.getFirstName());
+            preparedStatement.setString(3, student.getLastName());
+            preparedStatement.setDate(4, (Date) student.getBirthDate());
+            preparedStatement.setString(5, student.getBirthPlace());
+            preparedStatement.setString(6, student.getBirthPlaceProvince());
+            preparedStatement.setString(7, student.getResidencePlace());
+            preparedStatement.setString(8, student.getResidencePlaceProvince());
+            preparedStatement.setString(9, student.getCf());
+            preparedStatement.setInt(10, student.getTelnumber());
+            preparedStatement.setString(11, student.getUniversityLevel());
+            preparedStatement.setString(12, student.getUniversityCourse());
+            preparedStatement.setBoolean(13, student.isHandicap());
 
-            lastInsertedId = preparedStatement.executeUpdate();
-            ResultSet rs = preparedStatement.getGeneratedKeys();
-            if (rs.next()) {
-                lastInsertedId = rs.getInt(1);
-            }
+            status = preparedStatement.executeUpdate();
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return lastInsertedId;
+        return status == 1;
     }
 
     @Override
@@ -74,7 +73,7 @@ public class StudentDAO implements StudentDAO_Interface {
                         resultSet.getString(Student.UNIVERSITY_LEVEL),
                         resultSet.getString(Student.UNIVERSITY_COURSE),
                         resultSet.getBoolean(Student.HANDICAP),
-                        null);
+                        new Credential());
             }
 
             conn.close();

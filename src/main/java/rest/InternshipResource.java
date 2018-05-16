@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -49,9 +48,9 @@ public class InternshipResource {
     @GET
     @Path("offerte/{id: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOffertByID(@PathParam("id") int n) {
+    public Response getOffertByID(@PathParam("id") int idInternship) {
 
-        Internship internship = new InternshipController().getInternshipByID(n);
+        Internship internship = new InternshipController().getInternshipByID(idInternship);
         return Response.ok(internship).build();
     }
 
@@ -103,7 +102,6 @@ public class InternshipResource {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertCandidacy(@Context UriInfo c, Candidacy candidacy) {
-
         if (authcookie != null) {
             int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
             if (userType != -1) {

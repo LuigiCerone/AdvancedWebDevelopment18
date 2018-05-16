@@ -35,7 +35,6 @@ public class Credential {
     @JsonIgnore
     private Timestamp expiry;
     private int userType;
-    private int userFk;
     private String password;
 
     public Credential() {
@@ -48,7 +47,6 @@ public class Credential {
         this.token = "";
         this.expiry = null;
         this.userType = 0;
-        this.userFk = 0;
         this.password = "";
     }
 
@@ -62,11 +60,10 @@ public class Credential {
         this.token = credential.getToken();
         this.expiry = credential.getExpiry();
         this.userType = credential.getUserType();
-        this.userFk = credential.getUserFk();
         this.password = credential.getPassword();
     }
 
-    public Credential(int id, String email, byte[] salt, String hashedPassword, Timestamp createdAt, Timestamp lastSeen, String token, Timestamp expiry, int userType, int userFk) {
+    public Credential(int id, String email, byte[] salt, String hashedPassword, Timestamp createdAt, Timestamp lastSeen, String token, Timestamp expiry, int userType) {
         this.id = id;
         this.email = email;
         this.salt = salt;
@@ -76,7 +73,6 @@ public class Credential {
         this.token = token;
         this.expiry = expiry;
         this.userType = userType;
-        this.userFk = userFk;
     }
 
     public int getId() {
@@ -153,15 +149,6 @@ public class Credential {
     }
 
     @JsonIgnore
-    public int getUserFk() {
-        return userFk;
-    }
-
-    public void setUserFk(int userFk) {
-        this.userFk = userFk;
-    }
-
-    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -182,7 +169,6 @@ public class Credential {
                 ", token='" + token + '\'' +
                 ", expiry=" + expiry +
                 ", userType=" + userType +
-                ", userFk=" + userFk +
                 ", password='" + password + '\'' +
                 '}';
     }

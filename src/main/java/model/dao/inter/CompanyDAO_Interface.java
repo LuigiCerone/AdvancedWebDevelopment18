@@ -8,4 +8,6 @@ public interface CompanyDAO_Interface {
     boolean updateCompany(Company company);
 
     boolean hasRightToPost(int companyId);
+
+    Company getCompanyFromId(int idCompany);
 }
