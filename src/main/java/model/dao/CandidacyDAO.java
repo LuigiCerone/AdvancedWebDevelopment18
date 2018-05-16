@@ -55,6 +55,11 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
     }
 
     @Override
+    public int insert(Candidacy candidacy) {
+        return 0;
+    }
+
+    @Override
     public Candidacy getCandidacyFromId(int candidacyId) {
         String query = "SELECT * FROM candidacy WHERE id = ?";
         PreparedStatement preparedStatement;

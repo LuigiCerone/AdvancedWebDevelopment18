@@ -100,6 +100,8 @@ public class InternshipResource {
         }
     }
 
+    //POST /rest/auth/offerte/
+    //Accept: application/json
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response insertCandidacy(@Context UriInfo c, Candidacy candidacy) {
