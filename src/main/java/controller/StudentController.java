@@ -74,7 +74,7 @@ public class StudentController {
                 break;
             }
             case 2: {
-                // Admin can always see infomation.
+                // Admin can always see information.
                 return studentDAO.getStudentById(idStudent);
             }
             default:

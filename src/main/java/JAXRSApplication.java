@@ -3,6 +3,7 @@ import rest.AuthenticationResource;
 import rest.CompanyResource;
 import rest.InternshipResource;
 import rest.StudentResource;
+import utils.JacksonObjectMapper;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -38,7 +39,10 @@ public class JAXRSApplication extends Application {
         //aggiungiamo il provider Jackson per poter
         //usare i suoi servizi di serializzazione e
         //deserializzazione JSON
+//        c.add(JacksonObjectMapper.class);
+
         c.add(JacksonJsonProvider.class);
+
         classes = Collections.unmodifiableSet(c);
     }
 

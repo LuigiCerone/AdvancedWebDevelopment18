@@ -63,7 +63,7 @@ public class StudentDAO implements StudentDAO_Interface {
                 student = new Student(resultSet.getInt(Student.ID),
                         resultSet.getString(Student.FIRST_NAME),
                         resultSet.getString(Student.LAST_NAME),
-                        resultSet.getDate(Student.BIRTH_DATE),
+                        (java.util.Date) resultSet.getDate(Student.BIRTH_DATE),
                         resultSet.getString(Student.BIRTH_PLACE),
                         resultSet.getString(Student.BIRTH_PLACE_PROVINCE),
                         resultSet.getString(Student.RESIDENCE_PLACE),
