@@ -1,12 +1,11 @@
 package model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import utils.JsonDateSerializer;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class Student {
 
@@ -31,7 +30,7 @@ public class Student {
     private String firstName;
     private String lastName;
 
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     private String birthPlace;
@@ -106,7 +105,7 @@ public class Student {
         this.lastName = lastName;
     }
 
-    @JsonSerialize(using= JsonDateSerializer.class)
+    @JsonSerialize(using = JsonDateSerializer.class)
     public Date getBirthDate() {
         return birthDate;
     }

@@ -73,4 +73,21 @@ public class StudentResource {
             return Response.ok("No active session").build();
         }
     }
+
+    //GET /rest/studenti/<numero>
+    //Accept: application/json
+    @GET
+    @Path("{id: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getStudentById(@PathParam("id") int n) {
+        /*
+         * L'annotazione @PathParam permette di "iniettare"
+         * su un parametro del metodo il valore effettivo del
+         * parametro della URL col nome indicato. JAX-RS proverà
+         * a convertire il parametro della URL nel tipo richiesto
+         * dal metodo.
+         */
+        // TODO return student info except sensitive information.
+        return Response.ok(n).build();
+    }
 }

@@ -56,21 +56,20 @@ CREATE TABLE student
 
 
 DROP TABLE IF EXISTS company;
-CREATE TABLE company
+CREATE TABLE credential
 (
-  id                INT AUTO_INCREMENT
+  id         INT AUTO_INCREMENT
     PRIMARY KEY,
-  social_region     VARCHAR(50)            NOT NULL,
-  legal_address     VARCHAR(50)            NOT NULL,
-  piva              VARCHAR(50)            NOT NULL,
-  lawyer_first_name VARCHAR(50)            NOT NULL,
-  lawyer_last_name  VARCHAR(50)            NOT NULL,
-  person_first_name VARCHAR(50)            NOT NULL,
-  person_last_name  VARCHAR(50)            NOT NULL,
-  person_telnumber  INT                    NOT NULL,
-  legal_forum       VARCHAR(50)            NOT NULL,
-  active            TINYINT(1) DEFAULT '0' NOT NULL,
-  visible           TINYINT(1) DEFAULT '0' NOT NULL
+  email      VARCHAR(50)                             NOT NULL,
+  salt       VARBINARY(128)                          NOT NULL,
+  hashed_psw VARCHAR(256)                            NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP     NOT NULL,
+  last_seen  TIMESTAMP DEFAULT '0000-00-00 00:00:00' NOT NULL,
+  token      VARCHAR(50)                             NULL,
+  expiry     TIMESTAMP                               NULL,
+  user_type  INT                                     NOT NULL,
+  CONSTRAINT `credential;_email_uindex`
+  UNIQUE (email)
 )
   ENGINE = InnoDB;
 

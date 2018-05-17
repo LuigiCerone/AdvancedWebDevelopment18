@@ -175,7 +175,7 @@ public class CredentialDAO implements CredentialDAO_Interface {
 
     @Override
     public int insert(Credential credential, String passwordToHash) {
-        String query = "INSERT INTO credential VALUES (NULL, ?, ?, ?, NOW(), NOW(), NULL,0,?,?);";
+        String query = "INSERT INTO credential VALUES (NULL, ?, ?, ?, NOW(), NOW(), NULL,0,?);";
         PreparedStatement preparedStatement;
         int lastInsertedId = -1;
 
@@ -187,7 +187,6 @@ public class CredentialDAO implements CredentialDAO_Interface {
             preparedStatement.setBytes(2, salt);
             preparedStatement.setString(3, SecurePassword.getSHA1Password(passwordToHash, salt));
             preparedStatement.setInt(4, 0);
-            preparedStatement.setInt(5, 1);
             lastInsertedId = preparedStatement.executeUpdate();
             ResultSet rs = preparedStatement.getGeneratedKeys();
             if (rs.next()) {
