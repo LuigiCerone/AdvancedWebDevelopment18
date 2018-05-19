@@ -46,10 +46,9 @@ public class InternshipResource {
     //GET  awd18/rest/offerte
     //Accept: application/json
     @GET
-    @Path("offerte/{id: [0-9]+}")
+    @Path("{id: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getOffertByID(@PathParam("id") int idInternship) {
-
         Internship internship = new InternshipController().getInternshipByID(idInternship);
         return Response.ok(internship).build();
     }

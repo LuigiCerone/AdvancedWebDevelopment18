@@ -62,10 +62,22 @@ Con token valido.
 (10) http://localhost:8080/awd18/offerte? {FILTER}[first={m}[&last={n}]] GET
 
 (11) http://localhost:8080/awd18/auth/offerte POST
-Con token valido.
+Con token valido di un'azienda.
 {
-
+  "place": "L'Aquila",
+  "remote": false,
+  "startTime": "09:00:00",
+  "endTime": "18:00:00",
+  "numHours": 150,
+  "goals": "G1; G2; G3",
+  "workType": "Coding",
+  "refund": 450,
+  "facilitations": "Mensa",
+  "companyFk": 12,
+  "startDate": "2018-07-01",
+  "endDate": "2018-09-30"
 }
+
 
 (12) http://localhost:8080/awd18/aziende/{ID}/offerte GET
 

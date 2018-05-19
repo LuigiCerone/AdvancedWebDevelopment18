@@ -1,13 +1,16 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import utils.JsonDateSerializer;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import org.apache.log4j.Logger;
+import utils.JsonDateDeserializer;
 
 import java.sql.Date;
 
 public class Student {
+    final static Logger logger = Logger.getLogger(Student.class);
 
 
     // DB fields name.
@@ -27,11 +30,13 @@ public class Student {
 
     @JsonIgnore
     private int id;
+    @JsonProperty("username")
     private String firstName;
     private String lastName;
 
-    //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date birthDate;
+
 
     private String birthPlace;
     private String birthPlaceProvince;
@@ -43,11 +48,11 @@ public class Student {
     private String universityCourse;
     private boolean handicap;
 
-    @JsonUnwrapped
     private Credential credential;
 
 
     public Student() {
+        logger.debug("Empty constructor called.");
         this.id = 0;
         this.firstName = "";
         this.lastName = "";
@@ -81,10 +86,12 @@ public class Student {
         this.credential = new Credential(credential);
     }
 
+    @JsonIgnore
     public int getId() {
         return id;
     }
 
+    @JsonIgnore
     public void setId(int id) {
         this.id = id;
     }
@@ -105,12 +112,14 @@ public class Student {
         this.lastName = lastName;
     }
 
-    @JsonSerialize(using = JsonDateSerializer.class)
+    //   @JsonSerialize(using = JsonDateSerializer.class)
     public Date getBirthDate() {
         return birthDate;
     }
 
+//    @JsonDeserialize(using = JsonDateDeserializer.class)
     public void setBirthDate(Date birthDate) {
+        logger.debug("Student setBirthDate called.");
         this.birthDate = birthDate;
     }
 
@@ -186,6 +195,7 @@ public class Student {
         this.handicap = handicap;
     }
 
+    @JsonIgnore
     public Credential getCredential() {
         return credential;
     }

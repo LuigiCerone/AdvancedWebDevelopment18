@@ -34,7 +34,7 @@ public class StudentResource {
         if (id != -1) {
             URI u = c.getBaseUriBuilder()
                     .path(StudentResource.class)
-                    .path(StudentResource.class, "getStudentById")
+                    .path(StudentResource.class, "getStudentInfo")
                     .build(id);
             return Response.created(u).build();
         } else {
@@ -57,9 +57,18 @@ public class StudentResource {
                 int idLoggedUser = new CredentialController().getUserIdByCookie(authcookie.getValue());
                 if (idLoggedUser != -1) {
                     Student student = new StudentController().selectiveSelect(userType, idStudent, idLoggedUser);
-                    if (student != null)
+                    if (student != null) {
+//                        ObjectMapper mapper = new ObjectMapper();
+//                        String jsonResult = null;
+//                        try {
+//                            jsonResult = mapper.writeValueAsString(student);
+//                        } catch (JsonProcessingException e) {
+//                            e.printStackTrace();
+//                        }
+//                        logger.debug("Dovresti ricevere questo :" + jsonResult);
+//                        return Response.ok(jsonResult).build();
                         return Response.ok(student).build();
-                    else
+                    } else
                         return Response.status(403).build();
                 } else {
                     logger.error("idLoggedUser error.");
@@ -75,19 +84,19 @@ public class StudentResource {
     }
 
     //GET /rest/studenti/<numero>
-    //Accept: application/json
-    @GET
-    @Path("{id: [0-9]+}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getStudentById(@PathParam("id") int n) {
-        /*
-         * L'annotazione @PathParam permette di "iniettare"
-         * su un parametro del metodo il valore effettivo del
-         * parametro della URL col nome indicato. JAX-RS proverà
-         * a convertire il parametro della URL nel tipo richiesto
-         * dal metodo.
-         */
-        // TODO return student info except sensitive information.
-        return Response.ok(n).build();
-    }
+//    //Accept: application/json
+//    @GET
+//    @Path("{id: [0-9]+}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getStudentById(@PathParam("id") int n) {
+//        /*
+//         * L'annotazione @PathParam permette di "iniettare"
+//         * su un parametro del metodo il valore effettivo del
+//         * parametro della URL col nome indicato. JAX-RS proverà
+//         * a convertire il parametro della URL nel tipo richiesto
+//         * dal metodo.
+//         */
+//        // TODO return student info except sensitive information.
+//        return Response.ok(n).build();
+//    }
 }
