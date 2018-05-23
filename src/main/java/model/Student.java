@@ -3,9 +3,7 @@ package model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.apache.log4j.Logger;
-import utils.JsonDateDeserializer;
 
 import java.sql.Date;
 

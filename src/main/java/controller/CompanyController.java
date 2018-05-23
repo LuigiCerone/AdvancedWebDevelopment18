@@ -3,6 +3,7 @@ package controller;
 import model.Company;
 import model.Internship;
 import model.dao.CompanyDAO;
+import model.dao.CredentialDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
@@ -11,6 +12,8 @@ public class CompanyController {
 
     private CompanyDAO companyDAO;
     private InternshipDAO internshipDAO;
+    r
+    private CredentialDAO credentialDAO;
 
     public CompanyController() {
         this.companyDAO = new CompanyDAO();
@@ -77,5 +80,35 @@ public class CompanyController {
         return status;
     }
 
+    public Company getCompanyByID(int companyId) {
+        return companyDAO.getCompanyFromID(companyId);
+    }
+
+    public int insertCompany(Company companyToInsert) {
+        // In order to insert a company first we need to check if the email is available, then we register the company,
+        // then the we get the last inserted id and insert a credential instance in the table.
+        if (credentialDAO.checkEmailAvailable(companyToInsert.getCredential().getEmail())) {
+            // Email is available, then insert student.
+            int id = credentialDAO.insert(companyToInsert.getCredential(), companyToInsert.getCredential().getPassword());
+            if (id != -1) {
+                // Student inserted correctly.
+                companyToInsert.setId(id);
+                // Then insert the credential.
+                companyToInsert.getCredential().setUserType(1); // Company.
+                // company.getCredential().setUserFk(id);
+                if (companyDAO.insert(companyToInsert)) {
+                    // OK.
+                    return companyToInsert.getId();
+                } else {
+                    logger.error("Error while inserting credential object.");
+                }
+            } else {
+                logger.error("Error while inserting company object.");
+            }
+        } else {
+            logger.error("Email is not available.");
+        }
+        return -1;
+    }
 }
 
