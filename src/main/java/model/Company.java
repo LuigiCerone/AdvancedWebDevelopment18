@@ -1,5 +1,7 @@
 package model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Company {
     // DB fields.
     public static final String ID = "id";
@@ -27,6 +29,7 @@ public class Company {
     private String legalForum;
     private boolean active;
     private boolean visible;
+
     private Credential credential;
 
 
@@ -150,6 +153,7 @@ public class Company {
         this.visible = visible;
     }
 
+    @JsonIgnore
     public int getId() {
         return id;
     }
@@ -158,6 +162,7 @@ public class Company {
         this.id = id;
     }
 
+    @JsonIgnore
     public Credential getCredential() {
         return credential;
     }

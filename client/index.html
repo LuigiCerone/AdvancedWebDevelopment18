@@ -2,100 +2,105 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang=“it” xml:lang=“it”>
 
 <head>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="css/style.css" />
-  <title>AWD 2018</title>
-  <meta charset=“UTF-8”/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css"/>
+    <title>AWD 2018</title>
+    <meta charset=“UTF-8”/>
 </head>
 
 <body>
-  <div class="jumbotron">
+<div class="jumbotron">
     <h1>AWD 2018</h1>
     <p>Progetto corso di Sviluppo Web Avanzato 2017/18 realizzato per scopi didattici.</p>
-  </div>
-  <div class="container-fluid">
-    <p>Lo scopo di questo client &egrave; di offrire un'interfaccia con il servizio RESTful implementato in Java attraverso
-      Jersey. Nel seguito sono presenti una serie di selettori utili per testare il corretto funzionamento degli endpoints
-      del servizio.</p>
+</div>
+<div class="container-fluid">
+    <p>Lo scopo di questo client &egrave; di offrire un'interfaccia con il servizio RESTful implementato in Java
+        attraverso
+        Jersey. Nel seguito sono presenti una serie di selettori utili per testare il corretto funzionamento degli
+        endpoints
+        del servizio.</p>
 
     <br>
     <!-- Login-logout -->
     <div class="row">
-      <div class="col-lg-6 col-centered">
+        <div class="col-lg-6 col-centered">
 
 
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#nav-login" data-toggle="tab">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#nav-logout" data-toggle="tab">Logout</a>
+                </li>
+            </ul>
 
-        <ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active" href="#nav-login" data-toggle="tab">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#nav-logout" data-toggle="tab">Logout</a>
-          </li>
-        </ul>
-
-        <div class="tab-content" id="nav-tabContent">
-          <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-home-tab">
-            <!-- Login -->
-            <form>
-              <div class="form-group">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-              </div>
-              <div class="form-group">
-                <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-              </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-          </div>
-          <div class="tab-pane fade" id="nav-logout" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <!-- Logout-->
-            <div class="form-group">
-              <label for="companySelect">Visualizzazione informazioni aziende</label>
-              <select class="form-control" id="companySelect" aria-placeholder="Selezione azienda">
-                <option value="" selected disabled>Selezionare azienda..</option>
-              </select>
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="nav-login" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <!-- Login -->
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1"
+                                   aria-describedby="emailHelp" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                   placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="nav-logout" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <!-- Logout-->
+                    <div class="form-group">
+                        <label for="companySelect">Visualizzazione informazioni aziende</label>
+                        <select class="form-control" id="companySelect" aria-placeholder="Selezione azienda">
+                            <option value="" selected disabled>Selezionare azienda..</option>
+                        </select>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
     <br>
     <hr>
     <br>
     <!-- Company -->
     <div class="row">
-      <div class="col-lg-6 col-centered">
-        <div class="panel panel-default">
-          <div class="panel-heading text-center">
-            <h3 class="panel-title">Azienda</h3>
-          </div>
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-lg-6 col-centered">
-                <div class="form-group">
-                  <label for="companySelect">Visualizzazione informazioni aziende</label>
-                  <select class="form-control" id="companySelect" aria-placeholder="Selezione azienda">
-                    <option value="" selected disabled>Selezionare azienda..</option>
-                  </select>
+        <div class="col-lg-6 col-centered">
+            <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                    <h3 class="panel-title">Azienda</h3>
                 </div>
-              </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-centered">
+                            <div class="form-group">
+                                <label for="companySelect">Visualizzazione informazioni aziende</label>
+                                <select id="companySelect" class="form-control" aria-placeholder="Selezione azienda">
+                                    <option value="" selected disabled>Selezionare azienda..</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 
-  <!-- script import -->
-  <script src="js/jquery-3.3.1.min.js" type="text/javascript" defer="defer"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous" defer="defer"></script>
-  <script src="js/script.js" type="text/javascript" defer="defer"></script>
+<!-- script import -->
+<script src="js/jquery-3.3.1.min.js" type="text/javascript" defer="defer"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous" defer="defer"></script>
+<script src="js/script.js" type="text/javascript" defer="defer"></script>
 
 </body>
 

@@ -1,9 +1,7 @@
 import org.apache.log4j.Logger;
-import rest.AuthenticationResource;
-import rest.CompanyResource;
-import rest.InternshipResource;
-import rest.StudentResource;
+import rest.*;
 import utils.CustomJacksonJsonProvider;
+import utils.ResponseCorsFilter;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -16,30 +14,6 @@ public class JAXRSApplication extends Application {
     public JAXRSApplication() {
         logger.debug("COSTRUTTORE CHIAMATO!");
     }
-
-        //Iniettiamo un riferimento alla DataSource che gestisce il pool di connessioni.
-//        @Resource(name = "jdbc/webdb") //reference to the resource-ref in the deployment descriptor
-//        private DataSource ds;
-
-
-        HashSet<Class<?>> c = new HashSet<Class<?>>();
-        //aggiungiamo tutte le *root resurces* (cioè quelle
-        //con l'annotazione Path) che vogliamo pubblicare
-//        c.add(Resource1.class);
-        c.add(AuthenticationResource.class);
-        c.add(StudentResource.class);
-        c.add(InternshipResource.class);
-        c.add(CompanyResource.class);
-        c.add(CandidacyResource.class);
-
-//    @Override
-//    public Set<Object> getSingletons() {
-//        logger.debug("getSingletons CHIAMATO!");
-//        Set<Object> set = new HashSet<>();
-//        set.add(new CustomJacksonJsonProvider());
-//
-//        return set;
-//    }
 
 //    @Override
 //    public Map<String, Object> getProperties() {
@@ -59,6 +33,8 @@ public class JAXRSApplication extends Application {
         resources.add(CompanyResource.class);
 //        resources.add(JacksonObjectMapperProvider.class);
 //        resources.add(MarshallingFeature.class);
+        resources.add(CandidacyResource.class);
+        resources.add(ResponseCorsFilter.class);
         resources.add(CustomJacksonJsonProvider.class);
         return resources;
     }
