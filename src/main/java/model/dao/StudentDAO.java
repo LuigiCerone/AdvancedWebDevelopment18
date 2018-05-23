@@ -4,10 +4,15 @@ import database.Database;
 import model.Credential;
 import model.Student;
 import model.dao.inter.StudentDAO_Interface;
+import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class StudentDAO implements StudentDAO_Interface {
+    final static Logger logger = Logger.getLogger(StudentDAO.class);
 
     /**
      * Insert a student into the DB.
@@ -27,7 +32,7 @@ public class StudentDAO implements StudentDAO_Interface {
             preparedStatement.setInt(1, student.getId());
             preparedStatement.setString(2, student.getFirstName());
             preparedStatement.setString(3, student.getLastName());
-            preparedStatement.setDate(4, (Date) student.getBirthDate());
+            preparedStatement.setDate(4, student.getBirthDate());
             preparedStatement.setString(5, student.getBirthPlace());
             preparedStatement.setString(6, student.getBirthPlaceProvince());
             preparedStatement.setString(7, student.getResidencePlace());
@@ -60,6 +65,7 @@ public class StudentDAO implements StudentDAO_Interface {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
+//                java.util.Date date = new java.util.Date()
                 student = new Student(resultSet.getInt(Student.ID),
                         resultSet.getString(Student.FIRST_NAME),
                         resultSet.getString(Student.LAST_NAME),

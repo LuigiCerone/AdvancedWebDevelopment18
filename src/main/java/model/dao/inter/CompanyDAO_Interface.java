@@ -2,6 +2,8 @@ package model.dao.inter;
 
 import model.Company;
 
+import java.util.LinkedList;
+
 public interface CompanyDAO_Interface {
     Company getCompanyFromPIVA(String piva);
 
@@ -10,4 +12,10 @@ public interface CompanyDAO_Interface {
     boolean hasRightToPost(int companyId);
 
     Company getCompanyFromId(int idCompany);
+
+    Company getCompanyFromID(int companyId);
+
+    boolean insert(Company company);
+
+    LinkedList<Company> getAllCompanies();
 }

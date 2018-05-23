@@ -1,22 +1,21 @@
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import rest.*;
-import utils.JacksonObjectMapper;
+import org.apache.log4j.Logger;
+import rest.AuthenticationResource;
+import rest.CompanyResource;
+import rest.InternshipResource;
+import rest.StudentResource;
+import utils.CustomJacksonJsonProvider;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
-/**
- * "rest" sarà il path di base a cui risponderà il nostro servizio
- */
 @ApplicationPath("rest")
 public class JAXRSApplication extends Application {
-
-    private final Set<Class<?>> classes;
+    final static Logger logger = Logger.getLogger(JAXRSApplication.class);
 
     public JAXRSApplication() {
+        logger.debug("COSTRUTTORE CHIAMATO!");
+    }
 
         //Iniettiamo un riferimento alla DataSource che gestisce il pool di connessioni.
 //        @Resource(name = "jdbc/webdb") //reference to the resource-ref in the deployment descriptor
@@ -33,19 +32,34 @@ public class JAXRSApplication extends Application {
         c.add(CompanyResource.class);
         c.add(CandidacyResource.class);
 
+//    @Override
+//    public Set<Object> getSingletons() {
+//        logger.debug("getSingletons CHIAMATO!");
+//        Set<Object> set = new HashSet<>();
+//        set.add(new CustomJacksonJsonProvider());
+//
+//        return set;
+//    }
 
-        //aggiungiamo il provider Jackson per poter
-        //usare i suoi servizi di serializzazione e
-        //deserializzazione JSON
-//        c.add(JacksonObjectMapper.class);
-
-        c.add(JacksonJsonProvider.class);
-
-        classes = Collections.unmodifiableSet(c);
-    }
+//    @Override
+//    public Map<String, Object> getProperties() {
+//        logger.debug("getProperties CHIAMATO!");
+////        Map<String, Object> map = new HashMap<>();
+////        map.put("jersey.config.disableMoxyJson.server", true);
+////        return map;
+//    }
 
     @Override
     public Set<Class<?>> getClasses() {
-        return classes;
+        logger.debug("getClasses CHIAMATO!");
+        Set<Class<?>> resources = new java.util.HashSet<>();
+        resources.add(AuthenticationResource.class);
+        resources.add(StudentResource.class);
+        resources.add(InternshipResource.class);
+        resources.add(CompanyResource.class);
+//        resources.add(JacksonObjectMapperProvider.class);
+//        resources.add(MarshallingFeature.class);
+        resources.add(CustomJacksonJsonProvider.class);
+        return resources;
     }
 }

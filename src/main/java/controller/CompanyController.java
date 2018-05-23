@@ -3,14 +3,23 @@ package controller;
 import model.Company;
 import model.Internship;
 import model.dao.CompanyDAO;
+import model.dao.CredentialDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
+import rest.CompanyResource;
+
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CompanyController {
     final static Logger logger = Logger.getLogger(CompanyController.class);
 
     private CompanyDAO companyDAO;
     private InternshipDAO internshipDAO;
+    private CredentialDAO credentialDAO;
 
     public CompanyController() {
         this.companyDAO = new CompanyDAO();
@@ -77,5 +86,75 @@ public class CompanyController {
         return status;
     }
 
+    public Company getCompanyByID(int companyId) {
+        return companyDAO.getCompanyFromID(companyId);
+    }
+
+    /**
+     * Method used to insert a new company.
+     *
+     * @param companyToInsert company to insert.
+     * @return
+     */
+    public int insertCompany(Company companyToInsert) {
+        // In order to insert a company first we need to check if the email is available, then we register the company,
+        // then the we get the last inserted id and insert a credential instance in the table.
+        if (credentialDAO.checkEmailAvailable(companyToInsert.getCredential().getEmail())) {
+            // Email is available, then insert student.
+            int id = credentialDAO.insert(companyToInsert.getCredential(), companyToInsert.getCredential().getPassword());
+            if (id != -1) {
+                // Student inserted correctly.
+                companyToInsert.setId(id);
+                // Then insert the credential.
+                companyToInsert.getCredential().setUserType(1); // Company.
+                // company.getCredential().setUserFk(id);
+                if (companyDAO.insert(companyToInsert)) {
+                    // OK.
+                    return companyToInsert.getId();
+                } else {
+                    logger.error("Error while inserting credential object.");
+                }
+            } else {
+                logger.error("Error while inserting company object.");
+            }
+        } else {
+            logger.error("Email is not available.");
+        }
+        return -1;
+    }
+
+    /**
+     * Method used to get the list of all the companies.
+     *
+     * @param context
+     * @return list of companies composed by Pair where first element is company name, second is the URI of the company info.
+     */
+    public List<HashMap<String, String>> getAllCompanies(UriInfo context) {
+        LinkedList<Company> companyLinkedList = companyDAO.getAllCompanies();
+        LinkedList<HashMap<String, String>> hashMapLinkedList = new LinkedList<>();
+
+        for (Company company : companyLinkedList) {
+            HashMap<String, String> hashMap = new HashMap<>();
+
+            // Get company name.
+            hashMap.put("nome", company.getSocialRegion());
+
+            // Create company URI.
+            URI u = context.getBaseUriBuilder()
+                    .path(CompanyResource.class)
+//                    .path(CompanyResource.class, "getCompanyByID")
+                    .path("/" + company.getId())
+                    .build();
+            hashMap.put("url", u.toString());
+
+            // Add to list.
+            hashMapLinkedList.add(hashMap);
+        }
+
+        if (hashMapLinkedList.size() > 0) {
+            return hashMapLinkedList;
+        } else
+            return null;
+    }
 }
 

@@ -8,10 +8,11 @@ import model.Internship;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.Cookie;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.core.*;
+import java.net.URI;
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 @Path("aziende")
 public class CompanyResource {
@@ -77,4 +78,40 @@ public class CompanyResource {
         }
     }
 
+
+    @GET
+    @Path("{id: [0-9]+}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCompanyById(@PathParam("id") int companyId) {
+        Company company = new CompanyController().getCompanyByID(companyId);
+        return Response.ok(company).build();
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response insertCompany(@Context UriInfo c, Company companyToInsert) {
+        logger.debug(companyToInsert.toString());
+        int id = new CompanyController().insertCompany(companyToInsert);
+
+        if (id != -1) {
+            URI u = c.getBaseUriBuilder()
+                    .path(CompanyResource.class)
+                    .path(CompanyResource.class, "getCompanyByID")
+                    .build(id);
+            return Response.created(u).build();
+        } else {
+            return Response.serverError().build();
+        }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllCompanies(@Context UriInfo context) {
+        List<HashMap<String, String>> list = new CompanyController().getAllCompanies(context);
+        if (list != null) {
+            return Response.ok(list).build();
+        } else {
+            return Response.serverError().build();
+        }
+    }
 }
