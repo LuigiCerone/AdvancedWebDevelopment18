@@ -3,6 +3,7 @@ package rest;
 import controller.CompanyController;
 import controller.CredentialController;
 import controller.InternshipController;
+import javafx.util.Pair;
 import model.Company;
 import model.Internship;
 import org.apache.log4j.Logger;
@@ -11,6 +12,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import java.net.URI;
 import java.util.LinkedList;
+import java.util.List;
 
 @Path("aziende")
 public class CompanyResource {
@@ -100,5 +102,17 @@ public class CompanyResource {
         } else {
             return Response.serverError().build();
         }
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllCompanies(@Context UriInfo context) {
+        List<Pair<String, URI>> list = new CompanyController().getAllCompanies(context);
+        if (list != null) {
+            Response.ok(list).build();
+        } else {
+            Response.serverError().build();
+        }
+        return Response.serverError().build();
     }
 }

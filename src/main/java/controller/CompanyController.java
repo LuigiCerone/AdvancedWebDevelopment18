@@ -1,18 +1,24 @@
 package controller;
 
+import javafx.util.Pair;
 import model.Company;
 import model.Internship;
 import model.dao.CompanyDAO;
 import model.dao.CredentialDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
+import rest.CompanyResource;
+
+import javax.ws.rs.core.UriInfo;
+import java.net.URI;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CompanyController {
     final static Logger logger = Logger.getLogger(CompanyController.class);
 
     private CompanyDAO companyDAO;
     private InternshipDAO internshipDAO;
-    r
     private CredentialDAO credentialDAO;
 
     public CompanyController() {
@@ -84,6 +90,12 @@ public class CompanyController {
         return companyDAO.getCompanyFromID(companyId);
     }
 
+    /**
+     * Method used to insert a new company.
+     *
+     * @param companyToInsert company to insert.
+     * @return
+     */
     public int insertCompany(Company companyToInsert) {
         // In order to insert a company first we need to check if the email is available, then we register the company,
         // then the we get the last inserted id and insert a credential instance in the table.
@@ -109,6 +121,32 @@ public class CompanyController {
             logger.error("Email is not available.");
         }
         return -1;
+    }
+
+    /**
+     * Method used to get the list of all the companies.
+     *
+     * @param context
+     * @return list of companies composed by Pair where first element is company name, second is the URI of the company info.
+     */
+    public List<Pair<String, URI>> getAllCompanies(UriInfo context) {
+        LinkedList<Company> companyLinkedList = companyDAO.getAllCompanies();
+        LinkedList<Pair<String, URI>> pairsList = new LinkedList<>();
+
+        for (Company company : companyLinkedList) {
+            // Create company URI.
+            URI u = context.getBaseUriBuilder()
+                    .path(CompanyResource.class)
+                    .path(CompanyResource.class, "getCompanyByID")
+                    .build(company.getId());
+            Pair<String, URI> pair = new Pair<>(company.getSocialRegion(), u);
+            pairsList.add(pair);
+        }
+
+        if (pairsList.size() > 0) {
+            return pairsList;
+        } else
+            return null;
     }
 }
 

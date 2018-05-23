@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 public class CompanyDAO implements CompanyDAO_Interface {
     final static Logger logger = Logger.getLogger(CompanyDAO.class);
@@ -207,6 +208,42 @@ public class CompanyDAO implements CompanyDAO_Interface {
             e.printStackTrace();
         }
         return rows == 1;
+    }
+
+    @Override
+    public LinkedList<Company> getAllCompanies() {
+        LinkedList<Company> linkedList = new LinkedList<>();
+        String query = "SELECT * FROM company;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Company company = new Company(
+                        resultSet.getInt(Company.ID),
+                        resultSet.getString(Company.SOCIAL_REGION),
+                        resultSet.getString(Company.LEGAL_ADDRESS),
+                        resultSet.getString(Company.PIVA),
+                        resultSet.getString(Company.LAWYER_FIRST_NAME),
+                        resultSet.getString(Company.LAWYER_LAST_NAME),
+                        resultSet.getString(Company.PERSON_FIRST_NAME),
+                        resultSet.getString(Company.PERSON_LAST_NAME),
+                        resultSet.getInt(Company.PERSON_TEL),
+                        resultSet.getString(Company.LEGAL_FORUM),
+                        resultSet.getBoolean(Company.ACTIVE),
+                        resultSet.getBoolean(Company.VISIBLE),
+                        new Credential()
+                );
+
+                linkedList.add(company);
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return linkedList;
     }
 }
 
