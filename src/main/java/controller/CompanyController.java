@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.util.Pair;
 import model.Company;
 import model.Internship;
 import model.dao.CompanyDAO;
@@ -11,6 +10,7 @@ import rest.CompanyResource;
 
 import javax.ws.rs.core.UriInfo;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -129,22 +129,30 @@ public class CompanyController {
      * @param context
      * @return list of companies composed by Pair where first element is company name, second is the URI of the company info.
      */
-    public List<Pair<String, URI>> getAllCompanies(UriInfo context) {
+    public List<HashMap<String, String>> getAllCompanies(UriInfo context) {
         LinkedList<Company> companyLinkedList = companyDAO.getAllCompanies();
-        LinkedList<Pair<String, URI>> pairsList = new LinkedList<>();
+        LinkedList<HashMap<String, String>> hashMapLinkedList = new LinkedList<>();
 
         for (Company company : companyLinkedList) {
+            HashMap<String, String> hashMap = new HashMap<>();
+
+            // Get company name.
+            hashMap.put("nome", company.getSocialRegion());
+
             // Create company URI.
             URI u = context.getBaseUriBuilder()
                     .path(CompanyResource.class)
-                    .path(CompanyResource.class, "getCompanyByID")
-                    .build(company.getId());
-            Pair<String, URI> pair = new Pair<>(company.getSocialRegion(), u);
-            pairsList.add(pair);
+//                    .path(CompanyResource.class, "getCompanyByID")
+                    .path("/" + company.getId())
+                    .build();
+            hashMap.put("url", u.toString());
+
+            // Add to list.
+            hashMapLinkedList.add(hashMap);
         }
 
-        if (pairsList.size() > 0) {
-            return pairsList;
+        if (hashMapLinkedList.size() > 0) {
+            return hashMapLinkedList;
         } else
             return null;
     }
