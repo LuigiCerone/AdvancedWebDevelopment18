@@ -6,7 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 public interface CandidacyDAO_Interface {
-    int insert(Candidacy candidacy);
+    int insert(Candidacy candidacy, int iDInternship);
 
     List<Candidacy> getAllActiveCandidacyForCompany(Date now, int idCompany);
 

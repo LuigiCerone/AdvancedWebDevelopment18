@@ -10,6 +10,7 @@ import javax.ws.rs.core.*;
 import java.io.*;
 import java.net.URI;
 
+@Path("candidati")
 public class CandidacyResource {
     final static Logger logger = Logger.getLogger(CandidacyResource.class);
 
@@ -21,6 +22,8 @@ public class CandidacyResource {
         this.internshipId = id;
     }
 
+    public CandidacyResource() {
+    }
 
     //POST rest/auth/offerte/{id: [0-9]+}/candidati
     //Accept: application/json
@@ -33,7 +36,7 @@ public class CandidacyResource {
                 // userType contains an integer 0=student, 1=company, 2=admin.
                 switch (userType) {
                     case 0: { // Student.
-                        int id = new InternshipController().insert(candidacy);
+                        int id = new InternshipController().insert(candidacy, n);
                         URI u = c.getBaseUriBuilder()
                                 .path(CandidacyResource.class)
                                 .path(CandidacyResource.class, "getCandidacy")

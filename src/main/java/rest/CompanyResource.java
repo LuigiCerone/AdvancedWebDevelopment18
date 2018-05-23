@@ -28,7 +28,7 @@ public class CompanyResource {
     }
 
     @GET
-    @Path("aziende/{id: [0-9]+}/offerte")
+    @Path("{id: [0-9]+}/offerte")
     @Produces(MediaType.APPLICATION_JSON)
     public Response InternshipByCompany(@PathParam("id") int idCompany) {
 

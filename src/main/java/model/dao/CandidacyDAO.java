@@ -103,6 +103,7 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
             preparedStatement.setString(7, candidacy.getEmailReferent());
             preparedStatement.setDate(8, candidacy.getStartDate());
             preparedStatement.setDate(9, candidacy.getEndDate());
+            preparedStatement.setInt(10, candidacy.getId());
 
             rows = preparedStatement.executeUpdate();
 
@@ -133,7 +134,7 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
         return rows == 1;
     }
 
-    public int insert(Candidacy candidacy) {
+    public int insert(Candidacy candidacy, int iDInternship) {
         String query = "INSERT INTO candidacy VALUES (NULL,?,?,?,?,?,?,?,?,?);";
         PreparedStatement preparedStatement;
         int lastInsertedId = -1;
@@ -141,7 +142,8 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
         try (Connection conn = Database.getDatasource().getConnection()) {
             preparedStatement = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
 
-            preparedStatement.setInt(1, candidacy.getInternshipFk());
+//            preparedStatement.setInt(1, candidacy.getInternshipFk());
+            preparedStatement.setInt(1, iDInternship);
             preparedStatement.setInt(2, candidacy.getStudentFk());
             preparedStatement.setInt(3, candidacy.getStatus());
             preparedStatement.setInt(4, candidacy.getNumCFU());

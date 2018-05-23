@@ -1,8 +1,5 @@
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
-import rest.AuthenticationResource;
-import rest.CompanyResource;
-import rest.InternshipResource;
-import rest.StudentResource;
+import rest.*;
 import utils.JacksonObjectMapper;
 
 import javax.ws.rs.ApplicationPath;
@@ -34,6 +31,7 @@ public class JAXRSApplication extends Application {
         c.add(StudentResource.class);
         c.add(InternshipResource.class);
         c.add(CompanyResource.class);
+        c.add(CandidacyResource.class);
 
 
         //aggiungiamo il provider Jackson per poter

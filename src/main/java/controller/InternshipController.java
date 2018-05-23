@@ -205,8 +205,8 @@ public class InternshipController {
         return list;
     }
 
-    public int insert(Candidacy candidacy) {
-        return candidacyDAO.insert(candidacy);
+    public int insert(Candidacy candidacy, int idIn) {
+        return candidacyDAO.insert(candidacy, idIn);
     }
 
     public Candidacy getCandidacy(int idCandidacy) {

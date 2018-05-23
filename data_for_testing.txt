@@ -67,19 +67,41 @@ Con token valido.
 
 }
 
-(12) http://localhost:8080/awd18/aziende/{ID}/offerte GET
+(12) http://localhost:8080/awd18/aziende/{ID}/offerte GET       OK
 
 (13) http://localhost:8080/awd18/auth/offerte/{ID}/candidati POST
 Con token valido.
+{
+    "intership_fk" : 1,
+    "student_fk" : 15,
+    "status" : 0,
+    "n_cfu" : 5,
+    "first_name_referent" : "DDD",
+    "last_name_referent" : "DDD",
+    "email_referent" : "DDD@D.com",
+    "start_date" : "2018-05-19",
+    "end_date" : "2018-05-30"
+}
+    OK
 
 (14) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc} PUT
 Con token valido.
 {
-
+    "intership_fk" : 1,
+    "student_fk" : 15,
+    "status" : 1,
+    "n_cfu" : 5,
+    "first_name_referent" : "DDD",
+    "last_name_referent" : "DDD",
+    "email_referent" : "DDD@D.com",
+    "start_date" : "2018-05-19",
+    "end_date" : "2018-05-30"
 }
+    OK
 
 (15) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc} DELETE
 Con token valido.
+    OK
 
 (16) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc}/progetto-formativo GET
 Con token valido.

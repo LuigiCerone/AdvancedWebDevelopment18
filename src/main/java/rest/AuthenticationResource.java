@@ -1,6 +1,7 @@
 package rest;
 
 import controller.CredentialController;
+import model.Candidacy;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -76,6 +77,7 @@ public class AuthenticationResource {
     public CandidacyResource candidacy(@CookieParam("sid") Cookie authcookie, @PathParam("id") int id) {
         return new CandidacyResource(authcookie, id);
     }
+
 
 
     /*
