@@ -1,6 +1,4 @@
 $(function () {
-    console.log("ready!");
-
     $.ajax({
         url: "http://localhost:8080/awd18/rest/aziende",
         type: "GET",
@@ -19,16 +17,20 @@ $(function () {
 
 
     $('#loginForm').on('submit', function (event) {
+        console.log("Clicked!");
         event.preventDefault();
         $.ajax({
             url: "http://localhost:8080/awd18/rest/auth",
             type: "POST",
-            data: {
+            data: JSON.stringify({
                 "email": $('#email').val(),
                 "password": $('#password').val()
-            },
-            dataType: "json",
+            }),
+            dataType: 'text',
+            contentType: "application/json; charset=utf-8",
             success: function (response) {
+                console.log("Cookie:" + document.cookie);
+                $('#cookie').text(document.cookie);
                 console.log(response);
             },
             error: function (error) {

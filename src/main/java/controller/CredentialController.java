@@ -5,6 +5,7 @@ import model.dao.CredentialDAO;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.UUID;
@@ -29,7 +30,12 @@ public class CredentialController {
      */
     public String login(String json) {
         String token;
-
+        try {
+            json = java.net.URLDecoder.decode(json, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        logger.debug("JSON: " + json);
         // Create a JSON form the string recevied.
         // TODO Remove JSONObject, use Jackson deserialization.
         JSONObject jsonObject = new JSONObject(json);

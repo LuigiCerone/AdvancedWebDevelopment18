@@ -1,7 +1,6 @@
 package rest;
 
 import controller.CredentialController;
-import model.Candidacy;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -24,9 +23,9 @@ public class AuthenticationResource {
 //        logger.debug("rest/auth POST recevied: " + json);
         String token = new CredentialController().login(json);
         if (token != null) {
-            NewCookie authcookie = new NewCookie("sid", token, "/awd18/rest", "", "", 1800, false);
+            NewCookie authcookie = new NewCookie("sid", token, "/", null, "SID", 1800, false, false);
             //restituiamo il token come testo della risposta e anche come cookie
-            return Response.ok().cookie(authcookie).build();
+            return Response.ok("ok").cookie(authcookie).build();
         } else {
             return Response.status(Response.Status.FORBIDDEN).entity("Invalid username or password").build();
         }
