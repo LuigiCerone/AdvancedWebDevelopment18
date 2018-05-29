@@ -22,3 +22,7 @@ body {
     border: 1px solid black;
     border-radius: 25px;
 }
+
+.tab-content > .tab-pane {
+    height: 200px;
+}
