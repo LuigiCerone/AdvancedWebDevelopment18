@@ -85,10 +85,28 @@ $(function () {
             dataType: "json",
             success: function (response) {
                 // Clear old values.
-                console.log(response);
-                var div = document.createElement("div");
+                $('#companyInternshipModalBody').empty();
 
-                $('#companyInternshipModalBody').append(div);
+
+                $.each(response, function (index, internship) {
+                    console.log(internship);
+                    var panel = document.createElement("div");
+                    $(panel).addClass("panel panel-default");
+                    var panelHeader = document.createElement("div");
+                    $(panelHeader).addClass("panel-heading");
+                    panelHeader.innerHTML = "<h3>" + internship.place + "</h3>";
+                    panel.append(panelHeader);
+
+                    var panelBody = document.createElement("div");
+                    $(panelBody).addClass("panel-body");
+                    panelBody.innerHTML = "<p>test</p>";
+                    panel.append(panelBody);
+
+                    $('#companyInternshipModalBody').append(panel);
+                    var hr = document.createElement("hr");
+                    $('#companyInternshipModalBody').append(hr);
+
+                });
             },
             error: function (error) {
                 console.log(error);
