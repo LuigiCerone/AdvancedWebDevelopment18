@@ -65,6 +65,7 @@ $(function () {
                 $('#legalForum').text(response.legalForum);
                 $('#active').text(response.active ? "Si" : "No");
 
+                $('#internshipListTrigger').attr('data-id', response.id);
 
                 $('#companyInfo').fadeIn("slow");
             },
@@ -74,6 +75,26 @@ $(function () {
         });
 
     });
+
+    $('#companyInternshipModal').on('show.bs.modal', function (e) {
+        var id = $('#internshipListTrigger').attr('data-id');
+        $.ajax({
+            url: "http://localhost:8080/awd18/rest/aziende/" + id + "/offerte",
+            type: "GET",
+            // data: {id : menuId},
+            dataType: "json",
+            success: function (response) {
+                // Clear old values.
+                console.log(response);
+                var div = document.createElement("div");
+
+                $('#companyInternshipModalBody').append(div);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    })
 });
 
 

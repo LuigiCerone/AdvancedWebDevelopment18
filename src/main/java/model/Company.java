@@ -153,7 +153,6 @@ public class Company {
         this.visible = visible;
     }
 
-    @JsonIgnore
     public int getId() {
         return id;
     }

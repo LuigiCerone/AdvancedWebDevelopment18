@@ -73,9 +73,9 @@
     <hr>
     <br>
     <!-- Company -->
+    <h3>Azienda</h3> <br>
     <div class="row">
-        <div class="col-md-4">
-            <h5 class="panel-title">Azienda</h5>
+        <div class="col-md-3">
             <div class="form-group">
                 <label for="companySelect">Visualizzazione informazioni aziende</label>
                 <select id="companySelect" class="form-control" aria-placeholder="Selezione azienda">
@@ -83,71 +83,104 @@
                 </select>
             </div>
         </div>
-        <div class="col-md-8">
-            <div id="companyInfo" class="panel panel-info">
-                <div class="panel-heading">
-                    <h5>Informazioni azienda selezionata</h5>
-
-                </div>
-                <div id="companyInfoBody" class="panel-body">
-                    <table id="companyTable" class="table">
-                        <thead>
-                        <tr>
-                            <th>Campo</th>
-                            <th>Valore</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td>Regione sociale</td>
-                            <td id="socialRegion"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Sede legale</td>
-                            <td id="legalAddress"></td>
-                        </tr>
-
-                        <tr>
-                            <td>Partita IVA</td>
-                            <td id="piva"></td>
-                        </tr>
-                        <tr>
-                            <td>Avvocato</td>
-                            <td id="lawyer"></td>
-                        </tr>
-                        <tr>
-                            <td>Responsabile</td>
-                            <td id="person"></td>
-                        </tr>
-                        <tr>
-                            <td>Telefono responsabile</td>
-                            <td id="personTel"></td>
-                        </tr>
-                        <tr>
-                            <td>Foro legale</td>
-                            <td id="legalForum"></td>
-                        </tr>
-                        <tr>
-                            <td>Attiva</td>
-                            <td id="active"></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div id="companyInfo" class="col-md-9">
+            <div class="form-group text-center">
+                <button type="button" class="btn btn-primary " id="internshipListTrigger"
+                        data-toggle="modal" data-target="#companyInternshipModal">Lista offerte di tirocinio
+                </button>
             </div>
+            <div>
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h5>Informazioni azienda selezionata</h5>
+                    </div>
+                    <div id="companyInfoBody" class="panel-body">
+                        <table id="companyTable" class="table">
+                            <thead>
+                            <tr>
+                                <th>Campo</th>
+                                <th>Valore</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Regione sociale</td>
+                                <td id="socialRegion"></td>
+                            </tr>
 
+                            <tr>
+                                <td>Sede legale</td>
+                                <td id="legalAddress"></td>
+                            </tr>
+
+                            <tr>
+                                <td>Partita IVA</td>
+                                <td id="piva"></td>
+                            </tr>
+                            <tr>
+                                <td>Avvocato</td>
+                                <td id="lawyer"></td>
+                            </tr>
+                            <tr>
+                                <td>Responsabile</td>
+                                <td id="person"></td>
+                            </tr>
+                            <tr>
+                                <td>Telefono responsabile</td>
+                                <td id="personTel"></td>
+                            </tr>
+                            <tr>
+                                <td>Foro legale</td>
+                                <td id="legalForum"></td>
+                            </tr>
+                            <tr>
+                                <td>Attiva</td>
+                                <td id="active"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="companyInternshipModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Tirocini dell'azienda</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div id="companyInternshipModalBody" class="modal-body">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3>Nome azienda</h3>
+                        </div>
+                        <div class="panel-body">
+                            Internship info
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<!-- script import -->
-<script src="js/jquery-3.3.1.min.js" type="text/javascript" defer="defer"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous" defer="defer"></script>
-<script src="js/script.js" type="text/javascript" defer="defer"></script>
+    <!-- script import -->
+    <script src="js/jquery-3.3.1.min.js" type="text/javascript" defer="defer"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous" defer="defer"></script>
+    <script src="js/script.js" type="text/javascript" defer="defer"></script>
 
 </body>
 
