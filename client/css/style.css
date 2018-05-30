@@ -26,3 +26,7 @@ body {
 .tab-content > .tab-pane {
     height: 200px;
 }
+
+#companyInfo {
+    display: none;
+}

@@ -7,7 +7,7 @@ $(function () {
         success: function (response) {
             $.each(response, function (i, value) {
                 console.log(value);
-                $('#companySelect').append($('<option>').text(value.nome).attr('value', value.nome));
+                $('#companySelect').append($('<option>').text(value.nome).attr('value', value.url));
             });
         },
         error: function (error) {
@@ -37,5 +37,64 @@ $(function () {
                 console.log(error);
             }
         });
-    })
+    });
+
+    $('#companySelect').on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        // Selected company URL is stored in variable valueSelected.
+        var valueSelected = this.value;
+        $.ajax({
+            url: valueSelected,
+            type: "GET",
+            // data: {id : menuId},
+            dataType: "json",
+            success: function (response) {
+                // Clear old values.
+                var table = $('#companyTable').clone()
+                $('#companyInfoBody').empty();
+                $('#companyInfoBody').append(table);
+
+                console.log(response);
+
+                $('#socialRegion').text(response.socialRegion);
+                $('#legalAddress').text(response.legalAddress);
+                $('#piva').text(response.piva);
+                $('#lawyer').text(response.lawyerFirstName + " " + response.lawyerLastName);
+                $('#person').text(response.personFirstName + " " + response.personLastName);
+                $('#personTel').text(response.personTelNumber);
+                $('#legalForum').text(response.legalForum);
+                $('#active').text(response.active ? "Si" : "No");
+
+
+                $('#companyInfo').fadeIn("slow");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+    });
 });
+
+
+// var table = document.createElement("table");
+// $(table).addClass("table");
+// var thead = document.createElement("thead");
+// // thead.innerHTML = "<tr><th>1</th><th>2</th></tr>";
+// table.append(thead);
+// var tbody = document.createElement("tbody");
+//
+// $.each(response, function (key, value) {
+//     var tr = document.createElement("tr");
+//     var td = document.createElement("td");
+//     td.innerHTML = "<b>" + key + "</b>";
+//     tr.append(td);
+//     var td1 = document.createElement("td");
+//     td1.innerText = value;
+//     tr.append(td1);
+//
+//     tbody.append(tr);
+// });
+//
+// table.append(tbody);
+// $('#companyInfoBody').append(table);

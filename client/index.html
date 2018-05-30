@@ -74,25 +74,69 @@
     <br>
     <!-- Company -->
     <div class="row">
-        <div class="col-lg-6 col-centered">
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    <h3 class="panel-title">Azienda</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-centered">
-                            <div class="form-group">
-                                <label for="companySelect">Visualizzazione informazioni aziende</label>
-                                <select id="companySelect" class="form-control" aria-placeholder="Selezione azienda">
-                                    <option value="" selected disabled>Selezionare azienda..</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+        <div class="col-md-4">
+            <h5 class="panel-title">Azienda</h5>
+            <div class="form-group">
+                <label for="companySelect">Visualizzazione informazioni aziende</label>
+                <select id="companySelect" class="form-control" aria-placeholder="Selezione azienda">
+                    <option value="" selected disabled>Selezionare azienda..</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div id="companyInfo" class="panel panel-info">
+                <div class="panel-heading">
+                    <h5>Informazioni azienda selezionata</h5>
 
                 </div>
+                <div id="companyInfoBody" class="panel-body">
+                    <table id="companyTable" class="table">
+                        <thead>
+                        <tr>
+                            <th>Campo</th>
+                            <th>Valore</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Regione sociale</td>
+                            <td id="socialRegion"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Sede legale</td>
+                            <td id="legalAddress"></td>
+                        </tr>
+
+                        <tr>
+                            <td>Partita IVA</td>
+                            <td id="piva"></td>
+                        </tr>
+                        <tr>
+                            <td>Avvocato</td>
+                            <td id="lawyer"></td>
+                        </tr>
+                        <tr>
+                            <td>Responsabile</td>
+                            <td id="person"></td>
+                        </tr>
+                        <tr>
+                            <td>Telefono responsabile</td>
+                            <td id="personTel"></td>
+                        </tr>
+                        <tr>
+                            <td>Foro legale</td>
+                            <td id="legalForum"></td>
+                        </tr>
+                        <tr>
+                            <td>Attiva</td>
+                            <td id="active"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
