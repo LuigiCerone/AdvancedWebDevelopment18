@@ -112,7 +112,44 @@ $(function () {
                 console.log(error);
             }
         });
-    })
+    });
+
+    $('#studentSelect').on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        // Selected company URL is stored in variable valueSelected.
+        var valueSelected = this.value;
+        $.ajax({
+            url: valueSelected,
+            type: "GET",
+            // data: {id : menuId},
+            dataType: "json",
+            success: function (response) {
+                // Clear old values.
+                var table = $('#companyTable').clone()
+                $('#companyInfoBody').empty();
+                $('#companyInfoBody').append(table);
+
+                console.log(response);
+
+                $('#socialRegion').text(response.socialRegion);
+                $('#legalAddress').text(response.legalAddress);
+                $('#piva').text(response.piva);
+                $('#lawyer').text(response.lawyerFirstName + " " + response.lawyerLastName);
+                $('#person').text(response.personFirstName + " " + response.personLastName);
+                $('#personTel').text(response.personTelNumber);
+                $('#legalForum').text(response.legalForum);
+                $('#active').text(response.active ? "Si" : "No");
+
+                $('#internshipListTrigger').attr('data-id', response.id);
+
+                $('#companyInfo').fadeIn("slow");
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+
+    });
 });
 
 
