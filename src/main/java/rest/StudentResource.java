@@ -49,7 +49,6 @@ public class StudentResource {
     @Path("{id: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStudentInfo(@PathParam("id") int idStudent) {
-
         if (authcookie != null) {
             int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
             if (userType != -1) {

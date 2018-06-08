@@ -23,7 +23,7 @@ public class AuthenticationResource {
 //        logger.debug("rest/auth POST recevied: " + json);
         String token = new CredentialController().login(json);
         if (token != null) {
-            NewCookie authcookie = new NewCookie("sid", token, "/", null, "SID", 1800, false, false);
+            NewCookie authcookie = new NewCookie("sid", token, null, null, null, 1800, false);
             //restituiamo il token come testo della risposta e anche come cookie
             return Response.ok("ok").cookie(authcookie).build();
         } else {
@@ -58,6 +58,7 @@ public class AuthenticationResource {
     @Path("studenti")
     @Produces(MediaType.APPLICATION_JSON)
     public StudentResource student(@CookieParam("sid") Cookie authcookie) {
+        logger.debug("Just received the following cookie: " + authcookie);
         return new StudentResource(authcookie);
     }
 
