@@ -26,13 +26,15 @@ $(function () {
                 "email": $('#email').val(),
                 "password": $('#password').val()
             }),
+            xhrFields: {
+                withCredentials: true
+            },
             dataType: 'text',
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
-            success: function (response) {
-                console.log("Cookie:" + document.cookie);
-                $('#cookie').text(document.cookie);
-                console.log(response);
+            success: function (data, text, xhr) {
+                // debugger;
+                console.log(xhr.getResponseHeader('Set-Cookie'));
             },
             error: function (error) {
                 console.log(error);
@@ -123,8 +125,10 @@ $(function () {
             url: "http://localhost:8080/awd18/rest/auth/studenti/" + studentId,
             type: "GET",
             // data: {id : menuId},
-            crossDomain: true,
-            xhrFields: {withCredentials: true},
+            // crossDomain: true,
+            xhrFields: {
+                withCredentials: true
+            },
             dataType: "json",
             success: function (response) {
                 console.log(response);
