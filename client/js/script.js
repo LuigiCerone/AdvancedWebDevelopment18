@@ -42,6 +42,25 @@ $(function () {
         });
     });
 
+    $('#logout').on('click', function (event) {
+        $.ajax({
+            url: "http://localhost:8080/awd18/rest/auth",
+            type: "DELETE",
+            xhrFields: {
+                withCredentials: true
+            },
+            dataType: 'text',
+            contentType: "application/json; charset=utf-8",
+            crossDomain: true,
+            success: function (data, text, xhr) {
+                console.log(data);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
     $('#companySelect').on('change', function (e) {
         var optionSelected = $("option:selected", this);
         // Selected company URL is stored in variable valueSelected.
@@ -90,7 +109,6 @@ $(function () {
                 // Clear old values.
                 $('#companyInternshipModalBody').empty();
 
-
                 $.each(response, function (index, internship) {
                     console.log(internship);
                     var panel = document.createElement("div");
@@ -132,27 +150,30 @@ $(function () {
             dataType: "json",
             success: function (response) {
                 console.log(response);
-                // Clear old values.
-                // var table = $('#companyTable').clone()
-                // $('#companyInfoBody').empty();
-                // $('#companyInfoBody').append(table);
-                //
-                // console.log(response);
-                //
-                // $('#socialRegion').text(response.socialRegion);
-                // $('#legalAddress').text(response.legalAddress);
-                // $('#piva').text(response.piva);
-                // $('#lawyer').text(response.lawyerFirstName + " " + response.lawyerLastName);
-                // $('#person').text(response.personFirstName + " " + response.personLastName);
-                // $('#personTel').text(response.personTelNumber);
-                // $('#legalForum').text(response.legalForum);
-                // $('#active').text(response.active ? "Si" : "No");
-                //
-                // $('#internshipListTrigger').attr('data-id', response.id);
-                //
-                // $('#companyInfo').fadeIn("slow");
+                $('#studentInfo').hide().empty();
+                var table = document.createElement("table");
+                $(table).addClass("table");
+
+                // Append table's thead.
+                $(table).append("<thead> <tr><th>Campo</th><th>Valore</th></tr></thead>");
+                var tbody = document.createElement("tbody");
+
+                // Change fields value with response data.
+                $(tbody).append("<tr><td>Nome</td><td>" + response.firstName + "</td></tr>");
+                $(tbody).append("<tr><td>Cognome</td><td>" + response.lastName + "</td></tr>");
+                $(tbody).append("<tr><td>Data di nascita</td><td>" + response.birthDate + "</td></tr>");
+                $(tbody).append("<tr><td>Luogo di nascita</td><td>" + response.birthPlace + "</td></tr>");
+                $(tbody).append("<tr><td>Codice fiscale</td><td>" + response.cf + "</td></tr>");
+                $(tbody).append("<tr><td>Livello studi</td><td>" + response.universityLevel + "</td></tr>");
+                $(tbody).append("<tr><td>Corso di studi</td><td>" + response.universityCourse + "</td></tr>");
+                $(table).append(tbody);
+
+                $('#studentInfo').append(table).fadeIn("slow");
             },
-            error: function (error) {
+            error: function (xhr, text, error) {
+                debugger;
+                $('#studentInfo').empty();
+                $('#studentInfo').append('<h3>' + xhr.status + ' - ' + xhr.responseText + '</h3>');
                 console.log(error);
             }
         });

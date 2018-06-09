@@ -16,10 +16,14 @@ body {
     font-size: 1.5em;
 }
 
-.tab-content > .tab-pane {
+.tab-content>.tab-pane {
     height: 200px;
 }
 
 #companyInfo {
+    display: none;
+}
+
+#studentTemplateTable {
     display: none;
 }

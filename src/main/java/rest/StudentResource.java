@@ -4,6 +4,7 @@ import controller.CredentialController;
 import controller.StudentController;
 import model.Student;
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
@@ -78,7 +79,9 @@ public class StudentResource {
                 return Response.serverError().build();
             }
         } else {
-            return Response.ok("No active session").build();
+//            JSONObject response = new JSONObject();
+//            response.put("error", "No active session");
+            return Response.status(403).entity("No active session").build();
         }
     }
 
