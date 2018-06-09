@@ -34,9 +34,12 @@ $(function () {
             crossDomain: true,
             success: function (data, text, xhr) {
                 // debugger;
-                console.log(xhr.getResponseHeader('Set-Cookie'));
+                $('#responseStatusInfo').hide().empty()
+                    .append("Log in OK").fadeIn("slow");
             },
             error: function (error) {
+                $('#responseStatusInfo').hide().empty()
+                    .append("Log in errore").fadeIn("slow");
                 console.log(error);
             }
         });
@@ -53,9 +56,12 @@ $(function () {
             contentType: "application/json; charset=utf-8",
             crossDomain: true,
             success: function (data, text, xhr) {
-                console.log(data);
+                $('#responseStatusInfo').hide().empty()
+                    .append("Log out OK").fadeIn("slow");
             },
             error: function (error) {
+                $('#responseStatusInfo').hide().empty()
+                    .append("Log out errore").fadeIn("slow");
                 console.log(error);
             }
         });
