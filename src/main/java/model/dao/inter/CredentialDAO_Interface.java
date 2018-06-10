@@ -24,4 +24,6 @@ public interface CredentialDAO_Interface {
     int getUserIdByCookie(String cookie);
 
     int insert(Credential credential, String passwordToHash);
+
+    boolean updateLastSeen(int id);
 }

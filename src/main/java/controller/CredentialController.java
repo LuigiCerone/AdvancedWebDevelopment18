@@ -59,7 +59,10 @@ public class CredentialController {
             // Start session by storing data into the DB.
             if (credentialDAO.startSession(credential.getId(), token, timestamp)) {
                 // Session started.
-                return token;
+
+                //Update last seen field.
+                if (credentialDAO.updateLastSeen(credential.getId()))
+                    return token;
             } else {
                 logger.error("Error while creating session.");
             }

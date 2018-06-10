@@ -199,6 +199,24 @@ public class CredentialDAO implements CredentialDAO_Interface {
         return lastInsertedId;
     }
 
+    @Override
+    public boolean updateLastSeen(int idCredential) {
+        String query = "UPDATE credential SET last_seen = NOW() WHERE id = ?;";
+        PreparedStatement preparedStatement;
+        int affectedRows = -1;
+
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, idCredential);
+            affectedRows = preparedStatement.executeUpdate();
+
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return affectedRows == 1;
+    }
+
     public void test() {
         logger.debug("Received a request");
         try (Connection conn = Database.getDatasource().getConnection()) {
