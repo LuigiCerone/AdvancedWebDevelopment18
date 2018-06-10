@@ -84,53 +84,8 @@ public class InternshipResource {
                 return Response.serverError().build();
             }
         } else {
-            return Response.ok("No active session").build();
+            return Response.status(403).entity("No active session").build();
         }
     }
-
-//    @POST
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public Response insertCandidacy(@Context UriInfo c, Candidacy candidacy) {
-//        if (authcookie != null) {
-//            int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
-//            if (userType != -1) {
-//                // userType contains an integer 0=student, 1=company, 2=admin.
-//                switch (userType) {
-//                    case 0: { // Student.
-//                        int id = new CandidacyDAO().insert(candidacy);
-//                        URI u = c.getBaseUriBuilder()
-//                                .path(InternshipResource.class)
-//                                .path(InternshipResource.class, "getOffertByID")
-//                                .build(id);
-//                        return Response.created(u).build();
-////                        } else {
-////                            return Response.serverError().build();
-////                        }
-//                    }
-//                    case 1: { // Company.
-//                        return Response.status(403).build();
-//                    }
-//                    case 2: { // Admin.
-//                        return Response.status(403).build();
-//                    }
-//                    default: {
-//                        logger.error("userType value is not correct.");
-//                        return Response.serverError().build();
-//                    }
-//                }
-//            } else {
-//                return Response.ok("No active session").build();
-//            }
-//        } else {
-//            return Response.ok("No active session").build();
-//        }
-//    }
-
-//
-//    @Path("candidati"){
-//        public Candidacy toCandidacy() { return new  Candidacy(3); }
-//    }
-
-
 }
 

@@ -71,10 +71,10 @@ public class CompanyResource {
                 }
             } else {
                 logger.debug("Error with user type.");
-                return Response.ok("No active session").build();
+                return Response.status(403).entity("No active session").build();
             }
         } else {
-            return Response.ok("No active session").build();
+            return Response.status(403).entity("No active session").build();
         }
     }
 

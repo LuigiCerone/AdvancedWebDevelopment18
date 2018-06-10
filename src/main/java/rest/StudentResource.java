@@ -58,15 +58,6 @@ public class StudentResource {
                 if (idLoggedUser != -1) {
                     Student student = new StudentController().selectiveSelect(userType, idStudent, idLoggedUser);
                     if (student != null) {
-//                        ObjectMapper mapper = new ObjectMapper();
-//                        String jsonResult = null;
-//                        try {
-//                            jsonResult = mapper.writeValueAsString(student);
-//                        } catch (JsonProcessingException e) {
-//                            e.printStackTrace();
-//                        }
-//                        logger.debug("Dovresti ricevere questo :" + jsonResult);
-//                        return Response.ok(jsonResult).build();
                         return Response.ok(student).build();
                     } else
                         return Response.status(403).build();
@@ -79,26 +70,7 @@ public class StudentResource {
                 return Response.serverError().build();
             }
         } else {
-//            JSONObject response = new JSONObject();
-//            response.put("error", "No active session");
             return Response.status(403).entity("No active session").build();
         }
     }
-
-    //GET /rest/studenti/<numero>
-//    //Accept: application/json
-//    @GET
-//    @Path("{id: [0-9]+}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getStudentById(@PathParam("id") int n) {
-//        /*
-//         * L'annotazione @PathParam permette di "iniettare"
-//         * su un parametro del metodo il valore effettivo del
-//         * parametro della URL col nome indicato. JAX-RS proverà
-//         * a convertire il parametro della URL nel tipo richiesto
-//         * dal metodo.
-//         */
-//        // TODO return student info except sensitive information.
-//        return Response.ok(n).build();
-//    }
 }

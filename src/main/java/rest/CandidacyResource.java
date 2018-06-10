@@ -55,10 +55,10 @@ public class CandidacyResource {
                     }
                 }
             } else {
-                return Response.ok("No active session").build();
+                return Response.status(403).entity("No active session").build();
             }
         } else {
-            return Response.ok("No active session").build();
+            return Response.status(403).entity("No active session").build();
         }
     }
 
@@ -74,10 +74,10 @@ public class CandidacyResource {
                 Candidacy candidacy = new InternshipController().getCandidacy(idCandidacy);
                 return Response.ok(candidacy).build();
             } else {
-                return Response.ok("No active session").build();
+                return Response.status(403).entity("No active session").build();
             }
         } else {
-            return Response.ok("No active session").build();
+            return Response.status(403).entity("No active session").build();
         }
     }
 
@@ -108,9 +108,9 @@ public class CandidacyResource {
                 } else
                     return Response.status(403).build();
             } else {
-                return Response.ok("No active session").build();
+                return Response.status(403).entity("No active session").build();
             }
-        } else return Response.ok("No active session").build();
+        } else return Response.status(403).entity("No active session").build();
     }
 
     //DELETE rest/auth/offerte/{id: [0-9]+}/candidati/{idc: [0-9]+}
@@ -138,9 +138,9 @@ public class CandidacyResource {
                 } else
                     return Response.status(403).build();
             } else {
-                return Response.ok("No active session").build();
+                return Response.status(403).entity("No active session").build();
             }
-        } else return Response.ok("No active session").build();
+        } else return Response.status(403).entity("No active session").build();
     }
 
 
@@ -197,10 +197,8 @@ public class CandidacyResource {
                         return Response.serverError().build();
                 } else return Response.serverError().build();
             } else {
-                return Response.ok("No active session").build();
+                return Response.status(403).entity("No active session").build();
             }
-        } else return Response.ok("No active session").
-
-                build();
+        } else return Response.status(403).entity("No active session").build();
     }
 }
