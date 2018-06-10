@@ -54,14 +54,14 @@ Con token valido.
 	}
 OK
 
-(8) http://localhost:8080/awd18/auth/studenti/{ID} GET
+(8) http://localhost:8080/awd18/rest/auth/studenti/{ID} GET
 Con token valido.
 
-(9) http://localhost:8080/awd18/offerte/{ID} GET
+(9) http://localhost:8080/awd18/rest/offerte/{ID} GET
 
-(10) http://localhost:8080/awd18/offerte? {FILTER}[first={m}[&last={n}]] GET
+(10) http://localhost:8080/awd18/rest/offerte? {FILTER}[first={m}[&last={n}]] GET
 
-(11) http://localhost:8080/awd18/auth/offerte POST
+(11) http://localhost:8080/awd18/rest/auth/offerte POST
 Con token valido di un'azienda.
 {
   "place": "L'Aquila",
@@ -79,9 +79,9 @@ Con token valido di un'azienda.
 }
 
 
-(12) http://localhost:8080/awd18/aziende/{ID}/offerte GET       OK
+(12) http://localhost:8080/awd18/rest/aziende/{ID}/offerte GET       OK
 
-(13) http://localhost:8080/awd18/auth/offerte/{ID}/candidati POST
+(13) http://localhost:8080/awd18/rest/auth/offerte/{ID}/candidati POST
 Con token valido.
 {
     "intership_fk" : 1,
@@ -96,7 +96,7 @@ Con token valido.
 }
     OK
 
-(14) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc} PUT
+(14) http://localhost:8080/awd18/rest/auth/offerte/{IDt}/candidati/{IDc} PUT
 Con token valido.
 {
     "intership_fk" : 1,
@@ -111,9 +111,9 @@ Con token valido.
 }
     OK
 
-(15) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc} DELETE
+(15) http://localhost:8080/awd18/rest/auth/offerte/{IDt}/candidati/{IDc} DELETE
 Con token valido.
     OK
 
-(16) http://localhost:8080/awd18/auth/offerte/{IDt}/candidati/{IDc}/progetto-formativo GET
+(16) http://localhost:8080/awd18/rest/auth/offerte/{IDt}/candidati/{IDc}/progetto-formativo GET
 Con token valido.

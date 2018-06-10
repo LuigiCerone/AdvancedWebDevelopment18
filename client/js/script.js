@@ -184,7 +184,35 @@ $(function () {
             }
         });
     });
+
+    $('#candidacyPdfDownload').on('click', function () {
+        console.log("clicked");
+
+        downloadURI("http://localhost:8080/awd18/rest/auth/offerte/1/candidati/1/progetto-formativo", "test");
+        // $.ajax({
+        //     url: "http://localhost:8080/awd18/rest/auth/offerte/1/candidati/1/progetto-formativo",
+        //     type: "GET",
+        //     // data: {id : menuId},
+        //     // crossDomain: true,
+        //     xhrFields: {
+        //         withCredentials: true
+        //     },
+        //     success: function (response) {
+        //         console.log(response);
+        //     },
+        //     error: function (xhr, text, error) {
+        //         console.log(error);
+        //     }
+        // });
+    });
 });
+
+function downloadURI(uri, name) {
+    var link = document.createElement("a");
+    link.download = name;
+    link.href = uri;
+    link.click();
+}
 
 
 // var table = document.createElement("table");

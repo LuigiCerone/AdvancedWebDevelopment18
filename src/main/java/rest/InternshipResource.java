@@ -3,9 +3,7 @@ package rest;
 import controller.CompanyController;
 import controller.CredentialController;
 import controller.InternshipController;
-import model.Candidacy;
 import model.Internship;
-import model.dao.CandidacyDAO;
 import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
@@ -23,6 +21,9 @@ public class InternshipResource {
 
     public InternshipResource(Cookie authcookie) {
         this.authcookie = authcookie;
+    }
+
+    public InternshipResource() {
     }
 
     /*

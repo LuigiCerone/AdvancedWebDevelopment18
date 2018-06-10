@@ -73,7 +73,6 @@ public class AuthenticationResource {
     //ANY /rest/auth/offerte/{id: [0-9]+}/candidati
     //Content-Type: application/json
     @Path("offerte/{id: [0-9]+}/candidati")
-    @Produces(MediaType.APPLICATION_JSON)
     public CandidacyResource candidacy(@CookieParam("sid") Cookie authcookie, @PathParam("id") int id) {
         return new CandidacyResource(authcookie, id);
     }

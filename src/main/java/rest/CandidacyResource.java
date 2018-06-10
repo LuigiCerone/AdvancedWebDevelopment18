@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
-import java.io.*;
+import java.io.File;
 import java.net.URI;
 
 @Path("candidati")
@@ -149,7 +149,7 @@ public class CandidacyResource {
     @GET
     @Path("{idc: [0-9]+}/progetto-formativo")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    public Response getCandidacyPDF(@PathParam("idc") int candidacyId) {
+    public Response getCandidacyPDF(@PathParam("idc") int candidacyId, @Context Context context) {
         if (authcookie != null) {
             int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
             if (userType != -1) {
@@ -159,37 +159,35 @@ public class CandidacyResource {
                     int status = new InternshipController().checkIfAllowed(idLoggedUser, candidacyId, userType);
                     if (status == 1) {
                         // Retrun pdf.
-                        File file = new InternshipController().getPdfForCandidacy(candidacyId);
+                        File file = new InternshipController().getPdfForCandidacy(context, candidacyId);
 
                         // Use file.
-//                        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
-//                                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"") //optional
-//                                .build();
-
-                        // Use stream.
-                        StreamingOutput result = null;
-                        try {
-                            byte[] buf = new byte[8192];
-
-                            InputStream is = new FileInputStream(file);
-
-                            result = new StreamingOutput() {
-                                @Override
-                                public void write(OutputStream out) throws IOException {
-                                    int c;
-                                    while ((c = is.read(buf, 0, buf.length)) > 0) {
-                                        out.write(buf, 0, c);
-                                        out.flush();
-                                    }
-                                }
-                            };
-                        } catch (FileNotFoundException e) {
-                            e.printStackTrace();
-                        }
-
-                        return Response.ok(result, MediaType.APPLICATION_OCTET_STREAM)
+                        return Response.ok(file, MediaType.APPLICATION_OCTET_STREAM)
                                 .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"") //optional
                                 .build();
+
+                        // Use stream.
+//                        StreamingOutput result = null;
+//                        try {
+//                            byte[] buf = new byte[8192];
+//                            InputStream is = new FileInputStream(file);
+//                            result = new StreamingOutput() {
+//                                @Override
+//                                public void write(OutputStream out) throws IOException {
+//                                    int c;
+//                                    while ((c = is.read(buf, 0, buf.length)) > 0) {
+//                                        out.write(buf, 0, c);
+//                                        out.flush();
+//                                    }
+//                                }
+//                            };
+//                        } catch (FileNotFoundException e) {
+//                            e.printStackTrace();
+//                        }
+//
+//                        return Response.ok(result, MediaType.APPLICATION_OCTET_STREAM)
+//                                .header("Content-Disposition", "attachment; filename=\"" + file.getName() + "\"") //optional
+//                                .build();
                     } else if (status == 0) {
                         // Then forbidden.
                         return Response.status(400).build();

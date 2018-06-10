@@ -6,6 +6,7 @@ import model.dao.CandidacyDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
+import javax.ws.rs.core.Context;
 import java.io.File;
 import java.sql.Date;
 import java.util.Calendar;
@@ -144,9 +145,10 @@ public class InternshipController {
         }
     }
 
-    public File getPdfForCandidacy(int candidacyId) {
+    public File getPdfForCandidacy(Context context, int candidacyId) {
         // TODO Get the PDF somehow.
-        File file = new File("test.pdf"); // Initialize this to the File path you want to serve.
+        logger.debug("HERE HERE HERE");
+        File file = new File("/home/debian-luigi/IdeaProjects/awd18/WEB-INF/test.pdf"); // Initialize this to the File path you want to serve.
         return file;
     }
 
