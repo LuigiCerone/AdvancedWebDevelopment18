@@ -161,7 +161,7 @@ public class InternshipController {
             list = internshipDAO.getInternshipByRangeByCompany(companyId, first, last);
         } else if (first != 0 && last == 0) {
             // Only first limit is set, so return all the internships with id>=first.
-            list = internshipDAO.getInternshipGTByCompany(companyId, first);
+            list = internshipDAO.getInternshipByRangeByCompany(companyId, first, 0);
         } else {
             // Both limits are not set, so return all internships.
             list = internshipDAO.getAllInternships();
@@ -186,7 +186,7 @@ public class InternshipController {
             list = internshipDAO.getInternshipByRange(first, last);
         } else if (first != 0 && last == 0) {
             // Only first limit is set, so return all the internships with id>=first.
-            list = internshipDAO.getInternshipGT(first);
+            list = internshipDAO.getInternshipByRange(first, 0);
         } else {
             // Both limits are not set, so return all internships.
             list = internshipDAO.getAllInternships();
