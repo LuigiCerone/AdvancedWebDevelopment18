@@ -200,6 +200,7 @@ public class InternshipDAO implements InternshipDAO_Interface {
             preparedStatement = conn.prepareStatement(query);
             preparedStatement.setInt(1, idCompany);
 
+
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 Internship internship = new Internship(
@@ -227,4 +228,82 @@ public class InternshipDAO implements InternshipDAO_Interface {
         return internshipList;
     }
 
+    @Override
+    public LinkedList<Internship> getInternshipByRange(int first, int last) {
+        LinkedList<Internship> internshipList = new LinkedList<>();
+        String query = "SELECT * FROM internship WHERE  id >= ? && id <= ?;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, first);
+            preparedStatement.setInt(2, last);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Internship internship = new Internship(
+                        resultSet.getInt(Internship.ID),
+                        resultSet.getString(Internship.PLACE),
+                        resultSet.getBoolean(Internship.REMOTE),
+                        resultSet.getTime(Internship.START_TIME),
+                        resultSet.getTime(Internship.END_TIME),
+                        resultSet.getInt(Internship.N_HOURS),
+                        resultSet.getString(Internship.GOALS),
+                        resultSet.getString(Internship.WORK_TYPE),
+                        resultSet.getFloat(Internship.REFUND),
+                        resultSet.getString(Internship.FACILITATIONS),
+                        resultSet.getInt(Internship.COMPANY_FK),
+                        resultSet.getDate(Internship.START_DATE),
+                        resultSet.getDate(Internship.END_DATE)
+                );
+                internshipList.add(internship);
+
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return internshipList;
+    }
+
+    @Override
+    public LinkedList<Internship> getInternshipGT(int first) {
+        LinkedList<Internship> internshipList = new LinkedList<>();
+        String query = "SELECT * FROM internship WHERE  id >= ?;";
+        PreparedStatement preparedStatement;
+        try (Connection conn = Database.getDatasource().getConnection()) {
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setInt(1, first);
+
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Internship internship = new Internship(
+                        resultSet.getInt(Internship.ID),
+                        resultSet.getString(Internship.PLACE),
+                        resultSet.getBoolean(Internship.REMOTE),
+                        resultSet.getTime(Internship.START_TIME),
+                        resultSet.getTime(Internship.END_TIME),
+                        resultSet.getInt(Internship.N_HOURS),
+                        resultSet.getString(Internship.GOALS),
+                        resultSet.getString(Internship.WORK_TYPE),
+                        resultSet.getFloat(Internship.REFUND),
+                        resultSet.getString(Internship.FACILITATIONS),
+                        resultSet.getInt(Internship.COMPANY_FK),
+                        resultSet.getDate(Internship.START_DATE),
+                        resultSet.getDate(Internship.END_DATE)
+                );
+                internshipList.add(internship);
+
+            }
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return internshipList;
+    }
+
+    @Override
+    public LinkedList<Internship> getInternshipGTByCompany(int companyId, int first) {
+        return null;
+    }
 }

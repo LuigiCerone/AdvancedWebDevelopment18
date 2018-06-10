@@ -154,8 +154,19 @@ public class InternshipController {
         return internshipDAO.getInternshipFromID(id);
     }
 
-    public LinkedList<Internship> getListInternshiByCompanyID(int idCompany) {
-        return internshipDAO.getIntershipByCompanyID(idCompany);
+    public LinkedList<Internship> getListInternshipByCompanyID(int companyId, int first, int last) {
+        LinkedList<Internship> list = null;
+        if (first != 0 && last != 0) {
+            // Both limits are set.
+            list = internshipDAO.getInternshipByRangeByCompany(companyId, first, last);
+        } else if (first != 0 && last == 0) {
+            // Only first limit is set, so return all the internships with id>=first.
+            list = internshipDAO.getInternshipGTByCompany(companyId, first);
+        } else {
+            // Both limits are not set, so return all internships.
+            list = internshipDAO.getAllInternships();
+        }
+        return list;
     }
 
     /**
@@ -170,39 +181,76 @@ public class InternshipController {
     public LinkedList<Internship> getFilteredInterships(String filter, String n, int first, int last) {
         LinkedList<Internship> list = null;
 
+        if (first != 0 && last != 0) {
+            // Both limits are set.
+            list = internshipDAO.getInternshipByRange(first, last);
+        } else if (first != 0 && last == 0) {
+            // Only first limit is set, so return all the internships with id>=first.
+            list = internshipDAO.getInternshipGT(first);
+        } else {
+            // Both limits are not set, so return all internships.
+            list = internshipDAO.getAllInternships();
+        }
+
+        // Now we need to filter the list according to filter if specified.
         if (filter != null) {
             // Check which type of filter is used.
             switch (filter) {
-                case "città": {
-                    list = internshipDAO.getInternshipfilteredByCriteria(1, n);
+                case "city": {
+                    Predicate<Internship> internshipPredicate = internship -> internship.getPlace().equalsIgnoreCase(n);
+                    list.removeIf(internshipPredicate);
                 }
                 case "min": {
-                    list = internshipDAO.getInternshipfilteredByCriteria(2, n);
+                    Predicate<Internship> internshipPredicate = internship -> internship.getNumberHour() >= (Integer.valueOf(n));
+                    list.removeIf(internshipPredicate);
                 }
                 case "max": {
-                    list = internshipDAO.getInternshipfilteredByCriteria(3, n);
+                    Predicate<Internship> internshipPredicate = internship -> internship.getNumberHour() <= Integer.valueOf(n);
+                    list.removeIf(internshipPredicate);
                 }
                 default: {
                     logger.error("Unknown error.");
                 }
             }
+            return list;
         } else {
-            // Get all internships.
-            list = internshipDAO.getAllInternships();
+            // No filter, so return list directly.
+            return list;
         }
 
-        // Now paginate.
-        if (first != 0 && last != 0) {
-            //  Full pagination.
-            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first && internship.getId() >= last;
-            list.removeIf(internshipPredicate);
-        } else if (first != 0 && last == 0) {
-            // Half pagination.
-            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first;
-            list.removeIf(internshipPredicate);
-        }
-
-        return list;
+//        LinkedList<Internship> list = null;
+//
+//        if (filter != null) {
+//            // Check which type of filter is used.
+//            switch (filter) {
+//                case "città": {
+//                    list = internshipDAO.getInternshipfilteredByCriteria(1, n);
+//                }
+//                case "min": {
+//                    list = internshipDAO.getInternshipfilteredByCriteria(2, n);
+//                }
+//                case "max": {
+//                    list = internshipDAO.getInternshipfilteredByCriteria(3, n);
+//                }
+//                default: {
+//                    logger.error("Unknown error.");
+//                }
+//            }
+//        } else {
+//            // Get all internships.
+//            list = internshipDAO.getAllInternships();
+//        }
+//
+//        // Now paginate.
+//        if (first != 0 && last != 0) {
+//            //  Full pagination.
+//            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first && internship.getId() >= last;
+//            list.removeIf(internshipPredicate);
+//        } else if (first != 0 && last == 0) {
+//            // Half pagination.
+//            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first;
+//            list.removeIf(internshipPredicate);
+//        }
     }
 
     public int insert(Candidacy candidacy, int idIn) {

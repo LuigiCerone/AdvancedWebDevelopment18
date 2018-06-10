@@ -31,9 +31,9 @@ public class CompanyResource {
     @GET
     @Path("{id: [0-9]+}/offerte")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response InternshipByCompany(@PathParam("id") int idCompany) {
+    public Response InternshipByCompany(@PathParam("id") int idCompany, @QueryParam("first") int first, @QueryParam("last") int last) {
 
-        LinkedList<Internship> list = new InternshipController().getListInternshiByCompanyID(idCompany);
+        LinkedList<Internship> list = new InternshipController().getListInternshipByCompanyID(idCompany, first, last);
         return Response.ok(list).build();
 
     }

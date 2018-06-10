@@ -33,16 +33,6 @@ public class InternshipResource {
      * rappresenta i soli articoli dell'issue identificato dal parametro stesso.
      */
 
-    private int iid = 0;
-
-    public InternshipResource() {
-        this.iid = 0;
-    }
-
-    public InternshipResource(int iid) {
-        this.iid = iid;
-    }
-
     //GET  awd18/rest/offerte
     //Accept: application/json
     @GET

@@ -3,8 +3,6 @@ package model.dao.inter;
 
 import model.Internship;
 
-import java.sql.Timestamp;
-import java.util.List;
 import java.util.LinkedList;
 
 public interface InternshipDAO_Interface {
@@ -19,4 +17,12 @@ public interface InternshipDAO_Interface {
 
     LinkedList<Internship> getIntershipByCompanyID(int m);
 
+    LinkedList<Internship> getInternshipByRange(int first, int last);
+
+
+    LinkedList<Internship> getInternshipGT(int first);
+
+    LinkedList<Internship> getInternshipByRangeByCompany(int companyId, int first, int last);
+
+    LinkedList<Internship> getInternshipGTByCompany(int companyId, int first);
 }
