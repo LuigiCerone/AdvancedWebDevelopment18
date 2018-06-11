@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "e5d5affb-0c83-4209-bbc5-4159458b91c7",
+		"name": "AWD_2018",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login - POST auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"passwordsicura\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth"
+					]
+				},
+				"description": "\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout - DELETE auth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth"
+					]
+				},
+				"description": "\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Lista aziende - GET aziende",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"passwordsicura\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/aziende",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"aziende"
+					]
+				},
+				"description": "\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Informazioni azienda - GET azienda con ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"test@test.com\",\n\t\"password\": \"passwordsicura\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/aziende/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"aziende",
+						"13"
+					]
+				},
+				"description": "\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Inserisci azienda - POST azienda",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"tests[\"response code is 200\"] = responseCode.code === 200;",
+							"tests[\"body contains authenticated\"] = responseBody.has(\"authenticated\");"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"credential\":{\n\t    \"email\": \"test12@test.com\",\n\t    \"password\": \"passwordsicura\"\n\t    },\n    \"socialRegion\": \"CCCC\",\n    \"legalAddress\": \"L'aquila\",\n    \"piva\": \"2u3t4367428riuufgy487\",\n    \"lawyerFirstName\": \"Nome2\",\n    \"lawyerLastName\": \"Cognome2\",\n    \"personFirstName\": \"PersonNome\",\n    \"personLastName\": \"PersonCognome\",\n    \"personTelNumber\": 7488458,\n    \"legalForum\": \"Avezzano\",\n    \"active\": true,\n    \"visible\": true\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/aziende",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"aziende"
+					]
+				},
+				"description": "\n"
+			},
+			"response": []
+		}
+	]
+}

@@ -145,7 +145,7 @@ public class InternshipController {
         }
     }
 
-    public File getPdfForCandidacy(Context context, int candidacyId) {
+    public File getPdfForCandidacy(int candidacyId) {
         // TODO Get the PDF somehow.
         logger.debug("HERE HERE HERE");
         File file = new File("/home/debian-luigi/IdeaProjects/awd18/WEB-INF/test.pdf"); // Initialize this to the File path you want to serve.

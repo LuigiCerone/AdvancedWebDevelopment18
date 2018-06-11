@@ -96,7 +96,7 @@ public class CompanyResource {
         if (id != -1) {
             URI u = c.getBaseUriBuilder()
                     .path(CompanyResource.class)
-                    .path(CompanyResource.class, "getCompanyByID")
+                    .path(CompanyResource.class, "getCompanyById")
                     .build(id);
             return Response.created(u).build();
         } else {

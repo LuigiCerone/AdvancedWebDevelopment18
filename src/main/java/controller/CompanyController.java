@@ -22,6 +22,7 @@ public class CompanyController {
     private CredentialDAO credentialDAO;
 
     public CompanyController() {
+        this.credentialDAO = new CredentialDAO();
         this.companyDAO = new CompanyDAO();
         this.internshipDAO = new InternshipDAO();
     }
@@ -99,7 +100,7 @@ public class CompanyController {
     public int insertCompany(Company companyToInsert) {
         // In order to insert a company first we need to check if the email is available, then we register the company,
         // then the we get the last inserted id and insert a credential instance in the table.
-        if (credentialDAO.checkEmailAvailable(companyToInsert.getCredential().getEmail())) {
+        if (this.credentialDAO.checkEmailAvailable(companyToInsert.getCredential().getEmail())) {
             // Email is available, then insert student.
             int id = credentialDAO.insert(companyToInsert.getCredential(), companyToInsert.getCredential().getPassword());
             if (id != -1) {
