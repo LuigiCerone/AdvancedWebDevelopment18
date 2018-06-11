@@ -29,18 +29,20 @@ public class CandidacyResource {
     //Accept: application/json
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response insertCandidacy(@PathParam("id") int n, @Context UriInfo c, Candidacy candidacy) {
+    public Response insertCandidacy(@PathParam("id") int idOffer, @Context UriInfo c, Candidacy candidacy) {
         if (authcookie != null) {
             int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
             if (userType != -1) {
                 // userType contains an integer 0=student, 1=company, 2=admin.
                 switch (userType) {
                     case 0: { // Student.
-                        int id = new InternshipController().insert(candidacy, n);
+                        int idStudent = new CredentialController().getUserIdByCookie(authcookie.getValue());
+                        candidacy.setStudentFk(idStudent);
+                        int idCandidacy = new InternshipController().insert(candidacy, idOffer);
                         URI u = c.getBaseUriBuilder()
                                 .path(CandidacyResource.class)
                                 .path(CandidacyResource.class, "getCandidacy")
-                                .build(id);
+                                .build(idCandidacy);
                         return Response.created(u).build();
                     }
                     case 1: { // Company.

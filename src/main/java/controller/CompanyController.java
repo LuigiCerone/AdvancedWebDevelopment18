@@ -82,6 +82,7 @@ public class CompanyController {
         // Check if the company has the right to add internship.
         if (companyDAO.hasRightToPost(companyId)) {
             // Add internship into the DB and get the last inserted id.
+            internship.setCompany_fk(companyId);
             status = internshipDAO.insert(internship);
         }
         return status;

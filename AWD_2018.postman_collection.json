@@ -222,6 +222,283 @@
 				"description": "\n"
 			},
 			"response": []
+		},
+		{
+			"name": "Edit company - PUT aziende ",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"socialRegion\": \"BBBB\",\n    \"legalRegion\": \"Avezzano\",\n    \"piva\": \"fhi8774838736\",\n    \"lawyerFirstName\": \"Nome4\",\n    \"lawyerLastName\": \"Cognome2\",\n    \"personFirstName\": \"PersonNome\",\n    \"personLastName\": \"PersonCognome\",\n    \"personTelnumber\": \"PersonEmail\",\n    \"legalForum\": \"Avezzano\",\n    \"active\": true,\n    \"visible\": false\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth/aziende/13",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth",
+						"aziende",
+						"13"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inserimento studente - POST studente",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"firstName\": \"Nome\",\n\t\"lastName\": \"Cognome\",\n\t\"birthDate\": \"1978-08-17\",\n\t\"birthPlace\": \"L'Aquila\",\n\t\"birthPlaceProvince\": \"AQ\",\n\t\"residencePlace\": \"L'Aquila\",\n\t\"residencePlaceProvince\": \"AQ\",\n\t\"cf\": \"AVOFGOFGIUFGRFORPFGB\",\n\t\"telnumber\":123456789,\n\t\"universityLevel\":\"Laurea Base\",\n\t\"universityCourse\":\"Informatica\",\n\t\"handicap\":false,\n\t\"credential\":{\n\t    \"email\": \"test30@test.com\",\n\t    \"password\": \"passwordsicura\"\n\t    }\n\t}\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/studenti",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"studenti"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Informazioni studente - GET studente/id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth/studenti/12",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth",
+						"studenti",
+						"12"
+					]
+				},
+				"description": "Con cookie dello studente con id=12 oppure azienda con la quale è attivo un tirocinio, nel nostro caso id=13."
+			},
+			"response": []
+		},
+		{
+			"name": "Informazioni offerta di tirocinio - GET offerte",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/offerte/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"offerte",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inserimento offerta di tirocinio - POST offerte",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"place\": \"L'Aquila\",\n  \"remote\": false,\n  \"startTime\": \"09:00:00\",\n  \"endTime\": \"18:00:00\",\n  \"numHours\": 150,\n  \"goals\": \"G1; G2; G3\",\n  \"workType\": \"Coding\",\n  \"refund\": 450,\n  \"facilitations\": \"Mensa\",\n  \"startDate\": \"2018-07-01\",\n  \"endDate\": \"2018-09-30\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth/offerte",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth",
+						"offerte"
+					]
+				},
+				"description": "Con cookie di azienda autorizzata a postare nuove offerte (cioè active=1)."
+			},
+			"response": []
+		},
+		{
+			"name": "Lista offerte di tirocinio di un'azienda - GET azienda/id/offerte",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/aziende/13/offerte",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"aziende",
+						"13",
+						"offerte"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inserimento candidatura offerta di tirocinio - POST offerte/id/candidati",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"numCFU\" : 5,\n    \"firstNameReferent\" : \"DDD\",\n    \"lastNameReferent\" : \"DDD\",\n    \"emailReferent\" : \"DDD@D.com\",\n    \"startDate\" : \"2018-05-19\",\n    \"endDate\" : \"2018-06-30\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth/offerte/1/candidati",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth",
+						"offerte",
+						"1",
+						"candidati"
+					]
+				},
+				"description": "Con cookie di studente valido, provato con studente id=12."
+			},
+			"response": []
+		},
+		{
+			"name": "Revisione richiesta di tirocinio - PUT offerte/id/candidati/id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\" : 1,\n    \"startDate\" : \"2018-05-19\",\n    \"endDate\" : \"2018-05-30\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth/offerte/1/candidati/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth",
+						"offerte",
+						"1",
+						"candidati",
+						"6"
+					]
+				},
+				"description": "Con cookie di un'azienda, testato con azienda id=13."
+			},
+			"response": []
+		},
+		{
+			"name": "Rifiuto candidatura per tirocinio - DELETE offerte/id/candidati/id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth/offerte/1/candidati/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth",
+						"offerte",
+						"1",
+						"candidati",
+						"7"
+					]
+				},
+				"description": "Con cookie di un'azienda, testato con azienda id=13."
+			},
+			"response": []
 		}
 	]
 }

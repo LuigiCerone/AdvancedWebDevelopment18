@@ -37,7 +37,7 @@ public class InternshipController {
         // First we need to get all the company internships running in this period.
         Calendar calendar = Calendar.getInstance();
 
-        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), idLoggedUser);
+        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), idLoggedUser, 2);
         for (Candidacy c : list) {
             if (c.getStudentFk() == idStudent) {
                 return true;
@@ -58,7 +58,7 @@ public class InternshipController {
         // First we need to get all the company internships running in this period.
         Calendar calendar = Calendar.getInstance();
 
-        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), companyId);
+        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), companyId, 0);
         for (Candidacy c : list) {
             if (c.getId() == candidacyId) {
                 return true;
@@ -83,6 +83,7 @@ public class InternshipController {
             if (c != null) {
                 if (candidacy.getStartDate() != null) c.setStartDate(candidacy.getStartDate());
                 if (candidacy.getEndDate() != null) c.setEndDate(candidacy.getEndDate());
+                if (candidacy.getStatus() != 0 ) c.setStatus(candidacy.getStatus());
                 if (candidacyDAO.update(c)) {
                     return 1;
                 } else {

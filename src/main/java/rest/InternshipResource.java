@@ -34,12 +34,12 @@ public class InternshipResource {
      * rappresenta i soli articoli dell'issue identificato dal parametro stesso.
      */
 
-    //GET  awd18/rest/offerte
+    //GET  awd18/rest/offerte/{ID}
     //Accept: application/json
     @GET
     @Path("{id: [0-9]+}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOffertByID(@PathParam("id") int idInternship) {
+    public Response getOfferByID(@PathParam("id") int idInternship) {
         Internship internship = new InternshipController().getInternshipByID(idInternship);
         return Response.ok(internship).build();
     }
@@ -74,8 +74,8 @@ public class InternshipResource {
             if (status > 0) {// Inserted.
                 //  Build URI.
                 URI u = c.getBaseUriBuilder()
-                        .path(StudentResource.class)
-                        .path(StudentResource.class, "getOffertByID")
+                        .path(InternshipResource.class)
+                        .path(InternshipResource.class, "getOfferByID")
                         .build(status);
                 return Response.created(u).build();
             } else if (status == 0) {

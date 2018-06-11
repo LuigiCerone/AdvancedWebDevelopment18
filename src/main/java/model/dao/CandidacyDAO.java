@@ -13,11 +13,11 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
     final static Logger logger = Logger.getLogger(CandidacyDAO.class);
 
     @Override
-    public List<Candidacy> getAllActiveCandidacyForCompany(Date now, int idCompany) {
+    public List<Candidacy> getAllActiveCandidacyForCompany(Date now, int idCompany, int status) {
         List<Candidacy> list = new LinkedList<>();
 
         String query = "SELECT * FROM candidacy JOIN internship ON candidacy.internship_fk = internship.id WHERE " +
-                " internship.company_fk = ? AND internship.end_date > ? AND candidacy.status = 2;";
+                " internship.company_fk = ? AND candidacy.end_date > ? AND candidacy.status = ?;";
         // 2 means accepted.
         PreparedStatement preparedStatement;
 
@@ -26,6 +26,7 @@ public class CandidacyDAO implements CandidacyDAO_Interface {
 
             preparedStatement.setInt(1, idCompany);
             preparedStatement.setDate(2, now);
+            preparedStatement.setInt(3, status);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
