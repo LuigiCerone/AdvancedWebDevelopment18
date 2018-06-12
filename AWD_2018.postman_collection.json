@@ -499,6 +499,71 @@
 				"description": "Con cookie di un'azienda, testato con azienda id=13."
 			},
 			"response": []
+		},
+		{
+			"name": "Download tirocinio - GET progetto-formativo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/auth/offerte/1/candidati/1/progetto-formativo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"auth",
+						"offerte",
+						"1",
+						"candidati",
+						"1",
+						"progetto-formativo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Lista offerte filtrata - GET offerte con filter",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:8080/awd18/rest/offerte?filter=city&n=Avezzano",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"awd18",
+						"rest",
+						"offerte"
+					],
+					"query": [
+						{
+							"key": "filter",
+							"value": "city"
+						},
+						{
+							"key": "n",
+							"value": "Avezzano"
+						}
+					]
+				},
+				"description": "Altri filtri:\n\n?filter=max&n=5\n?filter=min&n=5\n?filter=max&n=5&first=7&last=8\n?filter=max&n=5&first=7"
+			},
+			"response": []
 		}
 	]
 }
