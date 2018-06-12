@@ -147,8 +147,6 @@ public class InternshipController {
     }
 
     public File getPdfForCandidacy(int candidacyId) {
-        // TODO Get the PDF somehow.
-        logger.debug("HERE HERE HERE");
         File file = new File("/home/debian-luigi/IdeaProjects/awd18/WEB-INF/test.pdf"); // Initialize this to the File path you want to serve.
         return file;
     }
@@ -224,40 +222,6 @@ public class InternshipController {
             // No filter, so return list directly.
             return list;
         }
-
-//        LinkedList<Internship> list = null;
-//
-//        if (filter != null) {
-//            // Check which type of filter is used.
-//            switch (filter) {
-//                case "città": {
-//                    list = internshipDAO.getInternshipfilteredByCriteria(1, n);
-//                }
-//                case "min": {
-//                    list = internshipDAO.getInternshipfilteredByCriteria(2, n);
-//                }
-//                case "max": {
-//                    list = internshipDAO.getInternshipfilteredByCriteria(3, n);
-//                }
-//                default: {
-//                    logger.error("Unknown error.");
-//                }
-//            }
-//        } else {
-//            // Get all internships.
-//            list = internshipDAO.getAllInternships();
-//        }
-//
-//        // Now paginate.
-//        if (first != 0 && last != 0) {
-//            //  Full pagination.
-//            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first && internship.getId() >= last;
-//            list.removeIf(internshipPredicate);
-//        } else if (first != 0 && last == 0) {
-//            // Half pagination.
-//            Predicate<Internship> internshipPredicate = internship -> internship.getId() <= first;
-//            list.removeIf(internshipPredicate);
-//        }
     }
 
     public int insert(Candidacy candidacy, int idIn) {
