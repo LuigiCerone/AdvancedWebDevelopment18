@@ -46,15 +46,14 @@ public class InternshipResource {
 
 
     //GET awd18/rest/offerte?{FILTER}{first={m}[&last={n}]
-
+    //    ES :
     //    ?filter=ore&n=4
-//    &filter=citta&n=avezzano
-//    &filter=min&n=4
-//    &filter=max&n=6
+    //    ?filter=city&n=avezzano
+    //    ?filter=min&n=4
+    //    ?filter=max&n=6
     @GET
-    @Path("offerte")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getOfferWithQuery(@QueryParam("filtro") String filter, @QueryParam("n") String n,
+    public Response getOfferWithQuery(@QueryParam("filter") String filter, @QueryParam("n") String n,
                                       @QueryParam("first") int first, @QueryParam("last") int last) {
         // Return internships.
         LinkedList<Internship> list = new InternshipController().getFilteredInterships(filter, n, first, last);

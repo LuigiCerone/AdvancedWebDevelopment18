@@ -175,7 +175,7 @@ public class InternshipController {
     /**
      * Method used to get internships list filtered according to given filters.
      *
-     * @param filter filter that needs to be used: filter=città, min, max.
+     * @param filter filter that needs to be used: filter=city, min, max.
      * @param n      filter parameter, i.e. name of the city or number of hours.
      * @param first  first parameter used for pagination.
      * @param last   last parameter used for pagination.
@@ -199,17 +199,21 @@ public class InternshipController {
         if (filter != null) {
             // Check which type of filter is used.
             switch (filter) {
+                // Warning removeIf remove if true, use not.
                 case "city": {
-                    Predicate<Internship> internshipPredicate = internship -> internship.getPlace().equalsIgnoreCase(n);
+                    Predicate<Internship> internshipPredicate = internship -> !internship.getPlace().equalsIgnoreCase(n);
                     list.removeIf(internshipPredicate);
+                    break;
                 }
                 case "min": {
-                    Predicate<Internship> internshipPredicate = internship -> internship.getNumberHour() >= (Integer.valueOf(n));
+                    Predicate<Internship> internshipPredicate = internship -> internship.getNumberHour() <= (Integer.valueOf(n));
                     list.removeIf(internshipPredicate);
+                    break;
                 }
                 case "max": {
-                    Predicate<Internship> internshipPredicate = internship -> internship.getNumberHour() <= Integer.valueOf(n);
+                    Predicate<Internship> internshipPredicate = internship -> internship.getNumberHour() >= Integer.valueOf(n);
                     list.removeIf(internshipPredicate);
+                    break;
                 }
                 default: {
                     logger.error("Unknown error.");
