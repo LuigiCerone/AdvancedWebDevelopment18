@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang=“it” xml:lang=“it”>
 
 <head>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+    <link rel="stylesheet" href="css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" />
     <title>AWD 2018</title>
@@ -82,10 +82,27 @@
                 </div>
             </div>
             <div id="companyInfo" class="col-md-9">
-                <div class="form-group text-center">
-                    <button type="button" class="btn btn-primary " id="internshipListTrigger" data-toggle="modal" data-target="#companyInternshipModal">Lista offerte di tirocinio
-                    </button>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="first">Identificativo minimo per effettuare una paginazione (non obbligatorio).</label>
+                            <input id="first" type="number" class="form-control" placeholder="Inserisci min ID (es.1)" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label for="last">Identificativo minimo per effettuare una paginazione (non obbligatorio).</label>
+                            <input id="last" type="number" class="form-control" placeholder="Inserisci max ID (es.10)" />
+                        </div>
+                    </div>
+                    <div class="col-md-6 form-group text-center">
+                        <button type="button" class="btn btn-primary " id="internshipListTrigger" data-toggle="modal" data-target="#companyInternshipModal">Lista offerte di tirocinio
+                        </button>
+                    </div>
                 </div>
+                <br>
+                <hr>
+                <br>
                 <div>
                     <div class="panel panel-info">
                         <div class="panel-heading">
@@ -166,11 +183,28 @@
             <div id="studentInfo" class="col-md-9">
             </div>
         </div>
-        <br><hr><br>
+        <br>
+        <hr>
+        <br>
+        <h3>Progetto formativo</h3>
+        <br>
+        <p>Di seguito &egrave; scaricare il progetto formativo associato ad una candidatura per un particolare tirocinio. Per
+            poter scaricare il pdf &egrave; necessario essere autenticati.
+        </p>
         <div class="row">
             <div class="col-md-3">
+                <div class="form-group">
+                    <input id="candidacyId" type="number" class="form-control" placeholder="Inserisci ID candidatura (es.1)" />
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <input id="internshipId" type="number" class="form-control" placeholder="Inserisci ID tirocinio (es.1)" />
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="form-group text-center">
-                    <button type="button" class="btn btn-primary " id="candidacyPdfDownload">Cerca
+                    <button type="button" class="btn btn-primary " id="candidacyPdfDownload">Scarica
                     </button>
                 </div>
             </div>
@@ -190,7 +224,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Chiudi</button>
                         <!--<button type="button" class="btn btn-primary">Save changes</button>-->
                     </div>
                 </div>
@@ -206,8 +240,8 @@
         <br>
         <!-- script import -->
         <script src="js/jquery-3.3.1.min.js" type="text/javascript" defer="defer"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous" defer="defer"></script>
+        <script src="js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"
+            defer="defer"></script>
         <script src="js/script.js" type="text/javascript" defer="defer"></script>
 
 </body>

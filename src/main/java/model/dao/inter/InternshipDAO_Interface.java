@@ -11,8 +11,9 @@ public interface InternshipDAO_Interface {
 
     LinkedList<Internship> getAllInternships();
 
-
     Internship getInternshipFromID(int id);
+
+    LinkedList<Internship> getIntershipByCompanyID(int idCompany);
 
     LinkedList<Internship> getInternshipByRange(int first, int last);
 

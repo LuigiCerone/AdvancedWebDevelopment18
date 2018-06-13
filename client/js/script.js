@@ -69,6 +69,15 @@ $(function () {
 
     $('#companySelect').on('change', function (e) {
         var optionSelected = $("option:selected", this);
+
+        // Clear old values.
+        $('#first').val("");
+        $('#last').val("");
+        $('#companyInfo').hide();
+
+        // Clear internships list.
+        $('#companyInternshipModalBody').empty();
+
         // Selected company URL is stored in variable valueSelected.
         var valueSelected = this.value;
         $.ajax({
@@ -96,6 +105,7 @@ $(function () {
                 $('#internshipListTrigger').attr('data-id', response.id);
 
                 $('#companyInfo').fadeIn("slow");
+
             },
             error: function (error) {
                 console.log(error);
@@ -104,17 +114,30 @@ $(function () {
 
     });
 
-    $('#companyInternshipModal').on('show.bs.modal', function (e) {
+    $('#internshipListTrigger').on('click', function () {
         var id = $('#internshipListTrigger').attr('data-id');
+        var first = $('#first').val();
+        var last = $('#last').val();
+
+        var url = "";
+        if (first !== "" && last !== "")
+            url = "http://localhost:8080/awd18/rest/aziende/" + id + "/offerte?first=" + first + "&last=" + last;
+        else if (first !== "" && last === "")
+            url = "http://localhost:8080/awd18/rest/aziende/" + id + "/offerte?first=" + first;
+        else url = "http://localhost:8080/awd18/rest/aziende/" + id + "/offerte";
+        console.log(url);
         $.ajax({
-            url: "http://localhost:8080/awd18/rest/aziende/" + id + "/offerte",
+            url: url,
             type: "GET",
             // data: {id : menuId},
             dataType: "json",
             success: function (response) {
                 // Clear old values.
                 $('#companyInternshipModalBody').empty();
-
+                if (response.length == 0) {
+                    console.log("Empty list");
+                    $('#companyInternshipModalBody').append("<h3>Nessun tirocinio presente nel sistema!</h3>");
+                }
                 $.each(response, function (index, internship) {
                     console.log(internship);
                     var panel = document.createElement("div");
@@ -126,7 +149,15 @@ $(function () {
 
                     var panelBody = document.createElement("div");
                     $(panelBody).addClass("panel-body");
-                    panelBody.innerHTML = "<p>test</p>";
+                    var ul = document.createElement("ul");
+
+                    var goals = internship.goals.split(",");
+                    goals.forEach(function (goal) {
+                        var li = document.createElement("li");
+                        li.innerText = goal;
+                        $(ul).append(li);
+                    })
+                    $(panelBody).append(ul);
                     panel.append(panelBody);
 
                     $('#companyInternshipModalBody').append(panel);
@@ -143,7 +174,7 @@ $(function () {
 
     $('#studentLookupInfo').on('click', function () {
         var studentId = $('#studentInput').val();
-        console.log(studentId);
+        console.log("Id studente selezionato: " + studentId);
         // Selected company URL is stored in variable valueSelected.
         $.ajax({
             url: "http://localhost:8080/awd18/rest/auth/studenti/" + studentId,
@@ -177,7 +208,6 @@ $(function () {
                 $('#studentInfo').append(table).fadeIn("slow");
             },
             error: function (xhr, text, error) {
-                debugger;
                 $('#studentInfo').empty();
                 $('#studentInfo').append('<h3>' + xhr.status + ' - ' + xhr.responseText + '</h3>');
                 console.log(error);
@@ -186,24 +216,10 @@ $(function () {
     });
 
     $('#candidacyPdfDownload').on('click', function () {
-        console.log("clicked");
-
-        downloadURI("http://localhost:8080/awd18/rest/auth/offerte/1/candidati/1/progetto-formativo", "test");
-        // $.ajax({
-        //     url: "http://localhost:8080/awd18/rest/auth/offerte/1/candidati/1/progetto-formativo",
-        //     type: "GET",
-        //     // data: {id : menuId},
-        //     // crossDomain: true,
-        //     xhrFields: {
-        //         withCredentials: true
-        //     },
-        //     success: function (response) {
-        //         console.log(response);
-        //     },
-        //     error: function (xhr, text, error) {
-        //         console.log(error);
-        //     }
-        // });
+        var candidacyId = $('#candidacyId').val();
+        var internshipId = $('#internshipId').val();
+        downloadURI("http://localhost:8080/awd18/rest/auth/offerte/" + internshipId +
+            "/candidati/" + candidacyId + "/progetto-formativo", "test");
     });
 });
 

@@ -165,7 +165,7 @@ public class InternshipController {
             list = internshipDAO.getInternshipByRangeByCompany(companyId, first, 0);
         } else {
             // Both limits are not set, so return all internships.
-            list = internshipDAO.getAllInternships();
+            list = internshipDAO.getIntershipByCompanyID(companyId);
         }
         return list;
     }

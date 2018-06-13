@@ -89,76 +89,8 @@ public class InternshipDAO implements InternshipDAO_Interface {
         return list;
     }
 
-    /**
-     * Method used to get internships filtered by certain criteria.
-     *
-     * @param i filtering type, 1=city, 2=min, 3=max.
-     * @param n name of the city or number for min/max.
-     * @return list of internships.
-     */
-//    @Override
-//    public LinkedList<Internship> getInternshipfilteredByCriteria(int i, String n) {
-//        LinkedList<Internship> list = new LinkedList<>();
-//        String query = null;
-//
-//        // num is used to store the int value of the string param n.
-//        int num = 0;
-//
-//        switch (i) {
-//            case 1: {
-//                query = "SELECT * FROM internship WHERE place = ?;";
-//                break;
-//            }
-//            case 2: {
-//                query = "SELECT * FROM internship WHERE num_hours >= ?;";
-//                num = Integer.valueOf(n);
-//                break;
-//            }
-//            case 3: {
-//                query = "SELECT * FROM internship WHERE num_hours <= ?;";
-//                num = Integer.valueOf(n);
-//                break;
-//            }
-//            default: {
-//                logger.error("Error");
-//            }
-//        }
-//
-//        if (query == null) return null;
-//        PreparedStatement preparedStatement;
-//        try (Connection conn = Database.getDatasource().getConnection()) {
-//            preparedStatement = conn.prepareStatement(query);
-//            if (num == 0) {
-//                preparedStatement.setString(1, n);
-//            } else {
-//                preparedStatement.setInt(1, num);
-//            }
-//
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//            while (resultSet.next()) {
-//                Internship internship = new Internship(
-//                        resultSet.getInt(Internship.ID),
-//                        resultSet.getString(Internship.PLACE),
-//                        resultSet.getBoolean(Internship.REMOTE),
-//                        resultSet.getTime(Internship.START_TIME),
-//                        resultSet.getTime(Internship.END_TIME),
-//                        resultSet.getInt(Internship.N_HOURS),
-//                        resultSet.getString(Internship.GOALS),
-//                        resultSet.getString(Internship.WORK_TYPE),
-//                        resultSet.getFloat(Internship.REFUND),
-//                        resultSet.getString(Internship.FACILITATIONS),
-//                        resultSet.getInt(Internship.COMPANY_FK),
-//                        resultSet.getDate(Internship.START_DATE),
-//                        resultSet.getDate(Internship.END_DATE)
-//                );
-//                list.add(internship);
-//            }
-//            conn.close();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//        return list;
-//    }
+
+    @Override
     public Internship getInternshipFromID(int id) {
         Internship internship = null;
         String query = "SELECT * FROM internship WHERE id = ?;";
@@ -191,6 +123,7 @@ public class InternshipDAO implements InternshipDAO_Interface {
         return internship;
     }
 
+    @Override
     public LinkedList<Internship> getIntershipByCompanyID(int idCompany) {
         LinkedList<Internship> internshipList = new LinkedList<>();
         String query = "SELECT * FROM internship WHERE  company_fk = ?;";
