@@ -28,7 +28,8 @@ CREATE TABLE admin
     PRIMARY KEY,
   first_name VARCHAR(50) NOT NULL,
   last_name  VARCHAR(50) NOT NULL,
-  telnumber  INT         NOT NULL
+  telnumber  INT         NOT NULL,
+  FOREIGN KEY (id) REFERENCES credential (id)
 )
   ENGINE = InnoDB;
 
@@ -49,7 +50,8 @@ CREATE TABLE student
   telnumber                INT(20)                NOT NULL,
   university_level         VARCHAR(30)            NOT NULL,
   university_course        VARCHAR(50)            NOT NULL,
-  handicap                 TINYINT(1) DEFAULT '0' NOT NULL
+  handicap                 TINYINT(1) DEFAULT '0' NOT NULL,
+  FOREIGN KEY (id) REFERENCES credential (id)
 )
   ENGINE = InnoDB;
 
@@ -69,7 +71,8 @@ CREATE TABLE company
   person_telnumber  INT                    NOT NULL,
   legal_forum       VARCHAR(50)            NOT NULL,
   active            TINYINT(1) DEFAULT '0' NOT NULL,
-  visible           TINYINT(1) DEFAULT '0' NOT NULL
+  visible           TINYINT(1) DEFAULT '0' NOT NULL,
+  FOREIGN KEY (id) REFERENCES credential (id)
 )
   ENGINE = InnoDB;
 
@@ -114,9 +117,45 @@ CREATE TABLE candidacy
   ENGINE = InnoDB;
 
 
-INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type, user_fk)
-VALUES (3, 'luigi@test.com', 0x5A6B70271B17AA7294433190586554BE, '319975C41A84B847137021A2388DF24444F52BB7',
-        '2018-05-11 19:35:29', '2018-05-11 17:31:59', 'd76e6a788ee94012a024457ede936491', '2018-05-11 20:05:29', 0, 1);
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
+  (4, 'test@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:12:57', '7fef5f032c8e4b4eb4eab448a6e21a56', '2018-06-14 18:42:57', 0);
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
+  (5, 'test1@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:03:07', NULL, NULL, 1);
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
+  (6, 'test2@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:00:07', NULL, NULL, 0);
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
+  (7, 'test4@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:00:07', NULL, NULL, 1);
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
+  (8, 'test12@test.com', 0xC230ACFD65CDB7FBE377208AFFA9B09C, '723161FBA797DBE939DA52DB231D7269599945C6',
+   '2018-06-14 18:02:37', '2018-06-14 18:02:37', NULL, NULL, 0);
+
+INSERT INTO awd.company (id, social_region, legal_address, piva, lawyer_first_name, lawyer_last_name, person_first_name, person_last_name, person_telnumber, legal_forum, active, visible)
+VALUES
+  (5, 'Programmign4u', 'Avezzano', 'fjedfkjh857654thvfbu', 'Franco', 'Verdi', 'Luigi', 'Cerone', 345679954, 'Avezzano',
+      1, 1);
+INSERT INTO awd.company (id, social_region, legal_address, piva, lawyer_first_name, lawyer_last_name, person_first_name, person_last_name, person_telnumber, legal_forum, active, visible)
+VALUES (7, 'BoringCompany', 'L''aquila', 'fhrihgfirgf366576546', 'Giuseppe', 'Rossi', 'Danilo', 'Rosati', 347567895,
+           'L''Aquila', 1, 1);
+
+INSERT INTO awd.student (id, first_name, last_name, birth_date, birth_place, birth_place_province, residence_place, residence_place_province, cf, telnumber, university_level, university_course, handicap)
+VALUES (4, 'Andrea', 'Paris', '1996-05-17', 'Avezzano', 'AQ', 'Avezzano', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
+           'Laurea Base', 'Informatica', 0);
+INSERT INTO awd.student (id, first_name, last_name, birth_date, birth_place, birth_place_province, residence_place, residence_place_province, cf, telnumber, university_level, university_course, handicap)
+VALUES
+  (6, 'Alessandro', 'Taglieri', '1996-04-19', 'Avezzano', 'AQ', 'Avezzano', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
+      'Laurea Base', 'Informatica', 0);
+
+
+INSERT INTO awd.candidacy (id, internship_fk, student_fk, status, n_cfu, first_name_referent, last_name_referent, email_referent, start_date, end_date)
+VALUES (1, 1, 4, 2, 5, 'Giuseppe ', 'Della Penna', 'giuseppe.dellapenna@univaq.it', '2018-07-01', '2018-08-31');
+INSERT INTO awd.candidacy (id, internship_fk, student_fk, status, n_cfu, first_name_referent, last_name_referent, email_referent, start_date, end_date)
+VALUES (2, 2, 6, 0, 6, 'Claudio ', 'Arbib', 'claudio.arbib@univaq.it', '2018-07-01', '2018-07-31');
+
+
 
 
 

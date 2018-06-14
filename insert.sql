@@ -20,7 +20,9 @@ CREATE TABLE awd.candidacy
   end_date            DATE
 );
 INSERT INTO awd.candidacy (id, internship_fk, student_fk, status, n_cfu, first_name_referent, last_name_referent, email_referent, start_date, end_date)
-VALUES (1, 1, 12, 2, 4, 'Giuseppe', 'Della penna', 'giuseppe.dellapenna@univaq.it', '2018-05-20', '2018-05-30');
+VALUES (1, 1, 4, 2, 5, 'Giuseppe ', 'Della Penna', 'giuseppe.dellapenna@univaq.it', '2018-07-01', '2018-08-31');
+INSERT INTO awd.candidacy (id, internship_fk, student_fk, status, n_cfu, first_name_referent, last_name_referent, email_referent, start_date, end_date)
+VALUES (2, 2, 6, 0, 6, 'Claudio ', 'Arbib', 'claudio.arbib@univaq.it', '2018-07-01', '2018-07-31');
 CREATE TABLE awd.company
 (
   id                INT(11) PRIMARY KEY    NOT NULL,
@@ -37,8 +39,12 @@ CREATE TABLE awd.company
   visible           TINYINT(1) DEFAULT '0' NOT NULL
 );
 INSERT INTO awd.company (id, social_region, legal_address, piva, lawyer_first_name, lawyer_last_name, person_first_name, person_last_name, person_telnumber, legal_forum, active, visible)
-VALUES (13, 'BBBB', 'L''aquila', '2u3t4367428riuufgy487', 'Nome2', 'Cognome2', 'PersonNome', 'PersonCognome', 7488458,
-            'Avezzano', 1, 1);
+VALUES
+  (5, 'Programmign4u', 'Avezzano', 'fjedfkjh857654thvfbu', 'Franco', 'Verdi', 'Luigi', 'Cerone', 345679954, 'Avezzano',
+      1, 1);
+INSERT INTO awd.company (id, social_region, legal_address, piva, lawyer_first_name, lawyer_last_name, person_first_name, person_last_name, person_telnumber, legal_forum, active, visible)
+VALUES (7, 'BoringCompany', 'L''aquila', 'fhrihgfirgf366576546', 'Giuseppe', 'Rossi', 'Danilo', 'Rosati', 347567895,
+           'L''Aquila', 1, 1);
 CREATE TABLE awd.credential
 (
   id         INT(11) PRIMARY KEY                     NOT NULL AUTO_INCREMENT,
@@ -54,14 +60,20 @@ CREATE TABLE awd.credential
 CREATE UNIQUE INDEX `credential;_email_uindex`
   ON awd.credential (email);
 INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
-  (12, 'test@test.com', 0xAD537BAAE1E7C127E112261F4A96992E, 'F77F0FD7B82493E1014F351CB2CD378595E45A99',
-   '2018-05-12 18:33:38', '2018-05-12 18:33:38', 'ffe2b4434e8e47429cecd57bcca92778', '2018-05-16 15:47:14', 0);
+  (4, 'test@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:12:57', '7fef5f032c8e4b4eb4eab448a6e21a56', '2018-06-14 18:42:57', 0);
 INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
-  (13, 'test1@test.com', 0xAD537BAAE1E7C127E112261F4A96992E, 'F77F0FD7B82493E1014F351CB2CD378595E45A99',
-   '2018-05-12 18:33:38', '2018-05-12 18:33:38', '055d928ae49d4166ba1a0f54291b8474', '2018-05-17 11:42:56', 1);
+  (5, 'test1@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:03:07', NULL, NULL, 1);
 INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
-  (15, 'test3@test.com', 0x83737F0292D20A7F6A0ED2BB2BBF9CDD, '4E8E16EB6CAB3211987902603C5F6FB2F6C28956',
-   '2018-05-17 11:43:08', '2018-05-17 11:43:08', NULL, NULL, 0);
+  (6, 'test2@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:00:07', NULL, NULL, 0);
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
+  (7, 'test4@test.com', 0x878B4AAC25AC56ED86FEE69B805F454A, '1933748E1E6AED2DEEFE31D6C9685BAA49828BFF',
+   '2018-06-14 18:00:07', '2018-06-14 18:00:07', NULL, NULL, 1);
+INSERT INTO awd.credential (id, email, salt, hashed_psw, created_at, last_seen, token, expiry, user_type) VALUES
+  (8, 'test12@test.com', 0xC230ACFD65CDB7FBE377208AFFA9B09C, '723161FBA797DBE939DA52DB231D7269599945C6',
+   '2018-06-14 18:02:37', '2018-06-14 18:02:37', NULL, NULL, 0);
 CREATE TABLE awd.internship
 (
   id            INT(11) PRIMARY KEY    NOT NULL AUTO_INCREMENT,
@@ -80,8 +92,15 @@ CREATE TABLE awd.internship
 );
 INSERT INTO awd.internship (id, place, remote, start_time, end_time, num_hours, goals, work_type, refund, facilitations, company_fk, start_date, end_date)
 VALUES
-  (1, 'Avezzano', 0, '11:00:00', '18:00:00', 10, 'Obiettivo1, obiettivo2', 'Programmazione', 14, '', 13, '2018-05-24',
-   '2018-05-31');
+  (1, 'L''Aquila', 0, '09:00:00', '18:00:00', 120, 'Imparare Djando, Implementare backend python', 'Programmazione',
+      450, 'Mensa', 5, '2018-07-01', '2018-09-30');
+INSERT INTO awd.internship (id, place, remote, start_time, end_time, num_hours, goals, work_type, refund, facilitations, company_fk, start_date, end_date)
+VALUES (2, 'Avezzano', 0, '09:00:00', '18:00:00', 60,
+           'Sviluppare mobile app ibrida con ReactJS, Implementare backend con NodeJS', 'Programmazione', 600, '', 5,
+        '2018-07-01', '2018-07-31');
+INSERT INTO awd.internship (id, place, remote, start_time, end_time, num_hours, goals, work_type, refund, facilitations, company_fk, start_date, end_date)
+VALUES (3, 'L''Aquila', 0, '09:00:00', '18:00:00', 100, 'Imparare Spring, Implementare gestionale stipendi',
+           'Programmazione', 450, 'Mensa', 5, '2018-06-01', '2018-07-12');
 CREATE TABLE awd.student
 (
   id                       INT(11) PRIMARY KEY    NOT NULL,
@@ -99,11 +118,9 @@ CREATE TABLE awd.student
   handicap                 TINYINT(1) DEFAULT '0' NOT NULL
 );
 INSERT INTO awd.student (id, first_name, last_name, birth_date, birth_place, birth_place_province, residence_place, residence_place_province, cf, telnumber, university_level, university_course, handicap)
-VALUES (12, 'Nome', 'Cognome', '1978-08-17', 'L''Aquila', 'AQ', 'L''Aquila', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
-            'Laurea Base', 'Informatica', 0);
+VALUES (4, 'Andrea', 'Paris', '1996-05-17', 'Avezzano', 'AQ', 'Avezzano', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
+           'Laurea Base', 'Informatica', 0);
 INSERT INTO awd.student (id, first_name, last_name, birth_date, birth_place, birth_place_province, residence_place, residence_place_province, cf, telnumber, university_level, university_course, handicap)
-VALUES (14, 'Nome', 'Cognome', '1978-08-17', 'L''Aquila', 'AQ', 'L''Aquila', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
-            'Laurea Base', 'Informatica', 0);
-INSERT INTO awd.student (id, first_name, last_name, birth_date, birth_place, birth_place_province, residence_place, residence_place_province, cf, telnumber, university_level, university_course, handicap)
-VALUES (15, 'Nome', 'Cognome', '1978-08-17', 'L''Aquila', 'AQ', 'L''Aquila', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
-            'Laurea Base', 'Informatica', 0);
+VALUES
+  (6, 'Alessandro', 'Taglieri', '1996-04-19', 'Avezzano', 'AQ', 'Avezzano', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
+      'Laurea Base', 'Informatica', 0);
