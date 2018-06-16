@@ -37,7 +37,7 @@ public class CompanyController {
      * @return true if updated, false otherwise.
      */
     public boolean selectiveUpdate(Company company, int userType, int idCompany) {
-        Company companyStored = companyDAO.getCompanyFromId(idCompany);
+        Company companyStored = companyDAO.getCompanyFromID(idCompany);
         if (companyStored != null) {
             // According to userType change values.
             switch (userType) {

@@ -93,7 +93,9 @@ CREATE TABLE internship
   facilitations VARCHAR(256)           NULL,
   company_fk    INT                    NOT NULL,
   start_date    DATE                   NOT NULL,
-  end_date      DATE                   NOT NULL
+  end_date      DATE                   NOT NULL,
+  FOREIGN KEY (company_fk) REFERENCES company (id)
+
 )
   ENGINE = InnoDB;
 
@@ -112,7 +114,9 @@ CREATE TABLE candidacy
   last_name_referent  VARCHAR(50)     NOT NULL,
   email_referent      VARCHAR(50)     NOT NULL,
   start_date          DATE            NULL,
-  end_date            DATE            NULL
+  end_date            DATE            NULL,
+  FOREIGN KEY (internship_fk) REFERENCES internship (id),
+  FOREIGN KEY (student_fk) REFERENCES student (id)
 )
   ENGINE = InnoDB;
 
@@ -149,6 +153,18 @@ VALUES
   (6, 'Alessandro', 'Taglieri', '1996-04-19', 'Avezzano', 'AQ', 'Avezzano', 'AQ', 'AVOFGOFGIUFGRFORPFGB', 123456789,
       'Laurea Base', 'Informatica', 0);
 
+
+INSERT INTO awd.internship (id, place, remote, start_time, end_time, num_hours, goals, work_type, refund, facilitations, company_fk, start_date, end_date)
+VALUES
+  (1, 'L''Aquila', 0, '09:00:00', '18:00:00', 120, 'Imparare Djando, Implementare backend python', 'Programmazione',
+      450, 'Mensa', 5, '2018-07-01', '2018-09-30');
+INSERT INTO awd.internship (id, place, remote, start_time, end_time, num_hours, goals, work_type, refund, facilitations, company_fk, start_date, end_date)
+VALUES (2, 'Avezzano', 0, '09:00:00', '18:00:00', 60,
+           'Sviluppare mobile app ibrida con ReactJS, Implementare backend con NodeJS', 'Programmazione', 600, '', 5,
+        '2018-07-01', '2018-07-31');
+INSERT INTO awd.internship (id, place, remote, start_time, end_time, num_hours, goals, work_type, refund, facilitations, company_fk, start_date, end_date)
+VALUES (3, 'L''Aquila', 0, '09:00:00', '18:00:00', 100, 'Imparare Spring, Implementare gestionale stipendi',
+           'Programmazione', 450, 'Mensa', 5, '2018-06-01', '2018-07-12');
 
 INSERT INTO awd.candidacy (id, internship_fk, student_fk, status, n_cfu, first_name_referent, last_name_referent, email_referent, start_date, end_date)
 VALUES (1, 1, 4, 2, 5, 'Giuseppe ', 'Della Penna', 'giuseppe.dellapenna@univaq.it', '2018-07-01', '2018-08-31');

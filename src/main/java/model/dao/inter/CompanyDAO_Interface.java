@@ -11,8 +11,6 @@ public interface CompanyDAO_Interface {
 
     boolean hasRightToPost(int companyId);
 
-    Company getCompanyFromId(int idCompany);
-
     Company getCompanyFromID(int companyId);
 
     boolean insert(Company company);

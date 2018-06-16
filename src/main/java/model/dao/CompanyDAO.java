@@ -110,42 +110,6 @@ public class CompanyDAO implements CompanyDAO_Interface {
     }
 
     @Override
-    public Company getCompanyFromId(int idCompany) {
-        Company company = null;
-        String query = "SELECT * FROM company WHERE company.id = ?;";
-        PreparedStatement preparedStatement;
-        try (Connection conn = Database.getDatasource().getConnection()) {
-            preparedStatement = conn.prepareStatement(query);
-            preparedStatement.setInt(1, idCompany);
-
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                company = new Company(
-                        resultSet.getInt(Company.ID),
-                        resultSet.getString(Company.SOCIAL_REGION),
-                        resultSet.getString(Company.LEGAL_ADDRESS),
-                        resultSet.getString(Company.PIVA),
-                        resultSet.getString(Company.LAWYER_FIRST_NAME),
-                        resultSet.getString(Company.LAWYER_LAST_NAME),
-                        resultSet.getString(Company.PERSON_FIRST_NAME),
-                        resultSet.getString(Company.PERSON_LAST_NAME),
-                        resultSet.getInt(Company.PERSON_TEL),
-                        resultSet.getString(Company.LEGAL_FORUM),
-                        resultSet.getBoolean(Company.ACTIVE),
-                        resultSet.getBoolean(Company.VISIBLE),
-                        null
-                );
-            }
-            conn.close();
-
-            return company;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
     public Company getCompanyFromID(int companyId) {
         Company company = null;
         String query = "SELECT * FROM company WHERE company.id = ?;";
