@@ -30,7 +30,7 @@ public class StudentController {
         // then the we get the last inserted id and insert a student instance in the table with the returned id.
         if (credentialDAO.checkEmailAvailable(student.getCredential().getEmail())) {
             // Email is available, then insert credential.
-            int id = credentialDAO.insert(student.getCredential(), student.getCredential().getPassword());
+            int id = credentialDAO.insert(student.getCredential(), student.getCredential().getPassword(),0);
             if (id != -1) {
                 // Credential inserted correctly.
                 student.setId(id);

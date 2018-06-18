@@ -43,7 +43,6 @@ public class CompanyResource {
     @Path("{id: [0-9]+}")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response editCompany(@PathParam("id") int id, Company company) {
-
         if (authcookie != null) {
             int userType = new CredentialController().checkCookieAndGetUserType(authcookie.getValue());
             if (userType != -1) {

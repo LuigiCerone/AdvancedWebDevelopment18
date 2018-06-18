@@ -102,8 +102,8 @@ public class CompanyController {
         // In order to insert a company first we need to check if the email is available, then we register the company,
         // then the we get the last inserted id and insert a credential instance in the table.
         if (this.credentialDAO.checkEmailAvailable(companyToInsert.getCredential().getEmail())) {
-            // Email is available, then insert student.
-            int id = credentialDAO.insert(companyToInsert.getCredential(), companyToInsert.getCredential().getPassword());
+            // Email is available, then insert company.
+            int id = credentialDAO.insert(companyToInsert.getCredential(), companyToInsert.getCredential().getPassword(), 1);
             if (id != -1) {
                 // Student inserted correctly.
                 companyToInsert.setId(id);

@@ -6,7 +6,6 @@ import model.dao.CandidacyDAO;
 import model.dao.InternshipDAO;
 import org.apache.log4j.Logger;
 
-import javax.ws.rs.core.Context;
 import java.io.File;
 import java.sql.Date;
 import java.util.Calendar;
@@ -54,11 +53,11 @@ public class InternshipController {
      * @param companyId   currently logged in user ID
      * @return true if it's its, false otherwise.
      */
-    public boolean checkCandidacyForCompany(int candidacyId, int companyId) {
+    public boolean checkCandidacyForCompany(int candidacyId, int companyId, int status) {
         // First we need to get all the company internships running in this period.
         Calendar calendar = Calendar.getInstance();
 
-        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), companyId, 0);
+        List<Candidacy> list = candidacyDAO.getAllActiveCandidacyForCompany(new Date(calendar.getTime().getTime()), companyId, status);
         for (Candidacy c : list) {
             if (c.getId() == candidacyId) {
                 return true;
@@ -77,13 +76,13 @@ public class InternshipController {
      * @return 1 if ok, 0 if forbidden, -1 otherwise.
      */
     public int addCandidacyToInternship(int companyId, int candidacyId, Candidacy candidacy) {
-        if (this.checkCandidacyForCompany(candidacyId, companyId)) {
+        if (this.checkCandidacyForCompany(candidacyId, companyId, 0)) {
             // Then add the information in the DB.
             Candidacy c = candidacyDAO.getCandidacyFromId(candidacyId);
             if (c != null) {
                 if (candidacy.getStartDate() != null) c.setStartDate(candidacy.getStartDate());
                 if (candidacy.getEndDate() != null) c.setEndDate(candidacy.getEndDate());
-                if (candidacy.getStatus() != 0 ) c.setStatus(candidacy.getStatus());
+                if (candidacy.getStatus() != 0) c.setStatus(candidacy.getStatus());
                 if (candidacyDAO.update(c)) {
                     return 1;
                 } else {
@@ -105,7 +104,8 @@ public class InternshipController {
      * @return 1 if deleted, 0 if forbidden, -1 otherwise.
      */
     public int deleteCandidacyToInternship(int companyId, int candidacyId) {
-        if (this.checkCandidacyForCompany(candidacyId, companyId)) {
+        // 0 means pending.
+        if (this.checkCandidacyForCompany(candidacyId, companyId, 0)) {
             // Then set the status to rejected of the candidacy in the DB.
             if (candidacyDAO.rejectCandidacyById(candidacyId)) {
                 return 1;
@@ -131,7 +131,7 @@ public class InternshipController {
                     return 0;
             }
             case 1: {
-                if (checkCandidacyForCompany(candidacyId, idLoggedUser))
+                if (checkCandidacyForCompany(candidacyId, idLoggedUser, 2))
                     return 1;
                 else
                     return 0;

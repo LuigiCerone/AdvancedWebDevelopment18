@@ -77,11 +77,8 @@ public class InternshipResource {
                         .path(InternshipResource.class, "getOfferByID")
                         .build(status);
                 return Response.created(u).build();
-            } else if (status == 0) {
-                return Response.status(403).build();
             } else {
-                logger.error("Error while inserting new internship offer.");
-                return Response.serverError().build();
+                return Response.status(403).build();
             }
         } else {
             return Response.status(403).entity("No active session").build();

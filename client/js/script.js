@@ -95,7 +95,7 @@ $(function () {
 
                 $('#socialRegion').text(response.socialRegion);
                 $('#legalAddress').text(response.legalAddress);
-                $('#piva').text(response.piva);
+                $('#piva').text(response.piva.toUpperCase());
                 $('#lawyer').text(response.lawyerFirstName + " " + response.lawyerLastName);
                 $('#person').text(response.personFirstName + " " + response.personLastName);
                 $('#personTel').text(response.personTelNumber);
